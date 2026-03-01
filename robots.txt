@@ -1,0 +1,5 @@
+# robots.txt لموقع شغف
+User-agent: *
+Allow: /
+
+Sitemap: https://shaghaf.com/sitemap.xml

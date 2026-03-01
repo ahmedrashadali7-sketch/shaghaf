@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شغف - قصص حب رومانسية قصيرة</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="شغف: منصة قصص حب رومانسية قصيرة من كتابة  أحمد رشاد. اقرأ قصصاً تلامس القلب عن الحب واللقاءات الصدف والمشاعر الصادقة.">
+    <meta name="keywords" content="قصص حب, قصص رومانسية, قصص قصيرة, روايات حب,  أحمد رشاد, شغف, قصص عربية">
+    <meta name="author" content=" أحمد رشاد">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shaghaf.com/">
+    <meta property="og:title" content="شغف - قصص حب رومانسية قصيرة">
+    <meta property="og:description" content="اقرأ أجمل قصص الحب القصيرة التي تلامس القلب. قصص من كتابة  أحمد رشاد.">
+    <meta property="og:image" content="https://shaghaf.com/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://shaghaf.com/">
+    <meta property="twitter:title" content="شغف - قصص حب رومانسية قصيرة">
+    <meta property="twitter:description" content="اقرأ أجمل قصص الحب القصيرة التي تلامس القلب.">
+    <meta property="twitter:image" content="https://shaghaf.com/images/og-image.jpg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i>
+                    شغف
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="#stories">القصص</a></li>
+                    <li><a href="#about">عن الكاتب</a></li>
+                </ul>
+                <div class="nav-buttons" id="navButtons">
+                    <a href="login.html" class="btn btn-outline">دخول</a>
+                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية -->
+    <div class="mobile-menu">
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+            </div>
+            <div class="mobile-user-details">
+                <h4>زائر</h4>
+                <p>سجل دخولك للمشاركة</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
+            <li><a href="#about"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="#"><i class="fas fa-heart"></i> المفضلة</a></li>
+        </ul>
+        
+        <div class="mobile-menu-buttons" id="mobileMenuButtons">
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </a>
+            <a href="signup.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> انضمام
+            </a>
+        </div>
+    </div>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>شغف</h1>
+                <p class="hero-subtitle">قصص حب قصيرة من قلب الحدث</p>
+                <p class="hero-description">أكتب لكم قصصاً تلامس القلب، عن الحب، اللقاءات الصدف، والمشاعر التي لا تموت.</p>
+                <div class="hero-stats" id="heroStats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="storiesCount">0</span>
+                        <span class="stat-label">قصة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="readersCount">0</span>
+                        <span class="stat-label">قارئ</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="ratingCount">4.8</span>
+                        <span class="stat-label">تقييم</span>
+                    </div>
+                </div>
+                <a href="#stories" class="btn btn-primary btn-large">استعرض القصص</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم أحدث القصص -->
+    <section class="latest-stories" id="stories">
+        <div class="container">
+            <div class="section-header">
+                <h2>أحدث القصص</h2>
+                <a href="#stories" class="more-link">كل القصص <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="stories-grid" id="storiesGrid">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>جاري تحميل القصص...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- عن الكاتب -->
+    <section class="about-author" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>عن الكاتب</h2>
+            </div>
+            <div class="author-content">
+                <div class="author-image">
+                    <img src="https://i.postimg.cc/dQfwk8wW/logo.png" alt="شعار الموقع">
+                </div>
+                <div class="author-bio" style="text-align: center; padding: 20px;">
+    
+    <h3 style="font-size: 2.2rem; color: #ff6b6b; margin-bottom: 10px;">
+        ✍️ أحمد رشاد
+    </h3>
+
+    <p style="font-size: 1.3rem; color: #636e72; font-style: italic; margin-bottom: 20px;">
+        "بكتب عشانها .. وبالنسبة ليها"
+    </p>
+
+    <div style="width: 80px; height: 2px; background: #ffb6b6; margin: 20px auto;"></div>
+
+    <p style="font-size: 1.1rem; line-height: 2; color: #2d3436; text-align: justify; padding: 0 15px;">
+        📖 كل قصة هنا مش مجرد كلمات عابرة .. دي رسايل حب متخفية في سطور.  
+        بدأت أكتب عشان خطيبتي، عشان أحفظ لحظاتنا في كلمات، وشاركتها معاكم يمكن تلمس قلب حد زيّها.
+    </p>
+
+    <p style="font-size: 1.1rem; line-height: 2; color: #2d3436; text-align: justify; padding: 0 15px;">
+        💌 الموقع ده أكبر من مجرد قصص .. ده جزء من قلبي بيتشارك مع ناس طيبين زيكم.  
+        كل قصة جاية من موقف حقيقي، أو حتى من نظرة أو صمتة بيني وبينها.
+    </p>
+
+    <p style="font-size: 1.1rem; line-height: 2; color: #2d3436; text-align: justify; padding: 0 15px;">
+        🌸 وإن شاء الله تلاقوا هنا دايماً حاجة تمس القلب، وتحسسكم إن الحب لسه موجود وجميل.
+    </p>
+
+    <div style="width: 60px; height: 2px; background: #ffb6b6; margin: 25px auto 15px;"></div>
+
+    <p style="font-size: 1.2rem; color: #ff6b6b; font-weight: 600;">
+        💕 كل حرف هنا .. عشانها
+    </p>
+
+    <div style="margin-top: 30px;">
+        <span style="background: #ffe3e3; padding: 8px 20px; border-radius: 30px; color: #ff6b6b; font-size: 1rem;">
+            ✨  قصة حب كل أسبوع.. ولسه بنكتب
+        </span>
+    </div>
+</div>
+
+                    <div class="author-social">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9?igsh=MXNpMGp4d2RnZzQzcw=="><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        
+    </section>
+
+    <!-- دعوة للانضمام -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>شاركني رأيك في القصص</h2>
+                <p>سجل دخولك عشان تقدر تعلق وتشارك إعجابك وتضيف القصص لمفضلتك</p>
+                <div class="cta-buttons">
+                    <a href="signup.html" class="btn btn-primary btn-large">أنشئ حساب مجاني</a>
+                    <a href="login.html" class="btn btn-outline btn-large">تسجيل دخول</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>شغف</h3>
+                    <p>قصص حب قصيرة من كتابة عمر خالد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="#stories">القصص</a></li>
+                        <li><a href="#about">عن الكاتب</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معي</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9?igsh=MXNpMGp4d2RnZzQzcw=="><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
+            authDomain: "shaghaf-story.firebaseapp.com",
+            projectId: "shaghaf-story",
+            storageBucket: "shaghaf-story.firebasestorage.app",
+            messagingSenderId: "197591948575",
+            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // ===== تحميل القصص =====
+        async function loadStories() {
+            const storiesGrid = document.getElementById('storiesGrid');
+            
+            try {
+                const storiesRef = collection(db, "stories");
+                const q = query(storiesRef, orderBy("createdAt", "desc"));
+                const storiesSnapshot = await getDocs(q);
+                
+                if (storiesSnapshot.empty) {
+                    storiesGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-book-open"></i>
+                            <p>لا توجد قصص بعد</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // تحديث إحصائيات القصص
+                document.getElementById('storiesCount').textContent = storiesSnapshot.size;
+                
+                // حساب عدد القراء (مجموع الإعجابات)
+                let totalReaders = 0;
+                
+                let storiesHTML = '';
+                
+                for (const storyDoc of storiesSnapshot.docs) {
+                    const story = { id: storyDoc.id, ...storyDoc.data() };
+                    
+                    // حساب إجمالي التفاعلات
+                    const commentsRef = collection(db, "comments");
+                    const commentsQ = query(commentsRef, where("storyId", "==", story.id));
+                    const commentsSnapshot = await getDocs(commentsQ);
+                    
+                    let totalReplies = 0;
+                    for (const commentDoc of commentsSnapshot.docs) {
+                        const repliesRef = collection(db, "replies");
+                        const repliesQ = query(repliesRef, where("commentId", "==", commentDoc.id));
+                        const repliesSnapshot = await getDocs(repliesQ);
+                        totalReplies += repliesSnapshot.size;
+                    }
+                    
+                    const totalComments = commentsSnapshot.size + totalReplies;
+                    totalReaders += story.likes || 0;
+                    
+                    let dateStr = '';
+                    if (story.createdAt) {
+                        const date = new Date(story.createdAt);
+                        dateStr = date.toLocaleDateString('ar-EG', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                    }
+                    
+                    storiesHTML += `
+                        <div class="story-card">
+                            <div class="story-image">
+                                <img src="${story.image || 'https://via.placeholder.com/400x250'}" alt="${story.title || 'قصة'}">
+                            </div>
+                            <div class="story-info">
+                                <h3>${story.title || 'بدون عنوان'}</h3>
+                                <p class="story-meta">
+                                    <span><i class="far fa-calendar"></i> ${dateStr || 'تاريخ غير محدد'}</span>
+                                    <span><i class="far fa-clock"></i> ${story.readTime || 5} دقائق</span>
+                                </p>
+                                <p class="story-excerpt">${story.excerpt || ''}</p>
+                                <div class="story-footer">
+                                    <div class="story-stats">
+                                        <span><i class="far fa-heart"></i> ${story.likes || 0}</span>
+                                        <span><i class="far fa-comment"></i> ${totalComments}</span>
+                                    </div>
+                                    <a href="story.html?id=${story.id}" class="btn btn-secondary">اقرأ القصة</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('readersCount').textContent = totalReaders;
+                storiesGrid.innerHTML = storiesHTML;
+                
+            } catch (error) {
+                console.error("خطأ في تحميل القصص:", error);
+                storiesGrid.innerHTML = `
+                    <div class="empty-state" style="color: #ff6b6b;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>حدث خطأ في تحميل القصص</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== تحديث واجهة المستخدم =====
+        function updateUIForUser(user) {
+            const navButtons = document.getElementById('navButtons');
+            const mobileUserInfo = document.querySelector('.mobile-user-info');
+            const mobileMenuButtons = document.getElementById('mobileMenuButtons');
+            
+            if (user) {
+                // مستخدم مسجل
+                const photoURL = user.photoURL || 'https://via.placeholder.com/40x40';
+                const displayName = user.displayName || 'مستخدم';
+                
+                navButtons.innerHTML = `
+                    <div class="user-menu">
+                        <img src="${photoURL}" 
+                             alt="${displayName}" 
+                             class="user-avatar"
+                             onclick="toggleUserMenu()">
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</a>
+                        </div>
+                    </div>
+                `;
+                
+                if (mobileUserInfo) {
+                    mobileUserInfo.innerHTML = `
+                        <img src="${photoURL}" alt="${displayName}" class="mobile-user-avatar">
+                        <div class="mobile-user-details">
+                            <h4>${displayName}</h4>
+                            <p>مرحباً بعودتك</p>
+                        </div>
+                    `;
+                }
+                
+                if (mobileMenuButtons) {
+                    mobileMenuButtons.innerHTML = `
+                        <button class="btn btn-outline" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                        </button>
+                    `;
+                }
+            } else {
+                // زائر
+                navButtons.innerHTML = `
+                    <a href="login.html" class="btn btn-outline">دخول</a>
+                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                `;
+                
+                if (mobileUserInfo) {
+                    mobileUserInfo.innerHTML = `
+                        <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+                        </div>
+                        <div class="mobile-user-details">
+                            <h4>زائر</h4>
+                            <p>سجل دخولك للمشاركة</p>
+                        </div>
+                    `;
+                }
+                
+                if (mobileMenuButtons) {
+                    mobileMenuButtons.innerHTML = `
+                        <a href="login.html" class="btn btn-outline">
+                            <i class="fas fa-sign-in-alt"></i> دخول
+                        </a>
+                        <a href="signup.html" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> انضمام
+                        </a>
+                    `;
+                }
+            }
+        }
+
+        // ===== دوال مساعدة =====
+        window.toggleUserMenu = function() {
+            document.getElementById('userDropdown')?.classList.toggle('show');
+        };
+
+        window.handleLogout = async function() {
+            try {
+                await signOut(auth);
+                window.location.reload();
+            } catch (error) {
+                console.error('خطأ في تسجيل الخروج:', error);
+            }
+        };
+
+        // ===== إدارة القائمة الجانبية =====
+        function setupMobileMenu() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            // إنشاء طبقة الخلفية المعتمة
+            let overlay = document.querySelector('.menu-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'menu-overlay';
+                document.body.appendChild(overlay);
+            }
+            
+            function closeMenu() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            
+            overlay.addEventListener('click', closeMenu);
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+            
+            mobileMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        }
+
+        // ===== مراقبة حالة المستخدم =====
+        onAuthStateChanged(auth, (user) => {
+            updateUIForUser(user);
+        });
+
+        // ===== تشغيل عند تحميل الصفحة =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStories();
+            setupMobileMenu();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - شغف</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #ffe3e3 0%, #ffffff 100%);
+        }
+        
+        .auth-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.15);
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-header h1 {
+            font-size: 2.2rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            color: #868e96;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        
+        .auth-form label i {
+            color: #ff6b6b;
+            margin-left: 5px;
+        }
+        
+        .auth-form .input-wrapper {
+            position: relative;
+        }
+        
+        .auth-form .input-wrapper i:not(.password-toggle) {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #868e96;
+        }
+        
+        .auth-form .input-wrapper input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #f1f3f5;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .auth-form .input-wrapper input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 4px #ffe3e3;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            left: 15px;
+            right: auto !important;
+            cursor: pointer;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .auth-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .auth-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            color: #868e96;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #f1f3f5;
+        }
+        
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            border: 2px solid #f1f3f5;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d3436;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .google-btn:hover {
+            background: #f8f9fa;
+            border-color: #ff6b6b;
+            transform: translateY(-2px);
+        }
+        
+        .google-btn i {
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #f1f3f5;
+        }
+        
+        .auth-footer a {
+            color: #ff6b6b;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .alert {
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            display: none;
+        }
+        
+        .alert-error {
+            background: #ffe3e3;
+            color: #ff6b6b;
+            border-right: 4px solid #ff6b6b;
+        }
+        
+        .alert-success {
+            background: #d3f9d8;
+            color: #00b894;
+            border-right: 4px solid #00b894;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">شغف</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#stories">القصص</a></li>
+                    <li><a href="index.html#about">عن الكاتب</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-primary">دخول</a>
+                    <a href="signup.html" class="btn btn-outline">انضمام</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+            </div>
+            <div class="mobile-user-details">
+                <h4>زائر</h4>
+                <p>سجل دخولك للمشاركة</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
+            <li><a href="index.html#about"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="#"><i class="fas fa-heart"></i> المفضلة</a></li>
+        </ul>
+        
+        <div class="mobile-menu-buttons" id="mobileMenuButtons">
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </a>
+            <a href="signup.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> انضمام
+            </a>
+        </div>
+    </div>
+
+    <section class="auth-page">
+        <div class="container auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>تسجيل الدخول</h1>
+                    <p>مرحباً بعودتك إلى شغف</p>
+                </div>
+
+                <div class="alert alert-error" id="errorAlert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorMessage"></span>
+                </div>
+
+                <div class="alert alert-success" id="successAlert">
+                    <i class="fas fa-check-circle"></i>
+                    <span>تم تسجيل الدخول بنجاح! جاري التحويل...</span>
+                </div>
+
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="example@email.com" required dir="ltr">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="••••••••" required dir="ltr">
+                            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary auth-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>
+                </form>
+
+                <div class="divider">أو</div>
+
+                <button class="google-btn" onclick="googleLogin()">
+                    <i class="fab fa-google"></i>
+                    تسجيل الدخول بـ Google
+                </button>
+
+                <div class="auth-footer">
+                    <p>ليس لديك حساب؟ <a href="signup.html">أنشئ حساب جديد</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>شغف</h3>
+                    <p>قصص حب قصيرة من كتابة عمر خالد</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#stories">القصص</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
+            authDomain: "shaghaf-story.firebaseapp.com",
+            projectId: "shaghaf-story",
+            storageBucket: "shaghaf-story.firebasestorage.app",
+            messagingSenderId: "197591948575",
+            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // إظهار/إخفاء كلمة المرور
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const password = document.getElementById('password');
+            if (password.type === 'password') {
+                password.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+
+        // تسجيل الدخول بالبريد الإلكتروني
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            const successAlert = document.getElementById('successAlert');
+
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'none';
+            
+            loginBtn.classList.add('loading');
+            loginBtn.disabled = true;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                successAlert.style.display = 'flex';
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error(error);
+                
+                let errorMessageText = 'فشل تسجيل الدخول';
+                if (error.code === 'auth/user-not-found') {
+                    errorMessageText = 'لا يوجد مستخدم بهذا البريد الإلكتروني';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessageText = 'كلمة المرور غير صحيحة';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessageText = 'البريد الإلكتروني غير صالح';
+                } else if (error.code === 'auth/invalid-credential') {
+                    errorMessageText = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                }
+                
+                errorMessage.textContent = errorMessageText;
+                errorAlert.style.display = 'flex';
+                
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+            }
+        });
+
+        // تسجيل الدخول بجوجل
+        window.googleLogin = async function() {
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                // حفظ المستخدم في Firestore مع الصورة
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        name: user.displayName || 'مستخدم',
+                        email: user.email,
+                        avatar: user.photoURL,
+                        createdAt: new Date().toISOString(),
+                        favorites: [],
+                        comments: 0,
+                        likes: 0
+                    });
+                }
+                
+                window.location.href = 'index.html';
+                
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول بجوجل:', error);
+                errorMessage.textContent = 'فشل تسجيل الدخول بجوجل';
+                errorAlert.style.display = 'flex';
+            }
+        };
+
+        // قائمة الجوال
+        document.querySelector('.mobile-menu-btn')?.addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
