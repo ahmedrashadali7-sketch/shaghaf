@@ -2,4 +2,10 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shaghaf.com/sitemap.xml
+# منع الزحف لصفحات النظام (اختياري)
+Disallow: /admin/
+Disallow: /login.html
+Disallow: /signup.html
+
+# مكان خريطة الموقع
+Sitemap: https://ahmedrashadali7-sketch.github.io/shaghaf/sitemap.xml
