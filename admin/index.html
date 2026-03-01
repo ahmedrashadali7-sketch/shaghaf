@@ -1,1 +1,967 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>لوحة التحكم - شغف</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* نفس التنسيقات السابقة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .admin-dashboard {
+            padding: 20px 15px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .admin-header h1 {
+            color: #ff6b6b;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-header h1 i {
+            font-size: 1.5rem;
+        }
+        
+        .admin-header button {
+            padding: 10px 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .add-story {
+            margin-bottom: 25px;
+        }
+        
+        .add-story a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+        }
+        
+        .add-story a:active {
+            transform: scale(0.98);
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .story-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid #f1f3f5;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.1);
+            border-color: #ff6b6b;
+        }
+        
+        .story-header {
+            padding: 15px;
+            background: linear-gradient(135deg, #fff5f5, white);
+            border-bottom: 1px solid #f1f3f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+        
+        .story-title i {
+            color: #ff6b6b;
+            margin-left: 5px;
+        }
+        
+        .story-stats {
+            display: flex;
+            gap: 15px;
+            color: #868e96;
+            font-size: 0.9rem;
+        }
+        
+        .story-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .story-stats i {
+            color: #ff6b6b;
+        }
+        
+        .comments-section {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        
+        .comments-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #2d3436;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .comments-title:hover {
+            background: #ffe3e3;
+        }
+        
+        .comments-title i {
+            color: #ff6b6b;
+            transition: transform 0.3s;
+        }
+        
+        .comments-title.expanded i {
+            transform: rotate(180deg);
+        }
+        
+        .comments-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .comments-list.expanded {
+            max-height: 2000px;
+            overflow-y: auto;
+        }
+        
+        .comment-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #f1f3f5;
+            position: relative;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .comment-author {
+            font-weight: 700;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .comment-author i {
+            color: #ff6b6b;
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: #868e96;
+        }
+        
+        .comment-text {
+            color: #2d3436;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-right: 25px;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-right: 25px;
+        }
+        
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: #868e96;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .comment-action-btn:hover {
+            background: #f1f3f5;
+        }
+        
+        .comment-action-btn.like-btn {
+            color: #ff6b6b;
+        }
+        
+        .comment-action-btn.like-btn.active {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+        
+        .comment-action-btn.like-btn.active i {
+            font-weight: 900;
+        }
+        
+        .comment-action-btn.delete-btn {
+            color: #dc3545;
+        }
+        
+        .comment-action-btn.delete-btn:hover {
+            background: #ffe3e3;
+        }
+        
+        .reply-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            padding-right: 25px;
+        }
+        
+        .reply-form input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #f1f3f5;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .reply-form input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px #ffe3e3;
+        }
+        
+        .reply-form button {
+            padding: 8px 15px;
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .reply-form button:hover {
+            background: #3dbeb6;
+            transform: translateY(-2px);
+        }
+        
+        .replies-list {
+            margin-right: 25px;
+            margin-top: 10px;
+            padding-right: 10px;
+            border-right: 2px solid #ffe3e3;
+        }
+        
+        .reply-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .reply-author {
+            font-weight: 700;
+            color: #4ecdc4;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .reply-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .reply-actions button {
+            background: none;
+            border: none;
+            color: #868e96;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .reply-actions button:hover {
+            background: #f1f3f5;
+        }
+        
+        .reply-actions .delete-reply-btn {
+            color: #dc3545;
+        }
+        
+        .reply-actions .delete-reply-btn:hover {
+            background: #ffe3e3;
+        }
+        
+        .no-comments {
+            text-align: center;
+            padding: 20px;
+            color: #868e96;
+            background: white;
+            border-radius: 12px;
+        }
+        
+        .story-actions {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn.edit {
+            background: #4ecdc4;
+            color: white;
+        }
+        
+        .action-btn.delete {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #868e96;
+        }
+        
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #868e96;
+            background: white;
+            border-radius: 20px;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .admin-header h1 {
+                justify-content: center;
+            }
+            
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comment-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .reply-form {
+                flex-direction: column;
+            }
+            
+            .reply-form button {
+                width: 100%;
+            }
+            
+            .comment-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <div class="container">
+            <div class="admin-header">
+                <h1>
+                    <i class="fas fa-cog"></i>
+                    لوحة التحكم
+                </h1>
+                <button class="btn btn-outline" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل خروج
+                </button>
+            </div>
+            
+            <div class="add-story">
+                <a href="new-story.html">
+                    <i class="fas fa-plus"></i>
+                    إضافة قصة جديدة
+                </a>
+            </div>
+            
+            <div id="storiesGrid" class="stories-grid">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>جاري تحميل القصص...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs, 
+            deleteDoc, 
+            doc, 
+            query, 
+            where,
+            addDoc,
+            updateDoc,
+            increment,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
+            authDomain: "shaghaf-story.firebaseapp.com",
+            projectId: "shaghaf-story",
+            storageBucket: "shaghaf-story.firebasestorage.app",
+            messagingSenderId: "197591948575",
+            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const allowedAdmins = [
+            'omar@shaghaf.com',
+            'ahmedrashadali9@gmail.com'
+        ];
+
+        // التحقق من صلاحية المشرف
+        auth.onAuthStateChanged((user) => {
+            if (!user || !allowedAdmins.includes(user.email)) {
+                window.location.href = 'login.html';
+            } else {
+                loadAllStories();
+            }
+        });
+
+        // تحميل كل القصص مع تعليقاتها
+        async function loadAllStories() {
+            try {
+                const storiesRef = collection(db, "stories");
+                const storiesSnapshot = await getDocs(storiesRef);
+                
+                // ترتيب القصص يدوياً
+                const stories = [];
+                storiesSnapshot.forEach((doc) => {
+                    stories.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // ترتيب من الأحدث للأقدم
+                stories.sort((a, b) => {
+                    const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+                    const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+                    return dateB - dateA;
+                });
+                
+                const storiesGrid = document.getElementById('storiesGrid');
+                
+                if (stories.length === 0) {
+                    storiesGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-book-open"></i>
+                            <p>لا توجد قصص بعد</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">أضف أول قصة الآن!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                
+                for (const story of stories) {
+                    
+                    // جلب تعليقات هذه القصة
+                    const commentsRef = collection(db, "comments");
+                    const commentsQ = query(commentsRef, where("storyId", "==", story.id));
+                    const commentsSnapshot = await getDocs(commentsQ);
+                    
+                    // ترتيب التعليقات يدوياً
+                    const comments = [];
+                    commentsSnapshot.forEach((doc) => {
+                        comments.push({ id: doc.id, ...doc.data() });
+                    });
+                    
+                    // ترتيب من الأحدث للأقدم
+                    comments.sort((a, b) => {
+                        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+                        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+                        return dateB - dateA;
+                    });
+                    
+                    html += `
+                        <div class="story-card">
+                            <div class="story-header">
+                                <div class="story-title">
+                                    <i class="fas fa-book"></i>
+                                    ${story.title || 'بدون عنوان'}
+                                </div>
+                                <div class="story-stats">
+                                    <span><i class="fas fa-heart"></i> ${story.likes || 0}</span>
+                                    <span><i class="fas fa-comment"></i> ${comments.length}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="comments-section">
+                                <div class="comments-title" onclick="toggleComments('${story.id}')">
+                                    <span>
+                                        <i class="fas fa-comments"></i>
+                                        التعليقات (${comments.length})
+                                    </span>
+                                    <i class="fas fa-chevron-down" id="arrow-${story.id}"></i>
+                                </div>
+                                
+                                <div class="comments-list" id="comments-${story.id}">
+                    `;
+                    
+                    if (comments.length === 0) {
+                        html += `
+                            <div class="no-comments">
+                                <i class="far fa-comment-dots"></i>
+                                <p>لا توجد تعليقات على هذه القصة</p>
+                            </div>
+                        `;
+                    } else {
+                        for (const comment of comments) {
+                            
+                            // جلب الردود على هذا التعليق
+                            const repliesRef = collection(db, "replies");
+                            const repliesQ = query(repliesRef, where("commentId", "==", comment.id));
+                            const repliesSnapshot = await getDocs(repliesQ);
+                            
+                            // ترتيب الردود يدوياً
+                            const replies = [];
+                            repliesSnapshot.forEach((doc) => {
+                                replies.push({ id: doc.id, ...doc.data() });
+                            });
+                            
+                            // ترتيب من الأقدم للأحدث
+                            replies.sort((a, b) => {
+                                const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+                                const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+                                return dateA - dateB;
+                            });
+                            
+                            html += `
+                                <div class="comment-item" id="comment-${comment.id}">
+                                    <div class="comment-header">
+                                        <div class="comment-author">
+                                            <i class="fas fa-user-circle"></i>
+                                            ${comment.userName || 'زائر'}
+                                        </div>
+                                        <div class="comment-date">${formatDate(comment.createdAt)}</div>
+                                    </div>
+                                    <div class="comment-text">${comment.comment}</div>
+                                    
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn like-btn ${comment.likedByAdmin ? 'active' : ''}" 
+                                                onclick="toggleCommentLike('${comment.id}')">
+                                            <i class="${comment.likedByAdmin ? 'fas' : 'far'} fa-heart"></i>
+                                            <span id="like-count-${comment.id}">${comment.likes || 0}</span>
+                                        </button>
+                                        <button class="comment-action-btn delete-btn" onclick="deleteComment('${story.id}', '${comment.id}')">
+                                            <i class="fas fa-trash"></i>
+                                            حذف
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="replies-list" id="replies-${comment.id}">
+                            `;
+                            
+                            // عرض الردود الموجودة
+                            if (replies.length > 0) {
+                                replies.forEach((reply) => {
+                                    html += `
+                                        <div class="reply-item" id="reply-${reply.id}">
+                                            <div class="reply-header">
+                                                <span class="reply-author">
+                                                    <i class="fas fa-reply"></i>
+                                                    ${reply.adminName || 'المشرف'}
+                                                </span>
+                                                <div class="reply-actions">
+                                                    <button class="delete-reply-btn" onclick="deleteReply('${reply.id}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="reply-text">${reply.reply}</div>
+                                            <div class="comment-date" style="margin-top: 5px;">${formatDate(reply.createdAt)}</div>
+                                        </div>
+                                    `;
+                                });
+                            }
+                            
+                            html += `
+                                    </div>
+                                    
+                                    <div class="reply-form">
+                                        <input type="text" id="reply-${comment.id}" placeholder="اكتب ردك هنا...">
+                                        <button onclick="submitReply('${story.id}', '${comment.id}')">
+                                            <i class="fas fa-paper-plane"></i>
+                                            رد
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    html += `
+                                </div>
+                            </div>
+                            
+                            <div class="story-actions">
+                                <button class="action-btn edit" onclick="editStory('${story.id}')">
+                                    <i class="fas fa-edit"></i>
+                                    تعديل
+                                </button>
+                                <button class="action-btn delete" onclick="confirmDelete('${story.id}')">
+                                    <i class="fas fa-trash"></i>
+                                    حذف
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                storiesGrid.innerHTML = html;
+                
+            } catch (error) {
+                console.error('خطأ في تحميل القصص:', error);
+                document.getElementById('storiesGrid').innerHTML = `
+                    <div class="empty-state" style="color: #ff6b6b;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>حدث خطأ في تحميل القصص</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">${error.message}</p>
+                        <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-redo"></i> إعادة المحاولة
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // إظهار/إخفاء التعليقات
+        window.toggleComments = function(storyId) {
+            const commentsDiv = document.getElementById(`comments-${storyId}`);
+            const arrow = document.getElementById(`arrow-${storyId}`);
+            
+            commentsDiv.classList.toggle('expanded');
+            if (arrow) {
+                arrow.classList.toggle('fa-chevron-down');
+                arrow.classList.toggle('fa-chevron-up');
+            }
+        };
+
+        // إعجاب بتعليق
+        window.toggleCommentLike = async function(commentId) {
+            try {
+                const commentRef = doc(db, "comments", commentId);
+                const commentDoc = await getDoc(commentRef);
+                
+                if (commentDoc.exists()) {
+                    const currentLikes = commentDoc.data().likes || 0;
+                    const wasLikedByAdmin = commentDoc.data().likedByAdmin || false;
+                    
+                    if (wasLikedByAdmin) {
+                        // إزالة الإعجاب
+                        await updateDoc(commentRef, {
+                            likes: currentLikes - 1,
+                            likedByAdmin: false
+                        });
+                    } else {
+                        // إضافة إعجاب
+                        await updateDoc(commentRef, {
+                            likes: currentLikes + 1,
+                            likedByAdmin: true
+                        });
+                    }
+                    
+                    // تحديث الواجهة
+                    const likeBtn = document.querySelector(`#comment-${commentId} .like-btn`);
+                    const likeSpan = document.getElementById(`like-count-${commentId}`);
+                    
+                    if (likeBtn && likeSpan) {
+                        const newCount = wasLikedByAdmin ? currentLikes - 1 : currentLikes + 1;
+                        likeSpan.textContent = newCount;
+                        
+                        if (!wasLikedByAdmin) {
+                            likeBtn.classList.add('active');
+                            likeBtn.innerHTML = `<i class="fas fa-heart"></i> <span id="like-count-${commentId}">${newCount}</span>`;
+                        } else {
+                            likeBtn.classList.remove('active');
+                            likeBtn.innerHTML = `<i class="far fa-heart"></i> <span id="like-count-${commentId}">${newCount}</span>`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('خطأ في الإعجاب:', error);
+                alert('حدث خطأ في الإعجاب بالتعليق');
+            }
+        };
+
+        // حذف تعليق
+        window.deleteComment = async function(storyId, commentId) {
+            if (confirm('⚠️ هل أنت متأكد من حذف هذا التعليق؟')) {
+                try {
+                    // حذف الردود المرتبطة
+                    const repliesRef = collection(db, "replies");
+                    const repliesQ = query(repliesRef, where("commentId", "==", commentId));
+                    const repliesSnapshot = await getDocs(repliesQ);
+                    
+                    repliesSnapshot.forEach(async (replyDoc) => {
+                        await deleteDoc(doc(db, "replies", replyDoc.id));
+                    });
+                    
+                    // حذف التعليق
+                    await deleteDoc(doc(db, "comments", commentId));
+                    
+                    // تقليل عدد التعليقات في القصة
+                    const storyRef = doc(db, "stories", storyId);
+                    await updateDoc(storyRef, {
+                        comments: increment(-1)
+                    });
+                    
+                    // إعادة تحميل الصفحة
+                    loadAllStories();
+                    
+                } catch (error) {
+                    console.error('خطأ في حذف التعليق:', error);
+                    alert('حدث خطأ في حذف التعليق');
+                }
+            }
+        };
+
+        // حذف رد
+        window.deleteReply = async function(replyId) {
+            if (confirm('⚠️ هل أنت متأكد من حذف هذا الرد؟')) {
+                try {
+                    await deleteDoc(doc(db, "replies", replyId));
+                    loadAllStories();
+                } catch (error) {
+                    console.error('خطأ في حذف الرد:', error);
+                    alert('حدث خطأ في حذف الرد');
+                }
+            }
+        };
+
+        // إرسال رد على تعليق
+        window.submitReply = async function(storyId, commentId) {
+            const replyInput = document.getElementById(`reply-${commentId}`);
+            const replyText = replyInput.value.trim();
+            
+            if (!replyText) {
+                alert('من فضلك اكتب الرد أولاً');
+                return;
+            }
+            
+            try {
+                // حفظ الرد في قاعدة البيانات
+                await addDoc(collection(db, "replies"), {
+                    commentId: commentId,
+                    storyId: storyId,
+                    reply: replyText,
+                    adminName: 'المشرف',
+                    createdAt: new Date().toISOString()
+                });
+                
+                // إعادة تحميل الصفحة لعرض الرد الجديد
+                loadAllStories();
+                
+            } catch (error) {
+                console.error('خطأ في إرسال الرد:', error);
+                alert('حدث خطأ في إرسال الرد');
+            }
+        };
+
+        // دوال التعديل والحذف للقصص
+        window.editStory = function(id) {
+            window.location.href = `edit-story.html?id=${id}`;
+        };
+
+        window.confirmDelete = async function(id) {
+            if (confirm('⚠️ هل أنت متأكد من حذف هذه القصة؟\nسيتم حذف جميع تعليقاتها وردودها أيضاً!')) {
+                try {
+                    // حذف التعليقات المرتبطة
+                    const commentsRef = collection(db, "comments");
+                    const commentsQ = query(commentsRef, where("storyId", "==", id));
+                    const commentsSnapshot = await getDocs(commentsQ);
+                    
+                    commentsSnapshot.forEach(async (commentDoc) => {
+                        // حذف ردود التعليق
+                        const repliesRef = collection(db, "replies");
+                        const repliesQ = query(repliesRef, where("commentId", "==", commentDoc.id));
+                        const repliesSnapshot = await getDocs(repliesQ);
+                        
+                        repliesSnapshot.forEach(async (replyDoc) => {
+                            await deleteDoc(doc(db, "replies", replyDoc.id));
+                        });
+                        
+                        // حذف التعليق
+                        await deleteDoc(doc(db, "comments", commentDoc.id));
+                    });
+                    
+                    // حذف القصة
+                    await deleteDoc(doc(db, "stories", id));
+                    
+                    alert('✅ تم حذف القصة وجميع تعليقاتها بنجاح');
+                    loadAllStories();
+                } catch (error) {
+                    console.error('خطأ في الحذف:', error);
+                    alert('❌ حدث خطأ في حذف القصة');
+                }
+            }
+        };
+
+        // تسجيل الخروج
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                alert('حدث خطأ في تسجيل الخروج');
+            }
+        };
+
+        // تنسيق التاريخ
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('ar-EG', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch {
+                return '';
+            }
+        }
+    </script>
+</body>
+</html>

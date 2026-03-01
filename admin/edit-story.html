@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>تعديل القصة - شغف</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .edit-story {
+            padding: 40px 0;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .story-form {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .story-form h1 {
+            color: #ff6b6b;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        
+        .form-group label i {
+            color: #ff6b6b;
+            margin-left: 8px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f1f3f5;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 200px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px #ffe3e3;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .form-actions button,
+        .form-actions a {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background: #d3f9d8;
+            color: #51cf66;
+            border-right: 4px solid #51cf66;
+        }
+        
+        .alert-error {
+            background: #ffe3e3;
+            color: #ff6b6b;
+            border-right: 4px solid #ff6b6b;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+        
+        .loading i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .story-form {
+                padding: 20px;
+            }
+            
+            .story-form h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-story">
+        <div class="container">
+            <div class="story-form">
+                <h1>
+                    <i class="fas fa-edit"></i>
+                    تعديل القصة
+                </h1>
+                
+                <div class="alert alert-success" id="successAlert"></div>
+                <div class="alert alert-error" id="errorAlert"></div>
+                
+                <div id="loadingSpinner" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>جاري تحميل بيانات القصة...</p>
+                </div>
+                
+                <form id="storyForm" style="display: none;">
+                    <div class="form-group">
+                        <label><i class="fas fa-heading"></i> عنوان القصة</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-image"></i> رابط الصورة</label>
+                        <input type="url" id="image" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> نبذة مختصرة</label>
+                        <textarea id="excerpt" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-book-open"></i> نص القصة</label>
+                        <textarea id="content" rows="8" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> وقت القراءة (بالدقائق)</label>
+                        <input type="number" id="readTime" min="1" max="60" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-save"></i>
+                            حفظ التغييرات
+                        </button>
+                        <a href="index.html" class="btn btn-outline">
+                            <i class="fas fa-times"></i>
+                            إلغاء
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // استيراد Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        // إعدادات Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
+            authDomain: "shaghaf-story.firebaseapp.com",
+            projectId: "shaghaf-story",
+            storageBucket: "shaghaf-story.firebasestorage.app",
+            messagingSenderId: "197591948575",
+            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // الحصول على معرف القصة من الرابط
+        const urlParams = new URLSearchParams(window.location.search);
+        const storyId = urlParams.get('id');
+
+        const allowedAdmins = [
+            'omar@shaghaf.com',
+            'ahmedrashadali9@gmail.com'
+        ];
+
+        // التحقق من صلاحية المشرف
+        auth.onAuthStateChanged((user) => {
+            if (!user || !allowedAdmins.includes(user.email)) {
+                window.location.href = 'login.html';
+            } else {
+                loadStory();
+            }
+        });
+
+        // تحميل بيانات القصة
+        async function loadStory() {
+            if (!storyId) {
+                showError('معرف القصة غير موجود');
+                return;
+            }
+
+            try {
+                const docRef = doc(db, "stories", storyId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const story = docSnap.data();
+                    
+                    // عرض النموذج وإخفاء التحميل
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    document.getElementById('storyForm').style.display = 'block';
+                    
+                    // ملء الحقول بالبيانات
+                    document.getElementById('title').value = story.title || '';
+                    document.getElementById('image').value = story.image || '';
+                    document.getElementById('excerpt').value = story.excerpt || '';
+                    document.getElementById('content').value = story.content || '';
+                    document.getElementById('readTime').value = story.readTime || 5;
+                    
+                } else {
+                    showError('القصة غير موجودة');
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل القصة:', error);
+                showError('حدث خطأ في تحميل القصة');
+            }
+        }
+
+        // حفظ التغييرات
+        document.getElementById('storyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            // إخفاء التنبيهات القديمة
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
+            
+            // جمع البيانات
+            const storyData = {
+                title: document.getElementById('title').value.trim(),
+                image: document.getElementById('image').value.trim(),
+                excerpt: document.getElementById('excerpt').value.trim(),
+                content: document.getElementById('content').value.trim(),
+                readTime: parseInt(document.getElementById('readTime').value) || 5,
+                updatedAt: new Date().toISOString()
+            };
+            
+            // تغيير شكل الزر
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+            submitBtn.disabled = true;
+            
+            try {
+                const docRef = doc(db, "stories", storyId);
+                await updateDoc(docRef, storyData);
+                
+                successAlert.textContent = '✅ تم حفظ التغييرات بنجاح! جاري التحويل...';
+                successAlert.style.display = 'block';
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('خطأ في حفظ التغييرات:', error);
+                errorAlert.textContent = 'حدث خطأ في حفظ التغييرات: ' + error.message;
+                errorAlert.style.display = 'block';
+                
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> حفظ التغييرات';
+                submitBtn.disabled = false;
+            }
+        });
+
+        function showError(message) {
+            document.getElementById('loadingSpinner').innerHTML = `
+                <i class="fas fa-exclamation-circle" style="color: #ff6b6b;"></i>
+                <p style="color: #ff6b6b;">${message}</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 20px;">العودة للوحة التحكم</a>
+            `;
+        }
+    </script>
+</body>
+</html>
