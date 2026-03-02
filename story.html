@@ -123,19 +123,21 @@
         </div>
     </footer>
 
+    <!-- 🔐 ملف التكوين الآمن (هذا الملف مستثنى من Git) -->
+    <script src="firebase-config.js"></script>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
-            authDomain: "shaghaf-story.firebaseapp.com",
-            projectId: "shaghaf-story",
-            storageBucket: "shaghaf-story.firebasestorage.app",
-            messagingSenderId: "197591948575",
-            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
-        };
+        // ✅ التأكد من وجود ملف التكوين
+        if (!window.FIREBASE_CONFIG) {
+            throw new Error('❌ ملف firebase-config.js غير موجود أو لم يتم تحميله بشكل صحيح');
+        }
+
+        // ✅ استخدام المفتاح من المتغير العام فقط (لا يوجد Fallback)
+        const firebaseConfig = window.FIREBASE_CONFIG;
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -180,7 +182,6 @@
             
             let metaKeywords = document.querySelector('meta[name="keywords"]');
             if (metaKeywords) {
-                // 👈 استخدام الكلمات المفتاحية المخزنة في Firebase
                 metaKeywords.content = story.keywords || `قصة حب, ${story.title}, قصص رومانسية, قصص قصيرة, شغف`;
             }
             
