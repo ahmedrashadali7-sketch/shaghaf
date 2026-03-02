@@ -214,32 +214,20 @@
     </div>
 
     <script type="module">
-        // استيراد Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // استيراد Firebase من الملف المركزي (مع المسار الصحيح لمجلد admin)
+        import { auth, db } from '../js/firebase-config.js';
         
-        // إعدادات Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
-            authDomain: "shaghaf-story.firebaseapp.com",
-            projectId: "shaghaf-story",
-            storageBucket: "shaghaf-story.firebasestorage.app",
-            messagingSenderId: "197591948575",
-            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
-        };
+        // استيراد الدوال المطلوبة
+        import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // تهيئة Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        // ✅ تأكد من نجاح الاستيراد
+        console.log('✅ Firebase initialized from config (edit story)');
 
         // الحصول على معرف القصة من الرابط
         const urlParams = new URLSearchParams(window.location.search);
         const storyId = urlParams.get('id');
 
         const allowedAdmins = [
-            'omar@shaghaf.com',
             'ahmedrashadali9@gmail.com'
         ];
 
