@@ -29,6 +29,52 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
+        
+        /* تحسين زر الإعجاب */
+        .story-actions {
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .story-actions .action-btn {
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #fff5f5, white);
+            border: 2px solid #ffb6b6;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .story-actions .action-btn:hover {
+            transform: scale(1.05);
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .story-actions .action-btn.active {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .story-actions .action-btn i {
+            font-size: 1.5rem;
+        }
+        
+        .story-actions .action-btn.active i {
+            color: white;
+        }
+        
+        .story-actions p {
+            margin-top: 15px !important;
+            color: #636e72;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -123,25 +169,16 @@
         </div>
     </footer>
 
-    <!-- 🔐 ملف التكوين الآمن (هذا الملف مستثنى من Git) -->
-    <script src="firebase-config.js"></script>
-    
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // استيراد Firebase من الملف المركزي
+        import { auth, db } from './js/firebase-config.js';
         
-        // ✅ التأكد من وجود ملف التكوين
-        if (!window.FIREBASE_CONFIG) {
-            throw new Error('❌ ملف firebase-config.js غير موجود أو لم يتم تحميله بشكل صحيح');
-        }
+        // استيراد الدوال المطلوبة
+        import { doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // ✅ استخدام المفتاح من المتغير العام فقط (لا يوجد Fallback)
-        const firebaseConfig = window.FIREBASE_CONFIG;
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
+        // ✅ تأكد من نجاح الاستيراد
+        console.log('✅ Firebase initialized from config');
 
         const urlParams = new URLSearchParams(window.location.search);
         const storyId = urlParams.get('id');
@@ -171,7 +208,7 @@
             }
         }
 
-        // ===== تحديث SEO (بعد التعديل) =====
+        // ===== تحديث SEO =====
         function updateSEOTags(story) {
             document.title = `${story.title} - شغف | قصص حب رومانسية`;
             
@@ -276,19 +313,19 @@
                 </div>
                 
                 <div class="story-content">
-    ${story.content || ''}
-</div>
+                    ${story.content || ''}
+                </div>
 
-<!-- زر الإعجاب بعد القصة -->
-<div class="story-actions" style="margin-top: 40px; text-align: center;">
-    <button class="action-btn" id="likeBtn" onclick="handleLike()" style="padding: 15px 40px; font-size: 1.2rem;">
-        <i class="far fa-heart"></i>
-        <span>أعجبني</span>
-    </button>
-    <p style="color: #636e72; margin-top: 10px; font-size: 0.9rem;">
-        اضغط على قلب إذا أعجبتك القصة وتفاعل بتعليق ❤️
-    </p>
-</div>
+                <!-- زر الإعجاب بعد القصة -->
+                <div class="story-actions" style="margin-top: 40px; text-align: center;">
+                    <button class="action-btn" id="likeBtn" onclick="handleLike()" style="padding: 15px 40px; font-size: 1.2rem;">
+                        <i class="far fa-heart"></i>
+                        <span>أعجبني</span>
+                    </button>
+                    <p style="color: #636e72; margin-top: 10px; font-size: 0.9rem;">
+                        اضغط على قلب إذا أعجبتك القصة وتفاعل بتعليق ❤️
+                    </p>
+                </div>
                 
                 <div class="comments-section">
                     <h3>
@@ -670,7 +707,7 @@
                         💔
                     </div>
                     
-                    <!-- عنوان "شغفية" بتصميم مميز -->
+                    <!-- عنوان "شغف" بتصميم مميز -->
                     <h2 style="font-size: 2.8rem; margin-bottom: 10px; background: linear-gradient(135deg, #ff6b6b, #ffb6b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">
                         شغف ❤️
                     </h2>
