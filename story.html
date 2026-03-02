@@ -169,7 +169,7 @@
             }
         }
 
-        // ===== تحديث SEO =====
+        // ===== تحديث SEO (بعد التعديل) =====
         function updateSEOTags(story) {
             document.title = `${story.title} - شغف | قصص حب رومانسية`;
             
@@ -180,7 +180,8 @@
             
             let metaKeywords = document.querySelector('meta[name="keywords"]');
             if (metaKeywords) {
-                metaKeywords.content = `قصة حب, ${story.title}, قصص رومانسية, قصص قصيرة`;
+                // 👈 استخدام الكلمات المفتاحية المخزنة في Firebase
+                metaKeywords.content = story.keywords || `قصة حب, ${story.title}, قصص رومانسية, قصص قصيرة, شغف`;
             }
             
             let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -273,16 +274,20 @@
                     <img src="${story.image || 'https://via.placeholder.com/800x400'}" alt="${story.title}">
                 </div>
                 
-                <div class="story-actions">
-                    <button class="action-btn" id="likeBtn" onclick="handleLike()">
-                        <i class="far fa-heart"></i>
-                        <span>إعجاب</span>
-                    </button>
-                </div>
-                
                 <div class="story-content">
-                    ${story.content || ''}
-                </div>
+    ${story.content || ''}
+</div>
+
+<!-- زر الإعجاب بعد القصة -->
+<div class="story-actions" style="margin-top: 40px; text-align: center;">
+    <button class="action-btn" id="likeBtn" onclick="handleLike()" style="padding: 15px 40px; font-size: 1.2rem;">
+        <i class="far fa-heart"></i>
+        <span>أعجبني</span>
+    </button>
+    <p style="color: #636e72; margin-top: 10px; font-size: 0.9rem;">
+        اضغط على قلب إذا أعجبتك القصة وتفاعل بتعليق ❤️
+    </p>
+</div>
                 
                 <div class="comments-section">
                     <h3>
