@@ -1,10 +1,14 @@
-// استيراد Firebase
+// استيراد Firebase من الملف المركزي
 import { db } from './firebase-config.js';
+
 import { 
     collection, addDoc, getDocs, query, where, orderBy, 
     updateDoc, doc, increment, arrayUnion, arrayRemove,
     getDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ✅ تأكد من نجاح الاستيراد
+console.log('✅ Firebase Interactions initialized');
 
 // ===== إدارة التعليقات =====
 

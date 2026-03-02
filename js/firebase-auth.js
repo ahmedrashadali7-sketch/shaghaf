@@ -1,14 +1,20 @@
-// استيراد Firebase
-import { auth } from './firebase-config.js';
+// استيراد Firebase من الملف المركزي
+import { auth, db } from './firebase-config.js';
+
+// استيراد الدوال المطلوبة
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     signOut, 
     onAuthStateChanged,
-    updateProfile
+    updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { db } from './firebase-config.js';
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ✅ تأكد من نجاح الاستيراد
+console.log('✅ Firebase Auth initialized');
 
 // ===== إدارة المستخدمين (الزوار) =====
 

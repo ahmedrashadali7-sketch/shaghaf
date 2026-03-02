@@ -1,6 +1,10 @@
-// استيراد Firebase
+// استيراد Firebase من الملف المركزي
 import { db } from './firebase-config.js';
+
 import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ✅ تأكد من نجاح الاستيراد
+console.log('✅ Firebase Stories initialized');
 
 // ===== إدارة القصص (أنت فقط من يستخدمها) =====
 

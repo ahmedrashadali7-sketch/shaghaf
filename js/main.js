@@ -1,7 +1,11 @@
-/*
-  شغف - الملف الرئيسي للجافاسكربت
-  الإصدار: 3.0 (مع تحسينات القائمة الجانبية النهائية)
-*/
+// استيراد Firebase من الملف المركزي
+import { auth, db } from './firebase-config.js';
+
+import { collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// ✅ تأكد من نجاح الاستيراد
+console.log('✅ Main.js initialized');
 
 // ===== إدارة القائمة الجانبية المحسنة =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,9 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // دالة إغلاق القائمة
     function closeMenu() {
-        if (mobileMenu) {
-            mobileMenu.classList.remove('active');
-        }
+        mobileMenu.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = ''; // إعادة التمرير
     }
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // إضافة زر إغلاق داخل القائمة إذا لم يكن موجوداً
+    // إضافة زر إغلاق داخل القائمة
     if (mobileMenu && !document.querySelector('.mobile-menu-close')) {
         const closeBtn = document.createElement('button');
         closeBtn.className = 'mobile-menu-close';
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenu.prepend(closeBtn);
     }
     
-    // إضافة رأس القائمة إذا لم يكن موجوداً
+    // إضافة رأس القائمة
     if (mobileMenu && !document.querySelector('.mobile-menu-header')) {
         const menuHeader = document.createElement('div');
         menuHeader.className = 'mobile-menu-header';
@@ -177,8 +179,9 @@ function setActiveNavLink() {
     });
 }
 
-// ===== دوال تسجيل الخروج (مؤقتة) =====
+// ===== دوال تسجيل الخروج =====
 window.logout = function() {
+    // هذا مؤقت، هنربطه مع Firebase بعدين
     alert('تم تسجيل الخروج بنجاح');
     window.location.reload();
 };
