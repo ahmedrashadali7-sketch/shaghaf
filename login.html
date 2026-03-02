@@ -227,7 +227,10 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
-                <a href="index.html" class="logo">شغف</a>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i>
+                    شغف
+                </a>
                 <ul class="nav-links">
                     <li><a href="index.html">الرئيسية</a></li>
                     <li><a href="index.html#stories">القصص</a></li>
@@ -333,7 +336,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>شغف</h3>
-                    <p>قصص حب قصيرة من كتابة عمر خالد</p>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد</p>
                 </div>
                 <div class="footer-section">
                     <h4>روابط سريعة</h4>
@@ -350,22 +353,16 @@
     </footer>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // استيراد Firebase من الملف المركزي
+        import { auth, db } from './js/firebase-config.js';
+        
+        // استيراد الدوال المطلوبة
+        import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
-            authDomain: "shaghaf-story.firebaseapp.com",
-            projectId: "shaghaf-story",
-            storageBucket: "shaghaf-story.firebasestorage.app",
-            messagingSenderId: "197591948575",
-            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
-        };
+        // ✅ تأكد من نجاح الاستيراد
+        console.log('✅ Firebase initialized from config');
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
         // إظهار/إخفاء كلمة المرور

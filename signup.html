@@ -394,7 +394,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>شغف</h3>
-                    <p>قصص حب قصيرة من كتابة عمر خالد</p>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد</p>
                 </div>
                 <div class="footer-section">
                     <h4>روابط سريعة</h4>
@@ -411,22 +411,16 @@
     </footer>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // استيراد Firebase من الملف المركزي
+        import { auth, db } from './js/firebase-config.js';
+        
+        // استيراد الدوال المطلوبة
+        import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWQxciHVfYRGaFTgEOnDjQtNb7G-qvaQo",
-            authDomain: "shaghaf-story.firebaseapp.com",
-            projectId: "shaghaf-story",
-            storageBucket: "shaghaf-story.firebasestorage.app",
-            messagingSenderId: "197591948575",
-            appId: "1:197591948575:web:a0aaee7b7971f100c4e42a"
-        };
+        // ✅ تأكد من نجاح الاستيراد
+        console.log('✅ Firebase initialized from config');
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
         // ===== تهيئة EmailJS =====
@@ -444,7 +438,7 @@
                 };
 
                 const response = await emailjs.send(
-                    'service_ju780d2',      // ✅ Service ID الجديد
+                    'service_ju780d2',      // ✅ Service ID
                     'template_uyt7oaw',      // ✅ Template ID
                     templateParams
                 );
