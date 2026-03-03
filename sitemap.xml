@@ -63,4 +63,11 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+        <!-- قصة 4:أول فديو كول -->
+    <url>
+        <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/story.html?id=4</loc>
+        <lastmod>2026-03-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
