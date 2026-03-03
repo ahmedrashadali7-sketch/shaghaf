@@ -30,15 +30,26 @@
             50% { transform: translateY(-5px); }
         }
         
-        /* تحسين زر الإعجاب */
+        /* تحسين زر الإعجاب والمفضلة */
         .story-actions {
             margin: 40px 0 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
         
-        .story-actions .action-btn {
-            padding: 15px 50px;
-            font-size: 1.3rem;
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 60px;
             background: linear-gradient(135deg, #fff5f5, white);
             border: 2px solid #ffb6b6;
@@ -47,33 +58,49 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
         }
         
-        .story-actions .action-btn:hover {
+        .action-btn:hover {
             transform: scale(1.05);
             background: #ff6b6b;
             color: white;
             border-color: #ff6b6b;
         }
         
-        .story-actions .action-btn.active {
+        .action-btn.active {
             background: #ff6b6b;
             color: white;
             border-color: #ff6b6b;
         }
         
-        .story-actions .action-btn i {
-            font-size: 1.5rem;
+        .action-btn i {
+            font-size: 1.3rem;
         }
         
-        .story-actions .action-btn.active i {
+        .action-btn.active i {
             color: white;
         }
         
+        .action-btn.favorite-btn {
+            background: linear-gradient(135deg, #fff5f5, white);
+        }
+        
+        .action-btn.favorite-btn.active {
+            background: #ffb6b6;
+            color: #2d3436;
+        }
+        
+        .action-btn.favorite-btn.active i {
+            color: #ff6b6b;
+        }
+        
         .story-actions p {
-            margin-top: 15px !important;
             color: #636e72;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
     </style>
     <!-- أيقونة الموقع (Favicon) -->
@@ -93,6 +120,7 @@
                     <li><a href="index.html">الرئيسية</a></li>
                     <li><a href="index.html#stories">القصص</a></li>
                     <li><a href="index.html#about">عن الكاتب</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
                 </ul>
                 <div class="nav-buttons" id="navButtons">
                     <a href="login.html" class="btn btn-outline">دخول</a>
@@ -120,7 +148,7 @@
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
             <li><a href="index.html#about"><i class="fas fa-user"></i> عن الكاتب</a></li>
-            <li><a href="#"><i class="fas fa-heart"></i> المفضلة</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
         </ul>
         
         <div class="mobile-menu-buttons" id="mobileMenuButtons">
@@ -164,6 +192,7 @@
                     <ul>
                         <li><a href="index.html">الرئيسية</a></li>
                         <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
             </div>
@@ -178,7 +207,7 @@
         import { auth, db } from './js/firebase-config.js';
         
         // استيراد الدوال المطلوبة
-        import { doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         // ✅ تأكد من نجاح الاستيراد
@@ -272,8 +301,69 @@
             }
         }
 
+        // ===== التحقق من وجود القصة في المفضلة =====
+        async function checkIfInFavorites() {
+            if (!currentUser || !storyId) return false;
+            
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                const userSnap = await getDoc(userRef);
+                
+                if (userSnap.exists()) {
+                    const favorites = userSnap.data().favorites || [];
+                    return favorites.includes(storyId);
+                }
+                return false;
+            } catch (error) {
+                console.error('خطأ في التحقق من المفضلة:', error);
+                return false;
+            }
+        }
+
+        // ===== إضافة/إزالة من المفضلة =====
+        window.toggleFavorite = async function() {
+            if (!currentUser) {
+                if (confirm('تحتاج إلى تسجيل الدخول أولاً. هل تريد تسجيل الدخول الآن؟')) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            const userRef = doc(db, "users", currentUser.uid);
+            
+            try {
+                const userSnap = await getDoc(userRef);
+                if (!userSnap.exists()) return;
+                
+                const favorites = userSnap.data().favorites || [];
+                const isFavorited = favorites.includes(storyId);
+                
+                if (isFavorited) {
+                    // إزالة من المفضلة
+                    await updateDoc(userRef, {
+                        favorites: arrayRemove(storyId)
+                    });
+                    favoriteBtn.classList.remove('active');
+                    favoriteBtn.innerHTML = '<i class="far fa-bookmark"></i><span>أضف للمفضلة</span>';
+                } else {
+                    // إضافة للمفضلة
+                    await updateDoc(userRef, {
+                        favorites: arrayUnion(storyId)
+                    });
+                    favoriteBtn.classList.add('active');
+                    favoriteBtn.innerHTML = '<i class="fas fa-bookmark"></i><span>في المفضلة</span>';
+                }
+            } catch (error) {
+                console.error('خطأ في تعديل المفضلة:', error);
+                alert('حدث خطأ في تعديل المفضلة');
+            }
+        };
+
         // ===== عرض القصة مع التصميم الجديد =====
-        function displayStory(story) {
+        async function displayStory(story) {
+            const isInFavorites = await checkIfInFavorites();
+            
             const html = `
                 <!-- التصميم الجديد للجزء العلوي -->
                 <div class="story-header" style="text-align: center; margin-bottom: 30px;">
@@ -320,14 +410,21 @@
                     ${story.content || ''}
                 </div>
 
-                <!-- زر الإعجاب بعد القصة -->
+                <!-- أزرار التفاعل بعد القصة -->
                 <div class="story-actions" style="margin-top: 40px; text-align: center;">
-                    <button class="action-btn" id="likeBtn" onclick="handleLike()" style="padding: 15px 40px; font-size: 1.2rem;">
-                        <i class="far fa-heart"></i>
-                        <span>أعجبني</span>
-                    </button>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="likeBtn" onclick="handleLike()">
+                            <i class="far fa-heart"></i>
+                            <span>أعجبني</span>
+                        </button>
+                        
+                        <button class="action-btn favorite-btn ${isInFavorites ? 'active' : ''}" id="favoriteBtn" onclick="toggleFavorite()">
+                            <i class="${isInFavorites ? 'fas' : 'far'} fa-bookmark"></i>
+                            <span>${isInFavorites ? 'في المفضلة' : 'أضف للمفضلة'}</span>
+                        </button>
+                    </div>
                     <p style="color: #636e72; margin-top: 10px; font-size: 0.9rem;">
-                        اضغط على قلب إذا أعجبتك القصة وتفاعل بتعليق ❤️
+                        تفاعل مع القصة وشاركنا رأيك ❤️
                     </p>
                 </div>
                 
@@ -390,6 +487,23 @@
                             <i class="far fa-comment-dots"></i>
                             <p>لا توجد تعليقات بعد</p>
                             <p style="font-size: 0.9rem; margin-top: 10px;">كن أول من يعلق!</p>
+                        </div>
+                        
+                        <!-- إعلان شغف - يدعم استمرارية الموقع -->
+                        <div style="margin: 40px 0 20px; text-align: center;">
+                            <div style="display: inline-block; background: white; padding: 20px 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.1); max-width: 100%;">
+                                <p style="color: #ff6b6b; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
+                                    <i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i>
+                                </p>
+                                <a href="https://your-ad-link.com" target="_blank" rel="sponsored nofollow" style="text-decoration: none;">
+                                    <img src="https://via.placeholder.com/728x90/ffe3e3/ff6b6b?text=شغف+يدعمك" 
+                                         alt="إعلان شغف" 
+                                         style="max-width: 100%; border-radius: 15px; border: 2px solid #ffb6b6;">
+                                </a>
+                                <p style="color: #b2bec3; font-size: 0.7rem; margin-top: 8px;">
+                                    هذا الإعلان يساعد في استمرارية الموقع
+                                </p>
+                            </div>
                         </div>
                     `;
                     return;
@@ -473,6 +587,26 @@
                     
                     html += `</div></div>`;
                 }
+                
+                // إضافة الإعلان بعد التعليقات
+                html += `
+                    <!-- إعلان شغف - يدعم استمرارية الموقع -->
+                    <div style="margin: 40px 0 20px; text-align: center;">
+                        <div style="display: inline-block; background: white; padding: 20px 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.1); max-width: 100%;">
+                            <p style="color: #ff6b6b; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
+                                <i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i>
+                            </p>
+                            <a href="https://your-ad-link.com" target="_blank" rel="sponsored nofollow" style="text-decoration: none;">
+                                <img src="https://via.placeholder.com/728x90/ffe3e3/ff6b6b?text=شغف+يدعمك" 
+                                     alt="إعلان شغف" 
+                                     style="max-width: 100%; border-radius: 15px; border: 2px solid #ffb6b6;">
+                            </a>
+                            <p style="color: #b2bec3; font-size: 0.7rem; margin-top: 8px;">
+                                هذا الإعلان يساعد في استمرارية الموقع
+                            </p>
+                        </div>
+                    </div>
+                `;
                 
                 commentsList.innerHTML = html;
                 
