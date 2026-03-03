@@ -23,6 +23,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- أيقونة الموقع (Favicon) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    
     <!-- حركة القلب -->
     <style>
         @keyframes float {
@@ -103,10 +108,6 @@
             margin-top: 5px;
         }
     </style>
-    <!-- أيقونة الموقع (Favicon) -->
-<link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
 </head>
 <body>
     <nav class="navbar">
@@ -119,7 +120,9 @@
                 <ul class="nav-links">
                     <li><a href="index.html">الرئيسية</a></li>
                     <li><a href="index.html#stories">القصص</a></li>
-                    <li><a href="index.html#about">عن الكاتب</a></li>
+                    <li><a href="about.html">عن الكاتب</a></li>
+                    <li><a href="privacy.html">الخصوصية</a></li>
+                    <li><a href="contact.html">اتصل بي</a></li>
                     <li><a href="favorites.html">المفضلة</a></li>
                 </ul>
                 <div class="nav-buttons" id="navButtons">
@@ -147,7 +150,9 @@
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
-            <li><a href="index.html#about"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
             <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
         </ul>
         
@@ -192,15 +197,97 @@
                     <ul>
                         <li><a href="index.html">الرئيسية</a></li>
                         <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="about.html">عن الكاتب</a></li>
+                        <li><a href="privacy.html">الخصوصية</a></li>
+                        <li><a href="contact.html">اتصل بي</a></li>
                         <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
+                <div class="footer-section">
+                    <h4>تواصل معي</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
             <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦</p>
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع بـ ❤️ لأجلها</p>
             </div>
         </div>
     </footer>
+
+    <!-- كود القائمة الجانبية المحسن -->
+    <script>
+        (function() {
+            if (window.mobileMenuInitialized) return;
+            window.mobileMenuInitialized = true;
+            
+            function initMobileMenu() {
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                const mobileMenu = document.querySelector('.mobile-menu');
+                
+                if (!menuBtn || !mobileMenu) return;
+                
+                let overlay = document.querySelector('.menu-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'menu-overlay';
+                    document.body.appendChild(overlay);
+                }
+                
+                function closeMenu() {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+                
+                function openMenu() {
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                menuBtn.replaceWith(menuBtn.cloneNode(true));
+                const newMenuBtn = document.querySelector('.mobile-menu-btn');
+                
+                newMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openMenu();
+                });
+                
+                overlay.addEventListener('click', closeMenu);
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeMenu();
+                    }
+                });
+                
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                const menuLinks = mobileMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenu);
+            } else {
+                initMobileMenu();
+            }
+        })();
+    </script>
 
     <script type="module">
         // استيراد Firebase من الملف المركزي
@@ -210,7 +297,6 @@
         import { doc, getDoc, collection, query, where, getDocs, addDoc, updateDoc, increment, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // ✅ تأكد من نجاح الاستيراد
         console.log('✅ Firebase initialized from config');
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -340,14 +426,12 @@
                 const isFavorited = favorites.includes(storyId);
                 
                 if (isFavorited) {
-                    // إزالة من المفضلة
                     await updateDoc(userRef, {
                         favorites: arrayRemove(storyId)
                     });
                     favoriteBtn.classList.remove('active');
                     favoriteBtn.innerHTML = '<i class="far fa-bookmark"></i><span>أضف للمفضلة</span>';
                 } else {
-                    // إضافة للمفضلة
                     await updateDoc(userRef, {
                         favorites: arrayUnion(storyId)
                     });
@@ -687,7 +771,6 @@
             }
             
             try {
-                // جلب بيانات المستخدم
                 const userRef = doc(db, "users", currentUser.uid);
                 const userSnap = await getDoc(userRef);
                 
@@ -970,52 +1053,6 @@
             }
         };
 
-        // ===== إدارة القائمة الجانبية =====
-        function setupMobileMenu() {
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            
-            let overlay = document.querySelector('.menu-overlay');
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.className = 'menu-overlay';
-                document.body.appendChild(overlay);
-            }
-            
-            function closeMenu() {
-                mobileMenu.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-            
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    mobileMenu.classList.add('active');
-                    overlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-            
-            overlay.addEventListener('click', closeMenu);
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                    closeMenu();
-                }
-            });
-            
-            mobileMenu.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-            
-            const menuLinks = mobileMenu.querySelectorAll('a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-        }
-
-        // ===== مراقبة حالة المستخدم =====
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             updateUIForUser(user);
@@ -1024,10 +1061,8 @@
             }
         });
 
-        // ===== تشغيل عند تحميل الصفحة =====
         document.addEventListener('DOMContentLoaded', () => {
             loadStory();
-            setupMobileMenu();
         });
     </script>
 </body>
