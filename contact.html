@@ -23,7 +23,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <!-- أيقونة الموقع (Favicon) -->
+<link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
     <style>
         .contact-page {
             padding: 60px 0;
@@ -338,6 +341,7 @@
             <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
             <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
         </ul>
         
         <div class="mobile-menu-buttons" id="mobileMenuButtons">
@@ -483,7 +487,74 @@
         </div>
     </footer>
 
+    <!-- كود القائمة الجانبية المحسن -->
     <script>
+        (function() {
+            if (window.mobileMenuInitialized) return;
+            window.mobileMenuInitialized = true;
+            
+            function initMobileMenu() {
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                const mobileMenu = document.querySelector('.mobile-menu');
+                
+                if (!menuBtn || !mobileMenu) return;
+                
+                let overlay = document.querySelector('.menu-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'menu-overlay';
+                    document.body.appendChild(overlay);
+                }
+                
+                function closeMenu() {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+                
+                function openMenu() {
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                menuBtn.replaceWith(menuBtn.cloneNode(true));
+                const newMenuBtn = document.querySelector('.mobile-menu-btn');
+                
+                newMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openMenu();
+                });
+                
+                overlay.addEventListener('click', closeMenu);
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeMenu();
+                    }
+                });
+                
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                const menuLinks = mobileMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenu);
+            } else {
+                initMobileMenu();
+            }
+        })();
+
+        // كود نموذج الاتصال
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -496,29 +567,24 @@
             const errorAlert = document.getElementById('errorAlert');
             const errorMessage = document.getElementById('errorMessage');
             
-            // إخفاء التنبيهات القديمة
             successAlert.style.display = 'none';
             errorAlert.style.display = 'none';
             
-            // التحقق من المدخلات
             if (!name || !email || !subject || !message) {
                 errorMessage.textContent = 'جميع الحقول مطلوبة';
                 errorAlert.style.display = 'flex';
                 return;
             }
             
-            // إظهار حالة الإرسال
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
             submitBtn.disabled = true;
             
-            // محاكاة إرسال الرسالة (في الواقع، هنستخدم EmailJS أو Firebase)
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
                 submitBtn.disabled = false;
                 document.getElementById('contactForm').reset();
                 successAlert.style.display = 'flex';
                 
-                // إخفاء رسالة النجاح بعد 5 ثواني
                 setTimeout(() => {
                     successAlert.style.display = 'none';
                 }, 5000);
