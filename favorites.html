@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفضلة - شغف | قصصي المحفوظة</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="صفحة المفضلة في موقع شغف. احفظ قصص الحب التي تعجبك لتعود إليها لاحقاً.">
+    <meta name="keywords" content="المفضلة, قصص محفوظة, شغف, قراءة لاحقاً">
+    <meta name="author" content="أحمد رشاد">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ahmedrashadali7-sketch.github.io/shaghaf/favorites.html">
+    <meta property="og:title" content="المفضلة - شغف">
+    <meta property="og:description" content="احفظ قصص الحب المفضلة لديك.">
+    <meta property="og:image" content="https://i.postimg.cc/dQfwk8wW/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .favorites-page {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff9f9, #ffffff);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .favorites-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .favorites-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .favorites-header h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .favorites-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffb6b6);
+            border-radius: 2px;
+        }
+        
+        .favorites-header p {
+            color: #636e72;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        .login-prompt {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .login-prompt i {
+            font-size: 5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .login-prompt h2 {
+            font-size: 2rem;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+        
+        .login-prompt p {
+            color: #636e72;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .login-prompt .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .favorite-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.1);
+            border: 1px solid rgba(255,107,107,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .favorite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.2);
+            border-color: #ff6b6b;
+        }
+        
+        .favorite-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .favorite-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorite-remove {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 35px;
+            height: 35px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            color: #ff6b6b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .favorite-remove:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .favorite-info {
+            padding: 20px;
+        }
+        
+        .favorite-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+        
+        .favorite-meta {
+            display: flex;
+            gap: 15px;
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .favorite-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .favorite-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f1f3f5;
+        }
+        
+        .favorite-stats {
+            display: flex;
+            gap: 15px;
+            color: #636e72;
+        }
+        
+        .favorite-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .empty-favorites {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.1);
+        }
+        
+        .empty-favorites i {
+            font-size: 5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        .empty-favorites h2 {
+            font-size: 2rem;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+        
+        .empty-favorites p {
+            color: #636e72;
+            margin-bottom: 30px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+            color: #636e72;
+        }
+        
+        .loading i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i>
+                    شغف
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#stories">القصص</a></li>
+                    <li><a href="about.html">عن الكاتب</a></li>
+                    <li><a href="favorites.html" class="active">المفضلة</a></li>
+                    <li><a href="contact.html">اتصل بي</a></li>
+                </ul>
+                <div class="nav-buttons" id="navButtons">
+                    <a href="login.html" class="btn btn-outline">دخول</a>
+                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية -->
+    <div class="mobile-menu">
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+            </div>
+            <div class="mobile-user-details">
+                <h4>زائر</h4>
+                <p>سجل دخولك للمشاركة</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+        </ul>
+        
+        <div class="mobile-menu-buttons" id="mobileMenuButtons">
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </a>
+            <a href="signup.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> انضمام
+            </a>
+        </div>
+    </div>
+
+    <section class="favorites-page">
+        <div class="favorites-container">
+            <!-- رأس الصفحة -->
+            <div class="favorites-header">
+                <h1>المفضلة</h1>
+                <p>القصص التي لمست قلبك</p>
+            </div>
+            
+            <!-- محتوى المفضلة -->
+            <div id="favoritesContent">
+                <!-- هنا هيتحط المحتوى ديناميكياً -->
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>شغف</h3>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="about.html">عن الكاتب</a></li>
+                        <li><a href="privacy.html">الخصوصية</a></li>
+                        <li><a href="contact.html">اتصل بي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معي</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع بـ ❤️ لأجلها</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        const favoritesContent = document.getElementById('favoritesContent');
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                // مستخدم غير مسجل
+                favoritesContent.innerHTML = `
+                    <div class="login-prompt">
+                        <i class="fas fa-heart"></i>
+                        <h2>سجل دخولك أولاً</h2>
+                        <p>عشان تقدر تحفظ القصص اللي تعجبك وتشوفها هنا</p>
+                        <div class="buttons">
+                            <a href="login.html" class="btn btn-primary btn-large">تسجيل دخول</a>
+                            <a href="signup.html" class="btn btn-outline btn-large">إنشاء حساب</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // مستخدم مسجل - جلب المفضلة
+            favoritesContent.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>جاري تحميل مفضلتك...</p>
+                </div>
+            `;
+            
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                
+                if (userSnap.exists()) {
+                    const favorites = userSnap.data().favorites || [];
+                    
+                    if (favorites.length === 0) {
+                        favoritesContent.innerHTML = `
+                            <div class="empty-favorites">
+                                <i class="fas fa-heart-broken"></i>
+                                <h2>لا توجد قصص مفضلة بعد</h2>
+                                <p>تصفح القصص وأضف ما يعجبك إلى المفضلة بالضغط على علامة ❤️</p>
+                                <a href="index.html#stories" class="btn btn-primary">استعرض القصص</a>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // جلب تفاصيل القصص المفضلة
+                    const stories = [];
+                    for (const storyId of favorites) {
+                        const storyRef = doc(db, "stories", storyId);
+                        const storySnap = await getDoc(storyRef);
+                        if (storySnap.exists()) {
+                            stories.push({ id: storySnap.id, ...storySnap.data() });
+                        }
+                    }
+                    
+                    let html = '<div class="favorites-grid">';
+                    
+                    stories.forEach(story => {
+                        const date = story.createdAt ? new Date(story.createdAt).toLocaleDateString('ar-EG') : 'غير محدد';
+                        
+                        html += `
+                            <div class="favorite-card">
+                                <button class="favorite-remove" onclick="removeFromFavorites('${story.id}')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <div class="favorite-image">
+                                    <img src="${story.image || 'https://via.placeholder.com/400x200'}" alt="${story.title}">
+                                </div>
+                                <div class="favorite-info">
+                                    <h3>${story.title || 'بدون عنوان'}</h3>
+                                    <div class="favorite-meta">
+                                        <span><i class="far fa-calendar"></i> ${date}</span>
+                                        <span><i class="far fa-clock"></i> ${story.readTime || 5} دقائق</span>
+                                    </div>
+                                    <p class="story-excerpt">${story.excerpt || ''}</p>
+                                    <div class="favorite-footer">
+                                        <div class="favorite-stats">
+                                            <span><i class="far fa-heart"></i> ${story.likes || 0}</span>
+                                            <span><i class="far fa-comment"></i> ${story.comments || 0}</span>
+                                        </div>
+                                        <a href="story.html?id=${story.id}" class="btn btn-secondary btn-small">اقرأ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    favoritesContent.innerHTML = html;
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل المفضلة:', error);
+                favoritesContent.innerHTML = `
+                    <div class="empty-favorites" style="color: #ff6b6b;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h2>حدث خطأ</h2>
+                        <p>تعذر تحميل المفضلة. يرجى المحاولة لاحقاً.</p>
+                    </div>
+                `;
+            }
+        });
+        
+        window.removeFromFavorites = async function(storyId) {
+            if (!auth.currentUser) return;
+            
+            if (!confirm('هل تريد إزالة هذه القصة من المفضلة؟')) return;
+            
+            try {
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                const userSnap = await getDoc(userRef);
+                
+                if (userSnap.exists()) {
+                    const favorites = userSnap.data().favorites || [];
+                    const updatedFavorites = favorites.filter(id => id !== storyId);
+                    
+                    await updateDoc(userRef, {
+                        favorites: updatedFavorites
+                    });
+                    
+                    // إعادة تحميل الصفحة
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('خطأ في إزالة القصة:', error);
+                alert('حدث خطأ في إزالة القصة');
+            }
+        };
+    </script>
+</body>
+</html>

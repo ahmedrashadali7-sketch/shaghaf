@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بي - شغف</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="تواصل مع الكاتب أحمد رشاد صاحب منصة شغف للقصص الرومانسية. استفسارات، اقتراحات، أو مجرد كلمة حب.">
+    <meta name="keywords" content="اتصل بنا, تواصل, شغف, أحمد رشاد, استفسارات">
+    <meta name="author" content="أحمد رشاد">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ahmedrashadali7-sketch.github.io/shaghaf/contact.html">
+    <meta property="og:title" content="اتصل بي - شغف">
+    <meta property="og:description" content="تواصل مع الكاتب أحمد رشاد.">
+    <meta property="og:image" content="https://i.postimg.cc/dQfwk8wW/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .contact-page {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff9f9, #ffffff);
+        }
+        
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .contact-header h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffb6b6);
+            border-radius: 2px;
+        }
+        
+        .contact-header p {
+            color: #636e72;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.1);
+        }
+        
+        .contact-info h2 {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-info h2 i {
+            font-size: 1.8rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .info-item:hover {
+            transform: translateX(-5px);
+            background: #ffe3e3;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .info-content h3 {
+            font-size: 1.2rem;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        
+        .info-content a {
+            color: #636e72;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        
+        .info-content a:hover {
+            color: #ff6b6b;
+        }
+        
+        .social-contact {
+            margin-top: 30px;
+        }
+        
+        .social-contact h3 {
+            font-size: 1.3rem;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        
+        .social-button.facebook {
+            background: #1877f2;
+        }
+        
+        .social-button.whatsapp {
+            background: #25D366;
+        }
+        
+        .social-button.instagram {
+            background: #E4405F;
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.1);
+        }
+        
+        .contact-form h2 {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-form h2 i {
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        
+        .form-group label i {
+            color: #ff6b6b;
+            margin-left: 5px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f1f3f5;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 4px #ffe3e3;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255,107,107,0.4);
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            display: none;
+        }
+        
+        .alert-success {
+            background: #d3f9d8;
+            color: #2e7d32;
+            border-right: 4px solid #2e7d32;
+        }
+        
+        .alert-error {
+            background: #ffe3e3;
+            color: #c62828;
+            border-right: 4px solid #c62828;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i>
+                    شغف
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#stories">القصص</a></li>
+                    <li><a href="about.html">عن الكاتب</a></li>
+                    <li><a href="privacy.html">الخصوصية</a></li>
+                    <li><a href="contact.html" class="active">اتصل بي</a></li>
+                </ul>
+                <div class="nav-buttons" id="navButtons">
+                    <a href="login.html" class="btn btn-outline">دخول</a>
+                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية -->
+    <div class="mobile-menu">
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+            </div>
+            <div class="mobile-user-details">
+                <h4>زائر</h4>
+                <p>سجل دخولك للمشاركة</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+        </ul>
+        
+        <div class="mobile-menu-buttons" id="mobileMenuButtons">
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </a>
+            <a href="signup.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> انضمام
+            </a>
+        </div>
+    </div>
+
+    <section class="contact-page">
+        <div class="contact-container">
+            <!-- رأس الصفحة -->
+            <div class="contact-header">
+                <h1>اتصل بي</h1>
+                <p>كلمة حب، استفسار، أو مجرد سلام</p>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- معلومات التواصل -->
+                <div class="contact-info">
+                    <h2><i class="fas fa-heart"></i> معلومات التواصل</h2>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>البريد الإلكتروني</h3>
+                            <a href="mailto:ahmedrashadali7@gmail.com">ahmedrashadali7@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>واتساب</h3>
+                            <a href="https://wa.me/962779248377">+962 77 924 8377</a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>الموقع</h3>
+                            <p>عمان, الأردن</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <h3>تابعني على</h3>
+                        <div class="social-buttons">
+                            <a href="https://www.facebook.com/share/181xfpEgzs/" class="social-button facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://wa.me/962779248377" class="social-button whatsapp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/ahmedrashadali9" class="social-button instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- نموذج الاتصال -->
+                <div class="contact-form">
+                    <h2><i class="fas fa-paper-plane"></i> أرسل لي رسالة</h2>
+                    
+                    <div class="alert alert-success" id="successAlert">
+                        <i class="fas fa-check-circle"></i>
+                        <span>تم إرسال رسالتك بنجاح! سأتواصل معك قريباً ❤️</span>
+                    </div>
+                    
+                    <div class="alert alert-error" id="errorAlert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="errorMessage"></span>
+                    </div>
+                    
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> الاسم</label>
+                            <input type="text" id="name" placeholder="أدخل اسمك" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                            <input type="email" id="email" placeholder="example@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> الموضوع</label>
+                            <input type="text" id="subject" placeholder="موضوع الرسالة" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> الرسالة</label>
+                            <textarea id="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> إرسال
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>شغف</h3>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="about.html">عن الكاتب</a></li>
+                        <li><a href="privacy.html">الخصوصية</a></li>
+                        <li><a href="contact.html">اتصل بي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معي</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع بـ ❤️ لأجلها</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // إخفاء التنبيهات القديمة
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
+            
+            // التحقق من المدخلات
+            if (!name || !email || !subject || !message) {
+                errorMessage.textContent = 'جميع الحقول مطلوبة';
+                errorAlert.style.display = 'flex';
+                return;
+            }
+            
+            // إظهار حالة الإرسال
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+            submitBtn.disabled = true;
+            
+            // محاكاة إرسال الرسالة (في الواقع، هنستخدم EmailJS أو Firebase)
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
+                submitBtn.disabled = false;
+                document.getElementById('contactForm').reset();
+                successAlert.style.display = 'flex';
+                
+                // إخفاء رسالة النجاح بعد 5 ثواني
+                setTimeout(() => {
+                    successAlert.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية - شغف</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="سياسة الخصوصية لموقع شغف للقصص الرومانسية. تعرف على كيفية حماية بياناتك واحترام خصوصيتك.">
+    <meta name="keywords" content="سياسة الخصوصية, شغف, خصوصية, أمان">
+    <meta name="author" content="أحمد رشاد">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ahmedrashadali7-sketch.github.io/shaghaf/privacy.html">
+    <meta property="og:title" content="سياسة الخصوصية - شغف">
+    <meta property="og:description" content="سياسة الخصوصية لموقع شغف للقصص الرومانسية.">
+    <meta property="og:image" content="https://i.postimg.cc/dQfwk8wW/logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .privacy-page {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff9f9, #ffffff);
+        }
+        
+        .privacy-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .privacy-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .privacy-header h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .privacy-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffb6b6);
+            border-radius: 2px;
+        }
+        
+        .privacy-header p {
+            color: #636e72;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        .privacy-card {
+            background: white;
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+        
+        .privacy-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .privacy-section h2 {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .privacy-section h2 i {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+        }
+        
+        .privacy-section h3 {
+            font-size: 1.5rem;
+            color: #2d3436;
+            margin: 25px 0 15px;
+        }
+        
+        .privacy-section p {
+            color: #2d3436;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .privacy-section ul, .privacy-section ol {
+            margin: 15px 0 15px 30px;
+            color: #2d3436;
+            line-height: 1.8;
+        }
+        
+        .privacy-section li {
+            margin-bottom: 10px;
+        }
+        
+        .privacy-section strong {
+            color: #ff6b6b;
+        }
+        
+        .highlight-box {
+            background: #fff5f5;
+            padding: 25px;
+            border-radius: 20px;
+            border-right: 4px solid #ff6b6b;
+            margin: 25px 0;
+        }
+        
+        .last-updated {
+            text-align: left;
+            color: #868e96;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f3f5;
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i>
+                    شغف
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="index.html#stories">القصص</a></li>
+                    <li><a href="about.html">عن الكاتب</a></li>
+                    <li><a href="privacy.html" class="active">الخصوصية</a></li>
+                    <li><a href="contact.html">اتصل بي</a></li>
+                </ul>
+                <div class="nav-buttons" id="navButtons">
+                    <a href="login.html" class="btn btn-outline">دخول</a>
+                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية -->
+    <div class="mobile-menu">
+        <div class="mobile-user-info" id="mobileUserInfo">
+            <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+            </div>
+            <div class="mobile-user-details">
+                <h4>زائر</h4>
+                <p>سجل دخولك للمشاركة</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+        </ul>
+        
+        <div class="mobile-menu-buttons" id="mobileMenuButtons">
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </a>
+            <a href="signup.html" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> انضمام
+            </a>
+        </div>
+    </div>
+
+    <section class="privacy-page">
+        <div class="privacy-container">
+            <!-- رأس الصفحة -->
+            <div class="privacy-header">
+                <h1>سياسة الخصوصية</h1>
+                <p>كيف نحمي بياناتك ونحترم خصوصيتك</p>
+            </div>
+            
+            <div class="privacy-card">
+                <!-- مقدمة -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-heart"></i> مرحباً بك في شغف</h2>
+                    <p>نحن في موقع "شغف" نؤمن أن الخصوصية والأمان هما أساس الثقة بيننا وبين قرائنا. في هذه الصفحة، نوضح لك كيف نتعامل مع بياناتك الشخصية ونحميها عند استخدامك لموقعنا.</p>
+                    <div class="highlight-box">
+                        <p><strong>باختصار:</strong> بياناتك آمنة معنا، ولا نشاركها مع أي طرف ثالث دون موافقتك، ونستخدمها فقط لتحسين تجربتك في الموقع.</p>
+                    </div>
+                </div>
+                
+                <!-- البيانات التي نجمعها -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-database"></i> البيانات التي نجمعها</h2>
+                    <p>عند استخدامك لموقع شغف، قد نجمع الأنواع التالية من البيانات:</p>
+                    <ul>
+                        <li><strong>بيانات الحساب:</strong> عند إنشاء حساب، نجمع اسمك وبريدك الإلكتروني (وصورة شخصية إذا أضفتها).</li>
+                        <li><strong>بيانات التفاعل:</strong> مثل التعليقات، الإعجابات، والقصص المفضلة.</li>
+                        <li><strong>بيانات الاستخدام:</strong> كيف تتفاعل مع الموقع، الصفحات التي تزورها، ووقت الزيارة.</li>
+                        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> نستخدمها لتحسين تجربتك وتذكر تفضيلاتك.</li>
+                    </ul>
+                </div>
+                
+                <!-- كيف نستخدم بياناتك -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-cog"></i> كيف نستخدم بياناتك</h2>
+                    <p>نستخدم بياناتك للأغراض التالية:</p>
+                    <ul>
+                        <li><strong>تقديم الخدمات:</strong> تمكينك من تسجيل الدخول، كتابة التعليقات، وإضافة القصص للمفضلة.</li>
+                        <li><strong>تحسين الموقع:</strong> فهم كيفية استخدام الزوار للموقع وتحسين تجربتهم.</li>
+                        <li><strong>التواصل معك:</strong> إرسال إشعارات مهمة (مثل تأكيد الحساب) أو ردود على استفساراتك.</li>
+                        <li><strong>الإعلانات (مستقبلاً):</strong> إذا أضفنا إعلانات، سنستخدم بيانات غير شخصية لتخصيصها.</li>
+                    </ul>
+                </div>
+                
+                <!-- مشاركة البيانات -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-share-alt"></i> مشاركة البيانات</h2>
+                    <p>نحن لا نبيع أو نؤجر بياناتك الشخصية لأي طرف ثالث. قد نشارك بياناتك في الحالات التالية فقط:</p>
+                    <ul>
+                        <li><strong>مع مزودي الخدمة:</strong> مثل Firebase (لاستضافة البيانات والمصادقة) و EmailJS (لإرسال الإيميلات)، وهم ملتزمون بسياسات خصوصية صارمة.</li>
+                        <li><strong>للامتثال للقانون:</strong> إذا طلب منا قانوناً أو أمر قضائي مشاركة البيانات.</li>
+                    </ul>
+                </div>
+                
+                <!-- حقوقك -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-user-check"></i> حقوقك</h2>
+                    <p>لديك الحقوق التالية بخصوص بياناتك:</p>
+                    <ul>
+                        <li><strong>الوصول:</strong> يمكنك طلب نسخة من بياناتك الشخصية.</li>
+                        <li><strong>التصحيح:</strong> يمكنك تعديل بياناتك من صفحة الملف الشخصي.</li>
+                        <li><strong>الحذف:</strong> يمكنك طلب حذف حسابك وبياناتك بالتواصل معنا.</li>
+                        <li><strong>الاعتراض:</strong> يمكنك الاعتراض على استخدام بياناتك لأغراض التسويق.</li>
+                    </ul>
+                </div>
+                
+                <!-- أمان البيانات -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-shield-alt"></i> أمان البيانات</h2>
+                    <p>نحن نتخذ إجراءات أمنية مناسبة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الإفشاء، بما في ذلك:</p>
+                    <ul>
+                        <li>استخدام HTTPS لتشفير الاتصال.</li>
+                        <li>الاعتماد على Firebase الموثوق لحماية البيانات.</li>
+                        <li>عدم تخزين معلومات حساسة مثل كلمات المرور (تدار بواسطة Firebase Authentication).</li>
+                    </ul>
+                </div>
+                
+                <!-- ملفات تعريف الارتباط -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-cookie-bite"></i> ملفات تعريف الارتباط (Cookies)</h2>
+                    <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك. هذه الملفات تساعدنا في:</p>
+                    <ul>
+                        <li>تذكر تفضيلاتك وإعداداتك.</li>
+                        <li>تحليل كيفية استخدامك للموقع.</li>
+                        <li>تقديم إعلانات مخصصة (في المستقبل).</li>
+                    </ul>
+                    <p>يمكنك ضبط إعدادات المتصفح لرفض ملفات تعريف الارتباط، لكن هذا قد يؤثر على وظائف الموقع.</p>
+                </div>
+                
+                <!-- خصوصية الأطفال -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-child"></i> خصوصية الأطفال</h2>
+                    <p>موقع شغف غير موجه للأطفال دون سن ١٣ عاماً. نحن لا نجمع بيانات من الأطفال عمداً. إذا اكتشفنا أننا جمعنا بيانات لطفل دون السن القانونية، سنحذفها فوراً.</p>
+                </div>
+                
+                <!-- التغييرات على السياسة -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-history"></i> التغييرات على هذه السياسة</h2>
+                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بنشر أي تغييرات على هذه الصفحة مع تحديث تاريخ آخر تعديل. ننصحك بمراجعة هذه الصفحة دورياً.</p>
+                </div>
+                
+                <!-- التواصل معنا -->
+                <div class="privacy-section">
+                    <h2><i class="fas fa-envelope"></i> التواصل معنا</h2>
+                    <p>إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية، يمكنك التواصل معنا عبر:</p>
+                    <ul>
+                        <li><strong>البريد الإلكتروني:</strong> <a href="mailto:ahmedrashadali7@gmail.com">ahmedrashadali7@gmail.com</a></li>
+                        <li><strong>واتساب:</strong> <a href="https://wa.me/962779248377">+962 77 924 8377</a></li>
+                    </ul>
+                </div>
+                
+                <div class="last-updated">
+                    آخر تحديث: ٣ مارس ٢٠٢٦
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>شغف</h3>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="about.html">عن الكاتب</a></li>
+                        <li><a href="privacy.html">الخصوصية</a></li>
+                        <li><a href="contact.html">اتصل بي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معي</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع بـ ❤️ لأجلها</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
