@@ -1,11 +1,22 @@
 # robots.txt لموقع شغف
+# تم التحديث: ٤ مارس ٢٠٢٦
+
+# السماح لجميع محركات البحث بالزحف للموقع
 User-agent: *
 Allow: /
 
-# منع الزحف لصفحات النظام (اختياري)
+# منع الزحف لصفحات النظام والإدارة (اختياري)
 Disallow: /admin/
 Disallow: /login.html
 Disallow: /signup.html
 
-# مكان خريطة الموقع
+# الصفحات العامة التي نريد فهرستها (يتم الزحف إليها تلقائياً)
+# - /index.html (الرئيسية)
+# - /about.html (عن الكاتب)
+# - /privacy.html (سياسة الخصوصية)
+# - /contact.html (اتصل بي)
+# - /favorites.html (المفضلة)
+# - /story.html (صفحات القصص - يتم الزحف إليها عبر الـ Sitemap)
+
+# تحديد موقع خريطة الموقع (مهم جداً)
 Sitemap: https://ahmedrashadali7-sketch.github.io/shaghaf/sitemap.xml
