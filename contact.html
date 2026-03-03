@@ -24,9 +24,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- أيقونة الموقع (Favicon) -->
-<link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    <!-- EmailJS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         .contact-page {
             padding: 60px 0;
@@ -311,6 +314,7 @@
                     <li><a href="about.html">عن الكاتب</a></li>
                     <li><a href="privacy.html">الخصوصية</a></li>
                     <li><a href="contact.html" class="active">اتصل بي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
                 </ul>
                 <div class="nav-buttons" id="navButtons">
                     <a href="login.html" class="btn btn-outline">دخول</a>
@@ -467,6 +471,7 @@
                         <li><a href="about.html">عن الكاتب</a></li>
                         <li><a href="privacy.html">الخصوصية</a></li>
                         <li><a href="contact.html">اتصل بي</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -553,9 +558,14 @@
                 initMobileMenu();
             }
         })();
+    </script>
 
-        // كود نموذج الاتصال
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    <!-- كود إرسال نموذج الاتصال باستخدام EmailJS -->
+    <script>
+        // تهيئة EmailJS بمفتاحك
+        emailjs.init('VRNMIU4yQ3hup9r84');
+        
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
@@ -567,28 +577,83 @@
             const errorAlert = document.getElementById('errorAlert');
             const errorMessage = document.getElementById('errorMessage');
             
+            // إخفاء التنبيهات القديمة
             successAlert.style.display = 'none';
             errorAlert.style.display = 'none';
             
+            // التحقق من المدخلات
             if (!name || !email || !subject || !message) {
                 errorMessage.textContent = 'جميع الحقول مطلوبة';
                 errorAlert.style.display = 'flex';
                 return;
             }
             
+            // التحقق من صحة البريد الإلكتروني
+            if (!email.includes('@') || !email.includes('.')) {
+                errorMessage.textContent = 'البريد الإلكتروني غير صحيح';
+                errorAlert.style.display = 'flex';
+                return;
+            }
+            
+            // إظهار حالة الإرسال
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
             submitBtn.disabled = true;
             
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
-                submitBtn.disabled = false;
-                document.getElementById('contactForm').reset();
+            try {
+                console.log('🔄 جاري الإرسال...');
+                console.log('📧 البيانات:', { name, email, subject, message });
+                
+                // إرسال الإيميل عبر EmailJS
+                const response = await emailjs.send(
+                    'service_ju780d2',      // Service ID
+                    'template_uyt7oaw',      // Template ID للاتصال
+                    {
+                        name: name,
+                        email: email,
+                        subject: subject,
+                        message: message
+                    }
+                );
+                
+                console.log('✅ تم الإرسال:', response);
+                
+                // إظهار رسالة نجاح
                 successAlert.style.display = 'flex';
                 
+                // تفريغ النموذج
+                document.getElementById('contactForm').reset();
+                
+                // إعادة الزر لحالته الطبيعية
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
+                submitBtn.disabled = false;
+                
+                // إخفاء رسالة النجاح بعد 5 ثواني
                 setTimeout(() => {
                     successAlert.style.display = 'none';
                 }, 5000);
-            }, 1500);
+                
+            } catch (error) {
+                console.error('❌ فشل الإرسال:', error);
+                console.error('❌ رسالة الخطأ:', error.message);
+                console.error('❌ كود الخطأ:', error.code);
+                
+                // عرض رسالة خطأ واضحة
+                if (error.message.includes('Service')) {
+                    errorMessage.textContent = 'خطأ في Service ID. تأكد من الرقم.';
+                } else if (error.message.includes('Template')) {
+                    errorMessage.textContent = 'خطأ في Template ID. تأكد من الرقم.';
+                } else if (error.message.includes('Public Key')) {
+                    errorMessage.textContent = 'خطأ في Public Key. تأكد من الرقم.';
+                } else {
+                    errorMessage.textContent = 'حدث خطأ في إرسال الرسالة: ' + error.message;
+                }
+                
+                errorAlert.style.display = 'flex';
+                
+                // إعادة الزر لحالته الطبيعية
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
+                submitBtn.disabled = false;
+            }
         });
     </script>
 </body>
