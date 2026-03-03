@@ -24,7 +24,7 @@
         <priority>0.8</priority>
     </url>
     
-    <!-- صفحات تسجيل الدخول (أولوية أقل) -->
+    <!-- صفحات تسجيل الدخول -->
     <url>
         <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/login.html</loc>
         <lastmod>2026-03-02</lastmod>
@@ -39,8 +39,7 @@
         <priority>0.3</priority>
     </url>
     
-    <!-- القصص - أضف كل قصة هنا -->
-    <!-- قصة 1: في آخر دقيقة -->
+    <!-- قصة 1 -->
     <url>
         <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/story.html?id=1</loc>
         <lastmod>2026-03-01</lastmod>
@@ -48,7 +47,7 @@
         <priority>0.8</priority>
     </url>
     
-    <!-- قصة 2: قهوة الصباح -->
+    <!-- قصة 2 -->
     <url>
         <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/story.html?id=2</loc>
         <lastmod>2026-03-01</lastmod>
@@ -56,14 +55,15 @@
         <priority>0.8</priority>
     </url>
     
-    <!-- قصة 3: في انتظارك كل مساء -->
+    <!-- قصة 3 -->
     <url>
         <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/story.html?id=3</loc>
         <lastmod>2026-03-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-        <!-- قصة 4:أول فديو كول -->
+    
+    <!-- قصة 4: أول فيديو كول -->
     <url>
         <loc>https://ahmedrashadali7-sketch.github.io/shaghaf/story.html?id=4</loc>
         <lastmod>2026-03-03</lastmod>
