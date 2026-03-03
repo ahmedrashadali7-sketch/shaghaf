@@ -562,99 +562,83 @@
 
     <!-- كود إرسال نموذج الاتصال باستخدام EmailJS -->
     <script>
-        // تهيئة EmailJS بمفتاحك
-        emailjs.init('VRNMIU4yQ3hup9r84');
+    // تهيئة EmailJS
+    emailjs.init('VRNMIU4yQ3hup9r84');
+    
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            const submitBtn = document.getElementById('submitBtn');
-            const successAlert = document.getElementById('successAlert');
-            const errorAlert = document.getElementById('errorAlert');
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // إخفاء التنبيهات القديمة
-            successAlert.style.display = 'none';
-            errorAlert.style.display = 'none';
-            
-            // التحقق من المدخلات
-            if (!name || !email || !subject || !message) {
-                errorMessage.textContent = 'جميع الحقول مطلوبة';
-                errorAlert.style.display = 'flex';
-                return;
-            }
-            
-            // التحقق من صحة البريد الإلكتروني
-            if (!email.includes('@') || !email.includes('.')) {
-                errorMessage.textContent = 'البريد الإلكتروني غير صحيح';
-                errorAlert.style.display = 'flex';
-                return;
-            }
-            
-            // إظهار حالة الإرسال
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-            submitBtn.disabled = true;
-            
-            try {
-                console.log('🔄 جاري الإرسال...');
-                console.log('📧 البيانات:', { name, email, subject, message });
-                
-                // إرسال الإيميل عبر EmailJS
-                const response = await emailjs.send(
-                    'service_ju780d2',      // Service ID
-                    'template_uyt7oaw',      // Template ID للاتصال
-                    {
-                        name: name,
-                        email: email,
-                        subject: subject,
-                        message: message
-                    }
-                );
-                
-                console.log('✅ تم الإرسال:', response);
-                
-                // إظهار رسالة نجاح
-                successAlert.style.display = 'flex';
-                
-                // تفريغ النموذج
-                document.getElementById('contactForm').reset();
-                
-                // إعادة الزر لحالته الطبيعية
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
-                submitBtn.disabled = false;
-                
-                // إخفاء رسالة النجاح بعد 5 ثواني
-                setTimeout(() => {
-                    successAlert.style.display = 'none';
-                }, 5000);
-                
-            } catch (error) {
-                console.error('❌ فشل الإرسال:', error);
-                console.error('❌ رسالة الخطأ:', error.message);
-                console.error('❌ كود الخطأ:', error.code);
-                
-                // عرض رسالة خطأ واضحة
-                if (error.message.includes('Service')) {
-                    errorMessage.textContent = 'خطأ في Service ID. تأكد من الرقم.';
-                } else if (error.message.includes('Template')) {
-                    errorMessage.textContent = 'خطأ في Template ID. تأكد من الرقم.';
-                } else if (error.message.includes('Public Key')) {
-                    errorMessage.textContent = 'خطأ في Public Key. تأكد من الرقم.';
-                } else {
-                    errorMessage.textContent = 'حدث خطأ في إرسال الرسالة: ' + error.message;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        const submitBtn = document.getElementById('submitBtn');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // إخفاء التنبيهات القديمة
+        successAlert.style.display = 'none';
+        errorAlert.style.display = 'none';
+        
+        // التحقق من المدخلات
+        if (!name || !email || !subject || !message) {
+            errorMessage.textContent = 'جميع الحقول مطلوبة';
+            errorAlert.style.display = 'flex';
+            return;
+        }
+        
+        // إظهار حالة الإرسال
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+        submitBtn.disabled = true;
+        
+        // استخدام fetch بدلاً من emailjs.send (أكثر استقراراً)
+        fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                service_id: 'service_ju780d2',
+                template_id: 'template_uyt7oaw',
+                user_id: 'VRNMIU4yQ3hup9r84',
+                template_params: {
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message
                 }
-                
-                errorAlert.style.display = 'flex';
-                
-                // إعادة الزر لحالته الطبيعية
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
-                submitBtn.disabled = false;
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text) });
             }
+            return response.json();
+        })
+        .then(data => {
+            console.log('✅ تم الإرسال:', data);
+            
+            successAlert.style.display = 'flex';
+            document.getElementById('contactForm').reset();
+            
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
+            submitBtn.disabled = false;
+            
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 5000);
+        })
+        .catch(error => {
+            console.error('❌ فشل الإرسال:', error);
+            
+            errorMessage.textContent = 'حدث خطأ في إرسال الرسالة. يرجى المحاولة لاحقاً.';
+            errorAlert.style.display = 'flex';
+            
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
+            submitBtn.disabled = false;
         });
-    </script>
+    });
+</script>
 </body>
 </html>
