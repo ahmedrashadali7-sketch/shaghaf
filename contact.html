@@ -577,22 +577,20 @@
         const errorAlert = document.getElementById('errorAlert');
         const errorMessage = document.getElementById('errorMessage');
         
-        // إخفاء التنبيهات القديمة
         successAlert.style.display = 'none';
         errorAlert.style.display = 'none';
         
-        // التحقق من المدخلات
         if (!name || !email || !subject || !message) {
             errorMessage.textContent = 'جميع الحقول مطلوبة';
             errorAlert.style.display = 'flex';
             return;
         }
         
-        // إظهار حالة الإرسال
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
         submitBtn.disabled = true;
         
-        // استخدام fetch بدلاً من emailjs.send (أكثر استقراراً)
+        console.log('📤 البيانات:', { name, email, subject, message });
+        
         fetch('https://api.emailjs.com/api/v1.0/email/send', {
             method: 'POST',
             headers: {
@@ -617,24 +615,17 @@
             return response.json();
         })
         .then(data => {
-            console.log('✅ تم الإرسال:', data);
-            
+            console.log('✅ نجاح:', data);
             successAlert.style.display = 'flex';
             document.getElementById('contactForm').reset();
-            
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
             submitBtn.disabled = false;
-            
-            setTimeout(() => {
-                successAlert.style.display = 'none';
-            }, 5000);
+            setTimeout(() => successAlert.style.display = 'none', 5000);
         })
         .catch(error => {
-            console.error('❌ فشل الإرسال:', error);
-            
+            console.error('❌ خطأ:', error);
             errorMessage.textContent = 'حدث خطأ في إرسال الرسالة. يرجى المحاولة لاحقاً.';
             errorAlert.style.display = 'flex';
-            
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال';
             submitBtn.disabled = false;
         });
