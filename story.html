@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>قراءة قصة - شغف</title>
     
     <!-- SEO Meta Tags (سيتم تحديثها ديناميكياً) -->
@@ -16,100 +16,1894 @@
     <meta property="og:description" content="اقرأ قصة رومانسية قصيرة">
     <meta property="og:image" content="https://shaghaf.com/images/default-og.jpg">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- أيقونة الموقع (Favicon) -->
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
     <link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
     
-    <!-- حركة القلب -->
     <style>
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        /* ===== المتغيرات العامة ===== */
+        :root {
+            --primary: #ff6b6b;
+            --primary-light: #ffe3e3;
+            --primary-dark: #fa5252;
+            --secondary: #ffb6b6;
+            --secondary-light: #ffe9e9;
+            --text-dark: #2d3436;
+            --text-soft: #636e72;
+            --text-light: #868e96;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 12px rgba(255, 107, 107, 0.08);
+            --shadow-md: 0 8px 24px rgba(255, 107, 107, 0.12);
+            --shadow-lg: 0 16px 32px rgba(255, 107, 107, 0.16);
+            --shadow-xl: 0 24px 48px rgba(255, 107, 107, 0.2);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 30px;
+            --radius-xl: 40px;
+            --radius-2xl: 60px;
+            --radius-circle: 50%;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        /* تحسين زر الإعجاب والمفضلة */
-        .story-actions {
-            margin: 40px 0 20px;
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Amiri', sans-serif;
+            background: linear-gradient(135deg, #fdf4f4 0%, #ffffff 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== خلفية متحركة بالقلوب ===== */
+        .floating-hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.03;
+            font-size: clamp(20px, 5vw, 60px);
+            animation: floatParticle 20s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.03;
+            }
+            90% {
+                opacity: 0.03;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .heart-particle:nth-child(1) { left: 10%; animation-duration: 25s; animation-delay: 0s; }
+        .heart-particle:nth-child(2) { left: 30%; animation-duration: 30s; animation-delay: 5s; }
+        .heart-particle:nth-child(3) { left: 50%; animation-duration: 35s; animation-delay: 10s; }
+        .heart-particle:nth-child(4) { left: 70%; animation-duration: 28s; animation-delay: 15s; }
+        .heart-particle:nth-child(5) { left: 90%; animation-duration: 32s; animation-delay: 20s; }
+        
+        /* ===== شريط التنقل المحسن ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(255, 107, 107, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.15);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 30px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: clamp(60px, 8vh, 80px);
+        }
+        
+        .logo {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition-normal);
+        }
+        
+        .logo i {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: var(--primary);
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 3vw, 40px);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-soft);
+            text-decoration: none;
+            padding: 10px 0;
+            position: relative;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            white-space: nowrap;
+            transition: var(--transition-normal);
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: transform var(--transition-normal);
+            border-radius: 3px;
+        }
+        
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: clamp(8px, 2vw, 15px);
+        }
+        
+        /* ===== الأزرار المتطورة ===== */
+        .btn {
+            padding: clamp(8px, 1.5vw, 12px) clamp(16px, 3vw, 28px);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #ff8e8e);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .btn-large {
+            padding: clamp(12px, 2vw, 16px) clamp(24px, 4vw, 40px);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+        
+        .btn-glow {
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.5); }
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #fff5f5, white);
+            color: var(--primary);
+            border: 2px solid #ffb6b6;
+            padding: clamp(6px, 1.5vh, 8px) clamp(12px, 3vw, 20px);
+            border-radius: 30px;
+            font-size: clamp(0.85rem, 2.2vw, 0.9rem);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background 0.3s;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        /* قائمة المستخدم */
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            object-fit: cover;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            padding: 10px;
+            min-width: 150px;
+            display: none;
+            z-index: 100;
+            border: 1px solid var(--primary-light);
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: var(--radius-sm);
+        }
+        
+        .user-dropdown a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        /* ===== القائمة الجانبية الفاخرة ===== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(85%, 380px);
+            height: 100vh;
+            background: linear-gradient(145deg, #ffffff, #fff5f5);
+            box-shadow: -10px 0 50px rgba(255, 107, 107, 0.3);
+            transition: right 0.6s var(--transition-bounce);
+            z-index: 1001;
+            padding: clamp(25px, 5vh, 35px) clamp(20px, 3vw, 30px);
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 107, 107, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu.loading {
+            position: relative;
+        }
+
+        .mobile-menu.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+
+        .mobile-menu.loading::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--primary-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            z-index: 11;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* زخارف متحركة */
+        .mobile-menu::before {
+            content: '❤️';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: clamp(100px, 20vw, 200px);
+            opacity: 0.05;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            animation: floatHeart 8s infinite ease-in-out;
+        }
+
+        .mobile-menu::after {
+            content: '💌';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: clamp(80px, 15vw, 150px);
+            opacity: 0.05;
+            transform: rotate(15deg);
+            pointer-events: none;
+            animation: floatHeart 10s infinite ease-in-out reverse;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(-15deg) scale(1); }
+            50% { transform: translateY(-30px) rotate(-10deg) scale(1.1); }
+        }
+
+        /* رأس القائمة */
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 15px);
+            margin-bottom: clamp(25px, 6vh, 40px);
+            padding-bottom: clamp(15px, 3vh, 20px);
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            position: relative;
+        }
+
+        .mobile-menu-header .logo-mini {
+            width: clamp(45px, 8vw, 55px);
+            height: clamp(45px, 8vw, 55px);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            border-radius: clamp(12px, 3vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            transform: rotate(5deg);
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu-header .logo-mini:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .mobile-menu-header h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* زر الإغلاق */
+        .mobile-menu-close {
+            position: absolute;
+            top: clamp(15px, 4vh, 20px);
+            left: clamp(15px, 4vw, 20px);
+            width: clamp(35px, 6vw, 40px);
+            height: clamp(35px, 6vw, 40px);
+            background: rgba(255, 107, 107, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #ff6b6b;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .mobile-menu-close:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* بطاقة المستخدم */
+        .mobile-user-info {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            margin: clamp(30px, 8vh, 40px) 0 clamp(20px, 4vh, 25px);
+            padding: clamp(12px, 2.5vh, 15px);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 182, 182, 0.05));
+            border-radius: clamp(15px, 4vw, 20px);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-user-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .mobile-user-info:hover::before {
+            opacity: 1;
+        }
+
+        .mobile-user-info:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateY(-3px);
+            border-color: #ff6b6b;
+        }
+
+        .mobile-user-avatar {
+            width: clamp(45px, 9vw, 55px);
+            height: clamp(45px, 9vw, 55px);
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .mobile-user-details {
+            flex: 1;
+        }
+
+        .mobile-user-details h4 {
+            font-size: clamp(1rem, 2.8vw, 1.1rem);
+            color: #2d3436;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .mobile-user-details p {
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            color: #636e72;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-user-details p i {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+        }
+
+        /* عناصر القائمة */
+        .mobile-menu ul {
+            list-style: none;
+            margin: 0 0 clamp(20px, 5vh, 30px) 0;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: clamp(8px, 1.8vh, 12px);
+            transform: translateX(-30px);
+            opacity: 0;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .mobile-menu ul li:nth-child(1) { animation-delay: 0.05s; }
+        .mobile-menu ul li:nth-child(2) { animation-delay: 0.1s; }
+        .mobile-menu ul li:nth-child(3) { animation-delay: 0.15s; }
+        .mobile-menu ul li:nth-child(4) { animation-delay: 0.2s; }
+        .mobile-menu ul li:nth-child(5) { animation-delay: 0.25s; }
+        .mobile-menu ul li:nth-child(6) { animation-delay: 0.3s; }
+        .mobile-menu ul li:nth-child(7) { animation-delay: 0.35s; }
+        .mobile-menu ul li:nth-child(8) { animation-delay: 0.4s; }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .mobile-menu ul li a {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            padding: clamp(12px, 2.5vh, 15px) clamp(15px, 3vw, 20px);
+            color: #2d3436;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: clamp(12px, 3vw, 15px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .mobile-menu ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .mobile-menu ul li a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu ul li a:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateX(8px) scale(1.02);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.15);
+        }
+
+        .mobile-menu ul li a i {
+            width: 25px;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: #ff6b6b;
+            transition: all 0.3s;
             text-align: center;
+        }
+
+        .mobile-menu ul li a:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: #ff6b6b;
+        }
+
+        /* الصفحة النشطة */
+        .mobile-menu ul li a.active {
+            background: linear-gradient(135deg, #ff6b6b20, #ffb6b620);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            font-weight: 700;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 107, 107, 0.5); }
+        }
+
+        .mobile-menu ul li a.active::after {
+            content: '❤️';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .mobile-menu ul li a.active i {
+            color: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        /* أزرار القائمة */
+        .mobile-menu-buttons {
+            margin-top: clamp(20px, 5vh, 30px);
+            padding-top: clamp(15px, 3vh, 20px);
+            border-top: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             flex-direction: column;
+            gap: clamp(10px, 2vh, 12px);
+        }
+
+        .mobile-menu-buttons .btn {
+            width: 100%;
+            text-align: center;
+            padding: clamp(12px, 2.5vh, 14px);
+            border-radius: clamp(12px, 3vw, 15px);
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .mobile-menu-buttons .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* خلفية معتمة */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ===== زر العودة للأعلى ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-xl);
+            z-index: 99;
+            transition: all var(--transition-bounce);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .scroll-top.show {
+            display: flex;
+            animation: fadeInUp 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== صفحة القصة المحسنة ===== */
+        .story-page {
+            padding: clamp(30px, 6vh, 60px) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* مسار التنقل المحسن */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .breadcrumb a {
+            color: var(--text-soft);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+            transform: translateX(-2px);
+        }
+
+        .breadcrumb i {
+            color: var(--primary);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .breadcrumb span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* رأس القصة المحسن */
+        .story-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .story-header h1 {
+            font-size: clamp(2.2rem, 6vw, 3rem);
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            line-height: 1.3;
+        }
+
+        .story-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            animation: expandWidth 1s ease 0.3s both;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        .story-header h1 span {
+            position: absolute;
+            top: -20px;
+            left: -40px;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* بطاقة المعلومات */
+        .story-meta-card {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px 30px;
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            margin-top: 20px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .story-meta-card span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-soft);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .story-meta-card span:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .story-meta-card i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* صورة الغلاف */
+        .story-cover {
+            margin: 40px 0;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            animation: zoomIn 1s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .story-cover img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .story-cover:hover img {
+            transform: scale(1.02);
+        }
+
+        /* محتوى القصة */
+        .story-content {
+            background: white;
+            padding: 50px;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            line-height: 2;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+        }
+
+        .story-content::before {
+            content: '“';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 150px;
+            color: var(--primary);
+            opacity: 0.05;
+            font-family: 'Amiri', serif;
+            transform: rotate(15deg);
+            animation: rotateSlow 20s infinite linear;
+        }
+
+        .story-content::after {
+            content: '”';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            font-size: 150px;
+            color: var(--primary);
+            opacity: 0.05;
+            font-family: 'Amiri', serif;
+            transform: rotate(-15deg);
+            animation: rotateSlow 20s infinite linear reverse;
+        }
+
+        .story-content p {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* أزرار التفاعل المحسنة */
+        .story-actions {
+            margin: 50px 0 30px;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 16px 45px;
+            font-size: 1.2rem;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #fff5f5, white);
+            border: 2px solid #ffb6b6;
+            transition: all var(--transition-bounce);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .action-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .action-btn i {
+            font-size: 1.3rem;
+            transition: transform 0.3s;
+        }
+        
+        .action-btn:hover i {
+            transform: scale(1.2);
+        }
+
+        .action-btn.favorite-btn.active {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+        
+        .action-btn.favorite-btn.active i {
+            color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .story-actions p {
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            margin-top: 15px;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+
+        /* قسم التعليقات المحسن */
+        .comments-section {
+            margin-top: 60px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .comments-section h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            display: flex;
             align-items: center;
             gap: 15px;
         }
+
+        .comments-section h3 i {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .comment-form {
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            margin-bottom: 30px;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f1f3f5;
+            border-radius: var(--radius-lg);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fafafa;
+            margin-bottom: 15px;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .login-required {
+            background: rgba(255, 107, 107, 0.05);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px dashed var(--primary);
+        }
+
+        .login-required a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .login-required a:hover {
+            text-decoration: underline;
+            transform: translateX(-5px);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            transition: all 0.3s;
+            animation: slideInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .comment-item:nth-child(1) { animation-delay: 0.1s; }
+        .comment-item:nth-child(2) { animation-delay: 0.2s; }
+        .comment-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .comment-item:hover {
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .comment-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .comment-author-info h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .comment-author-info span {
+            font-size: 0.85rem;
+            color: var(--text-soft);
+        }
+
+        .comment-text {
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-right: 57px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            padding-right: 57px;
+        }
+
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-soft);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .comment-action-btn:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .comment-action-btn.active {
+            color: var(--primary);
+        }
+
+        .comment-action-btn i {
+            font-size: 1.1rem;
+        }
+
+        .replies-section {
+            margin-top: 20px;
+            padding-right: 57px;
+        }
+
+        .reply-item {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 10px;
+            border-right: 3px solid var(--primary);
+            animation: slideInRight 0.5s ease;
+        }
+
+        .reply-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .reply-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .reply-info h5 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .admin-badge {
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .reply-info span {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+        }
+
+        .reply-text {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .empty-comments {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+        }
+
+        .empty-comments i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            opacity: 0.3;
+            animation: float 3s infinite;
+        }
+
+        /* إعلان محسن */
+        .ad-container {
+            margin: 40px 0 20px;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .ad-card {
+            display: inline-block;
+            background: white;
+            padding: 20px 25px;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            max-width: 100%;
+            transition: all 0.3s;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .ad-label {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .ad-label i {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .ad-card img {
+            max-width: 100%;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--secondary);
+            transition: all 0.3s;
+        }
+
+        .ad-card:hover img {
+            border-color: var(--primary);
+        }
+
+        .ad-note {
+            color: #b2bec3;
+            font-size: 0.7rem;
+            margin-top: 8px;
+        }
+
+        /* تذييل الصفحة المحسن */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: clamp(40px, 8vh, 80px) 0 clamp(20px, 4vh, 40px);
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
         
-        .action-buttons {
+        .footer::before {
+            content: '❤️';
+            position: absolute;
+            font-size: clamp(100px, 20vw, 200px);
+            opacity: 0.03;
+            bottom: -30px;
+            left: -30px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            animation: floatHeart 10s infinite;
+        }
+        
+        .footer::after {
+            content: '📖';
+            position: absolute;
+            font-size: clamp(80px, 15vw, 150px);
+            opacity: 0.03;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+            pointer-events: none;
+            animation: floatHeart 12s infinite reverse;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(30px, 6vw, 50px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 40px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-section {
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+        
+        .footer-section:nth-child(1) { animation-delay: 0.1s; }
+        .footer-section:nth-child(2) { animation-delay: 0.2s; }
+        .footer-section:nth-child(3) { animation-delay: 0.3s; }
+        
+        .footer-section h3 {
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 3vw, 1.3rem);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        
+        .footer-section:hover h4::after {
+            width: 100%;
+        }
+        
+        .footer-section p {
+            color: #a0a0a0;
+            line-height: 2;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all var(--transition-normal);
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .footer-section ul a::before {
+            content: '❤️';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .footer-section ul a:hover::before {
+            opacity: 1;
+            right: -30px;
+            animation: heartbeat 1s infinite;
+        }
+        
+        .footer-section ul a:hover {
+            color: var(--primary);
+            transform: translateX(-8px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: clamp(40px, 6vw, 45px);
+            height: clamp(40px, 6vw, 45px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all var(--transition-bounce);
+            font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .social-links a:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: clamp(20px, 4vh, 40px);
+            margin-top: clamp(20px, 4vh, 40px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+        }
+        
+        .footer-bottom i {
+            color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        /* رسالة الخطأ المحسنة */
+        .error-container {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(145deg, #ffffff, #fff9f9);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 600px;
+            margin: 40px auto;
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 0.8s ease;
+        }
+
+        .error-container::before {
+            content: '❤️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            opacity: 0.03;
+            transform: rotate(15deg);
+            animation: rotateSlow 20s infinite linear;
+        }
+
+        .error-container::after {
+            content: '❤️';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            font-size: 8rem;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            animation: rotateSlow 20s infinite linear reverse;
+        }
+
+        .error-icon {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            animation: floatError 3s infinite;
+        }
+
+        @keyframes floatError {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .error-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .error-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 15px auto;
+            border-radius: 3px;
+        }
+
+        .error-message {
+            color: var(--text-soft);
+            font-size: 1.2rem;
+            margin: 25px 0;
+            line-height: 1.8;
+        }
+
+        .error-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
-        .action-btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 60px;
-            background: linear-gradient(135deg, #fff5f5, white);
-            border: 2px solid #ffb6b6;
-            transition: all 0.3s;
+
+        .error-btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Cairo', sans-serif;
         }
-        
-        .action-btn:hover {
-            transform: scale(1.05);
-            background: #ff6b6b;
+
+        .error-btn.primary {
+            background: linear-gradient(135deg, var(--primary), #ff8e8e);
             color: white;
-            border-color: #ff6b6b;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
         }
-        
-        .action-btn.active {
-            background: #ff6b6b;
+
+        .error-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .error-btn.secondary {
+            background: white;
+            border: 2px solid #ffb6b6;
+            color: var(--primary);
+        }
+
+        .error-btn.secondary:hover {
+            background: var(--primary);
             color: white;
-            border-color: #ff6b6b;
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
-        
-        .action-btn i {
-            font-size: 1.3rem;
-        }
-        
-        .action-btn.active i {
-            color: white;
-        }
-        
-        .action-btn.favorite-btn {
-            background: linear-gradient(135deg, #fff5f5, white);
-        }
-        
-        .action-btn.favorite-btn.active {
-            background: #ffb6b6;
-            color: #2d3436;
-        }
-        
-        .action-btn.favorite-btn.active i {
-            color: #ff6b6b;
-        }
-        
-        .story-actions p {
-            color: #636e72;
+
+        .error-note {
+            color: #b2bec3;
             font-size: 0.9rem;
-            margin-top: 5px;
+            margin-top: 25px;
+        }
+
+        /* تحسينات للموبايل */
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .story-header h1 {
+                font-size: 2rem;
+            }
+
+            .story-meta-card {
+                padding: 12px 20px;
+                gap: 15px;
+            }
+
+            .story-content {
+                padding: 30px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+
+            .comment-author-info h4 {
+                font-size: 1rem;
+            }
+
+            .comment-text {
+                padding-right: 0;
+            }
+
+            .comment-actions {
+                padding-right: 0;
+            }
+
+            .replies-section {
+                padding-right: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-section h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .story-meta-card {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .story-content {
+                padding: 20px;
+                font-size: 1rem;
+            }
+
+            .comment-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .comment-author {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .mobile-menu {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .mobile-menu-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu ul li a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-user-avatar {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
+    
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body>
+    <!-- خلفية متحركة بالقلوب -->
+    <div class="floating-hearts-bg">
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+    </div>
+
+    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -127,7 +1921,7 @@
                 </ul>
                 <div class="nav-buttons" id="navButtons">
                     <a href="login.html" class="btn btn-outline">دخول</a>
-                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                    <a href="signup.html" class="btn btn-primary btn-glow">انضمام</a>
                 </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -136,14 +1930,26 @@
         </div>
     </nav>
 
+    <!-- القائمة الجانبية الفاخرة -->
     <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo-mini">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>شغف</h3>
+        </div>
+        
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        
         <div class="mobile-user-info" id="mobileUserInfo">
             <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
             </div>
             <div class="mobile-user-details">
                 <h4>زائر</h4>
-                <p>سجل دخولك للمشاركة</p>
+                <p><i class="fas fa-heart"></i> سجل دخولك للمشاركة</p>
             </div>
         </div>
         
@@ -166,9 +1972,14 @@
         </div>
     </div>
 
+    <!-- زر العودة للأعلى -->
+    <button id="scrollToTop" class="scroll-top" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <section class="story-page">
         <div class="container story-container">
-            <div class="breadcrumb" id="breadcrumb">
+            <div class="breadcrumb" id="breadcrumb" data-aos="fade-down">
                 <a href="index.html">الرئيسية</a>
                 <i class="fas fa-chevron-left"></i>
                 <a href="index.html#stories">القصص</a>
@@ -185,14 +1996,15 @@
         </div>
     </section>
 
+    <!-- تذييل الصفحة -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-section" data-aos="fade-up">
                     <h3>شغف</h3>
-                    <p>قصص حب قصيرة من كتابة أحمد رشاد</p>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-section" data-aos="fade-up" data-aos-delay="200">
                     <h4>روابط سريعة</h4>
                     <ul>
                         <li><a href="index.html">الرئيسية</a></li>
@@ -203,26 +2015,34 @@
                         <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
+                <div class="footer-section" data-aos="fade-up" data-aos-delay="400">
                     <h4>تواصل معي</h4>
                     <ul>
                         <li><i class="fas fa-envelope"></i> ahmedrashadali7@gmail.com</li>
                     </ul>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/share/181xfpEgzs/"><i class="fab fa-facebook"></i></a>
-                        <a href="https://wa.me/962779248377"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.instagram.com/ahmedrashadali9"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/share/181xfpEgzs/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/962779248377" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/ahmedrashadali9" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع بـ ❤️ لأجلها</p>
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع <i class="fas fa-heart"></i> لأجلها</p>
             </div>
         </div>
     </footer>
 
     <!-- كود القائمة الجانبية المحسن -->
     <script>
+        // تهيئة AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
+        });
+
         (function() {
             if (window.mobileMenuInitialized) return;
             window.mobileMenuInitialized = true;
@@ -230,6 +2050,7 @@
             function initMobileMenu() {
                 const menuBtn = document.querySelector('.mobile-menu-btn');
                 const mobileMenu = document.querySelector('.mobile-menu');
+                const closeBtn = document.querySelector('.mobile-menu-close');
                 
                 if (!menuBtn || !mobileMenu) return;
                 
@@ -254,14 +2075,15 @@
                     document.body.style.overflow = 'hidden';
                 }
                 
-                menuBtn.replaceWith(menuBtn.cloneNode(true));
-                const newMenuBtn = document.querySelector('.mobile-menu-btn');
-                
-                newMenuBtn.addEventListener('click', function(e) {
+                menuBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                     openMenu();
                 });
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeMenu);
+                }
                 
                 overlay.addEventListener('click', closeMenu);
                 
@@ -287,6 +2109,46 @@
                 initMobileMenu();
             }
         })();
+
+        // تحديد الرابط النشط تلقائياً
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const links = document.querySelectorAll('.mobile-menu ul li a');
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // إظهار/إخفاء زر العودة للأعلى
+        const scrollBtn = document.getElementById('scrollToTop');
+        if (scrollBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // إضافة حالة التحميل للقائمة الجانبية
+        setTimeout(() => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('loading');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('loading');
+                }, 500);
+            }
+        }, 100);
     </script>
 
     <script type="module">
@@ -449,53 +2311,29 @@
             const isInFavorites = await checkIfInFavorites();
             
             const html = `
-                <!-- التصميم الجديد للجزء العلوي -->
-                <div class="story-header" style="text-align: center; margin-bottom: 30px;">
-                    <!-- عنوان القصة مع تأثير خفيف -->
-                    <h1 style="font-size: 2.5rem; color: #2d3436; margin-bottom: 15px; position: relative; display: inline-block;">
+                <div class="story-header">
+                    <h1 data-aos="fade-up">
                         ${story.title || 'بدون عنوان'}
-                        <span style="position: absolute; top: -10px; left: -30px; font-size: 1.5rem; opacity: 0.3; animation: float 3s infinite;">❤️</span>
+                        <span>❤️</span>
                     </h1>
                     
-                    <!-- بطاقة المعلومات أسفل العنوان -->
-                    <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; background: rgba(255, 255, 255, 0.7); padding: 12px 25px; border-radius: 50px; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(255, 107, 107, 0.1);">
-                        
-                        <!-- التاريخ -->
-                        <span style="display: flex; align-items: center; gap: 8px; color: #636e72;">
-                            <i class="far fa-calendar-alt" style="color: #ff6b6b;"></i>
-                            ${formatDate(story.createdAt)}
-                        </span>
-                        
-                        <!-- وقت القراءة -->
-                        <span style="display: flex; align-items: center; gap: 8px; color: #636e72;">
-                            <i class="far fa-clock" style="color: #ff6b6b;"></i>
-                            ${story.readTime || 5} دقائق
-                        </span>
-                        
-                        <!-- الإعجابات -->
-                        <span style="display: flex; align-items: center; gap: 8px; color: #636e72;">
-                            <i class="fas fa-heart" style="color: #ff6b6b;"></i>
-                            <span id="likesCount" style="font-weight: 600; color: #ff6b6b;">${story.likes || 0}</span>
-                        </span>
-                        
-                        <!-- التعليقات -->
-                        <span style="display: flex; align-items: center; gap: 8px; color: #636e72;">
-                            <i class="fas fa-comment" style="color: #ff6b6b;"></i>
-                            <span id="commentsCount" style="font-weight: 600; color: #ff6b6b;">${story.comments || 0}</span>
-                        </span>
+                    <div class="story-meta-card" data-aos="fade-up" data-aos-delay="100">
+                        <span><i class="far fa-calendar-alt"></i> ${formatDate(story.createdAt)}</span>
+                        <span><i class="far fa-clock"></i> ${story.readTime || 5} دقائق</span>
+                        <span><i class="fas fa-heart"></i> <span id="likesCount">${story.likes || 0}</span></span>
+                        <span><i class="fas fa-comment"></i> <span id="commentsCount">${story.comments || 0}</span></span>
                     </div>
                 </div>
                 
-                <div class="story-cover">
-                    <img src="${story.image || 'https://via.placeholder.com/800x400'}" alt="${story.title}">
+                <div class="story-cover" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="${story.image || 'https://via.placeholder.com/800x400/ffe3e3/ff6b6b?text=شغف'}" alt="${story.title}">
                 </div>
                 
-                <div class="story-content">
+                <div class="story-content" data-aos="fade-up" data-aos-delay="300">
                     ${story.content || ''}
                 </div>
 
-                <!-- أزرار التفاعل بعد القصة -->
-                <div class="story-actions" style="margin-top: 40px; text-align: center;">
+                <div class="story-actions" data-aos="fade-up" data-aos-delay="400">
                     <div class="action-buttons">
                         <button class="action-btn" id="likeBtn" onclick="handleLike()">
                             <i class="far fa-heart"></i>
@@ -507,19 +2345,17 @@
                             <span>${isInFavorites ? 'في المفضلة' : 'أضف للمفضلة'}</span>
                         </button>
                     </div>
-                    <p style="color: #636e72; margin-top: 10px; font-size: 0.9rem;">
-                        تفاعل مع القصة وشاركنا رأيك ❤️
-                    </p>
+                    <p>تفاعل مع القصة وشاركنا رأيك ❤️</p>
                 </div>
                 
                 <div class="comments-section">
-                    <h3>
+                    <h3 data-aos="fade-left">
                         <i class="fas fa-comments"></i>
                         التعليقات <span id="commentsCount2">(${story.comments || 0})</span>
                     </h3>
                     
-                    <div id="commentFormContainer"></div>
-                    <div id="commentsList" class="comments-list"></div>
+                    <div id="commentFormContainer" data-aos="fade-up" data-aos-delay="100"></div>
+                    <div id="commentsList" class="comments-list" data-aos="fade-up" data-aos-delay="200"></div>
                 </div>
             `;
             
@@ -573,20 +2409,14 @@
                             <p style="font-size: 0.9rem; margin-top: 10px;">كن أول من يعلق!</p>
                         </div>
                         
-                        <!-- إعلان شغف - يدعم استمرارية الموقع -->
-                        <div style="margin: 40px 0 20px; text-align: center;">
-                            <div style="display: inline-block; background: white; padding: 20px 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.1); max-width: 100%;">
-                                <p style="color: #ff6b6b; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
-                                    <i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i>
-                                </p>
+                        <div class="ad-container">
+                            <div class="ad-card">
+                                <p class="ad-label"><i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i></p>
                                 <a href="https://your-ad-link.com" target="_blank" rel="sponsored nofollow" style="text-decoration: none;">
                                     <img src="https://via.placeholder.com/728x90/ffe3e3/ff6b6b?text=شغف+يدعمك" 
-                                         alt="إعلان شغف" 
-                                         style="max-width: 100%; border-radius: 15px; border: 2px solid #ffb6b6;">
+                                         alt="إعلان شغف">
                                 </a>
-                                <p style="color: #b2bec3; font-size: 0.7rem; margin-top: 8px;">
-                                    هذا الإعلان يساعد في استمرارية الموقع
-                                </p>
+                                <p class="ad-note">هذا الإعلان يساعد في استمرارية الموقع</p>
                             </div>
                         </div>
                     `;
@@ -672,22 +2502,15 @@
                     html += `</div></div>`;
                 }
                 
-                // إضافة الإعلان بعد التعليقات
                 html += `
-                    <!-- إعلان شغف - يدعم استمرارية الموقع -->
-                    <div style="margin: 40px 0 20px; text-align: center;">
-                        <div style="display: inline-block; background: white; padding: 20px 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.1); max-width: 100%;">
-                            <p style="color: #ff6b6b; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
-                                <i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i>
-                            </p>
+                    <div class="ad-container">
+                        <div class="ad-card">
+                            <p class="ad-label"><i class="fas fa-heart"></i> إعلان <i class="fas fa-heart"></i></p>
                             <a href="https://your-ad-link.com" target="_blank" rel="sponsored nofollow" style="text-decoration: none;">
                                 <img src="https://via.placeholder.com/728x90/ffe3e3/ff6b6b?text=شغف+يدعمك" 
-                                     alt="إعلان شغف" 
-                                     style="max-width: 100%; border-radius: 15px; border: 2px solid #ffb6b6;">
+                                     alt="إعلان شغف">
                             </a>
-                            <p style="color: #b2bec3; font-size: 0.7rem; margin-top: 8px;">
-                                هذا الإعلان يساعد في استمرارية الموقع
-                            </p>
+                            <p class="ad-note">هذا الإعلان يساعد في استمرارية الموقع</p>
                         </div>
                     </div>
                 `;
@@ -917,66 +2740,35 @@
         // ===== عرض رسالة خطأ فاخرة =====
         function showError(message) {
             document.getElementById('storyContent').innerHTML = `
-                <div style="text-align: center; padding: 60px 20px; background: linear-gradient(145deg, #ffffff, #fff9f9); border-radius: 40px; box-shadow: 0 20px 40px rgba(255,107,107,0.15); max-width: 500px; margin: 40px auto; border: 1px solid rgba(255,107,107,0.1); position: relative; overflow: hidden;">
-                    
-                    <!-- خلفية زخرفية -->
-                    <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; transform: rotate(15deg);">❤️</div>
-                    <div style="position: absolute; bottom: -20px; left: -20px; font-size: 8rem; opacity: 0.03; transform: rotate(-15deg);">❤️</div>
-                    
-                    <!-- أيقونة حزن -->
-                    <div style="font-size: 5rem; margin-bottom: 15px; animation: floatError 3s infinite;">
-                        💔
-                    </div>
-                    
-                    <!-- عنوان "شغف" بتصميم مميز -->
-                    <h2 style="font-size: 2.8rem; margin-bottom: 10px; background: linear-gradient(135deg, #ff6b6b, #ffb6b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">
-                        شغف ❤️
-                    </h2>
-                    
-                    <!-- السحبة تحت العنوان -->
-                    <div style="width: 80px; height: 3px; background: linear-gradient(90deg, #ff6b6b, #ffb6b6); margin: 15px auto; border-radius: 3px;"></div>
-                    
-                    <!-- رسالة الخطأ -->
-                    <p style="color: #636e72; font-size: 1.2rem; margin: 25px 0; line-height: 1.8; padding: 0 15px;">
-                        ${message}
-                    </p>
-                    
-                    <!-- الأزرار -->
-                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                        <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(255,107,107,0.3); transition: all 0.3s;">
+                <div class="error-container">
+                    <div class="error-icon">💔</div>
+                    <h2>شغف ❤️</h2>
+                    <div class="error-divider"></div>
+                    <p class="error-message">${message}</p>
+                    <div class="error-buttons">
+                        <a href="index.html" class="error-btn primary">
                             <i class="fas fa-home"></i>
                             العودة للرئيسية
                         </a>
                         
-                        <button onclick="location.reload()" style="display: inline-flex; align-items: center; gap: 10px; background: white; border: 2px solid #ffb6b6; color: #ff6b6b; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 600; transition: all 0.3s;">
+                        <button onclick="location.reload()" class="error-btn secondary">
                             <i class="fas fa-redo"></i>
                             إعادة المحاولة
                         </button>
                     </div>
-                    
-                    <!-- رسالة داعمة -->
-                    <p style="color: #b2bec3; font-size: 0.9rem; margin-top: 25px;">
-                        يمكنك المحاولة مرة أخرى أو العودة للصفحة الرئيسية
-                    </p>
+                    <p class="error-note">يمكنك المحاولة مرة أخرى أو العودة للصفحة الرئيسية</p>
                 </div>
-                
-                <style>
-                    @keyframes floatError {
-                        0%, 100% { transform: translateY(0); }
-                        50% { transform: translateY(-10px); }
-                    }
-                </style>
             `;
         }
 
         // ===== تحديث واجهة المستخدم =====
         function updateUIForUser(user) {
             const navButtons = document.getElementById('navButtons');
-            const mobileUserInfo = document.querySelector('.mobile-user-info');
+            const mobileUserInfo = document.getElementById('mobileUserInfo');
             const mobileMenuButtons = document.getElementById('mobileMenuButtons');
             
             if (user) {
-                const photoURL = user.photoURL || 'https://via.placeholder.com/40x40';
+                const photoURL = user.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'مستخدم') + '&background=ff6b6b&color=fff&size=55';
                 const displayName = user.displayName || 'مستخدم';
                 
                 navButtons.innerHTML = `
@@ -991,51 +2783,43 @@
                     </div>
                 `;
                 
-                if (mobileUserInfo) {
-                    mobileUserInfo.innerHTML = `
-                        <img src="${photoURL}" alt="${displayName}" class="mobile-user-avatar">
-                        <div class="mobile-user-details">
-                            <h4>${displayName}</h4>
-                            <p>مرحباً بعودتك</p>
-                        </div>
-                    `;
-                }
+                mobileUserInfo.innerHTML = `
+                    <img src="${photoURL}" alt="${displayName}" class="mobile-user-avatar">
+                    <div class="mobile-user-details">
+                        <h4>${displayName}</h4>
+                        <p><i class="fas fa-heart"></i> مرحباً بعودتك</p>
+                    </div>
+                `;
                 
-                if (mobileMenuButtons) {
-                    mobileMenuButtons.innerHTML = `
-                        <button class="btn btn-outline" onclick="handleLogout()">
-                            <i class="fas fa-sign-out-alt"></i> تسجيل خروج
-                        </button>
-                    `;
-                }
+                mobileMenuButtons.innerHTML = `
+                    <button class="btn btn-outline" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                    </button>
+                `;
             } else {
                 navButtons.innerHTML = `
                     <a href="login.html" class="btn btn-outline">دخول</a>
                     <a href="signup.html" class="btn btn-primary">انضمام</a>
                 `;
                 
-                if (mobileUserInfo) {
-                    mobileUserInfo.innerHTML = `
-                        <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
-                        </div>
-                        <div class="mobile-user-details">
-                            <h4>زائر</h4>
-                            <p>سجل دخولك للمشاركة</p>
-                        </div>
-                    `;
-                }
+                mobileUserInfo.innerHTML = `
+                    <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+                    </div>
+                    <div class="mobile-user-details">
+                        <h4>زائر</h4>
+                        <p><i class="fas fa-heart"></i> سجل دخولك للمشاركة</p>
+                    </div>
+                `;
                 
-                if (mobileMenuButtons) {
-                    mobileMenuButtons.innerHTML = `
-                        <a href="login.html" class="btn btn-outline">
-                            <i class="fas fa-sign-in-alt"></i> دخول
-                        </a>
-                        <a href="signup.html" class="btn btn-primary">
-                            <i class="fas fa-user-plus"></i> انضمام
-                        </a>
-                    `;
-                }
+                mobileMenuButtons.innerHTML = `
+                    <a href="login.html" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i> دخول
+                    </a>
+                    <a href="signup.html" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> انضمام
+                    </a>
+                `;
             }
         }
 

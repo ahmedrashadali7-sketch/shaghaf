@@ -2,40 +2,952 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إنشاء حساب - شغف</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>إنشاء حساب - شغف | انضم إلى عالم القصص</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="أنشئ حسابك في شغف لتتمكن من قراءة القصص والتفاعل معها وحفظ المفضلة. عالم من الحب والكلمات في انتظارك.">
+    <meta name="keywords" content="إنشاء حساب, شغف, تسجيل, اشتراك, قصص حب">
+    <meta name="author" content="أحمد رشاد">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ahmedrashadali7-sketch.github.io/shaghaf/signup.html">
+    <meta property="og:title" content="إنشاء حساب - شغف">
+    <meta property="og:description" content="انضم إلى شغف عالم القصص الرومانسية">
+    <meta property="og:image" content="https://i.postimg.cc/dQfwk8wW/logo.png">
+    
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <!-- EmailJS Library -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    
     <style>
+        /* ===== المتغيرات العامة ===== */
+        :root {
+            --primary: #ff6b6b;
+            --primary-light: #ffe3e3;
+            --primary-dark: #fa5252;
+            --secondary: #ffb6b6;
+            --secondary-light: #ffe9e9;
+            --text-dark: #2d3436;
+            --text-soft: #636e72;
+            --text-light: #868e96;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 12px rgba(255, 107, 107, 0.08);
+            --shadow-md: 0 8px 24px rgba(255, 107, 107, 0.12);
+            --shadow-lg: 0 16px 32px rgba(255, 107, 107, 0.16);
+            --shadow-xl: 0 24px 48px rgba(255, 107, 107, 0.2);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 30px;
+            --radius-xl: 40px;
+            --radius-2xl: 60px;
+            --radius-circle: 50%;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Amiri', sans-serif;
+            background: linear-gradient(135deg, #fdf4f4 0%, #ffffff 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== خلفية متحركة بالقلوب ===== */
+        .floating-hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.03;
+            font-size: clamp(20px, 5vw, 60px);
+            animation: floatParticle 20s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.03;
+            }
+            90% {
+                opacity: 0.03;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .heart-particle:nth-child(1) { left: 10%; animation-duration: 25s; animation-delay: 0s; }
+        .heart-particle:nth-child(2) { left: 30%; animation-duration: 30s; animation-delay: 5s; }
+        .heart-particle:nth-child(3) { left: 50%; animation-duration: 35s; animation-delay: 10s; }
+        .heart-particle:nth-child(4) { left: 70%; animation-duration: 28s; animation-delay: 15s; }
+        .heart-particle:nth-child(5) { left: 90%; animation-duration: 32s; animation-delay: 20s; }
+        
+        /* ===== شريط التنقل المحسن ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(255, 107, 107, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.15);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 30px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: clamp(60px, 8vh, 80px);
+        }
+        
+        .logo {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition-normal);
+        }
+        
+        .logo i {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: var(--primary);
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 3vw, 40px);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-soft);
+            text-decoration: none;
+            padding: 10px 0;
+            position: relative;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            white-space: nowrap;
+            transition: var(--transition-normal);
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: transform var(--transition-normal);
+            border-radius: 3px;
+        }
+        
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: clamp(8px, 2vw, 15px);
+        }
+        
+        /* ===== الأزرار المتطورة ===== */
+        .btn {
+            padding: clamp(8px, 1.5vw, 12px) clamp(16px, 3vw, 28px);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #ff8e8e);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .btn-large {
+            padding: clamp(12px, 2vw, 16px) clamp(24px, 4vw, 40px);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+        
+        .btn-glow {
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.5); }
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background 0.3s;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        /* قائمة المستخدم */
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            object-fit: cover;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            padding: 10px;
+            min-width: 150px;
+            display: none;
+            z-index: 100;
+            border: 1px solid var(--primary-light);
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: var(--radius-sm);
+        }
+        
+        .user-dropdown a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        /* ===== القائمة الجانبية الفاخرة ===== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(85%, 380px);
+            height: 100vh;
+            background: linear-gradient(145deg, #ffffff, #fff5f5);
+            box-shadow: -10px 0 50px rgba(255, 107, 107, 0.3);
+            transition: right 0.6s var(--transition-bounce);
+            z-index: 1001;
+            padding: clamp(25px, 5vh, 35px) clamp(20px, 3vw, 30px);
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 107, 107, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu.loading {
+            position: relative;
+        }
+
+        .mobile-menu.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+
+        .mobile-menu.loading::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--primary-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            z-index: 11;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* زخارف متحركة */
+        .mobile-menu::before {
+            content: '❤️';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: clamp(100px, 20vw, 200px);
+            opacity: 0.05;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            animation: floatHeart 8s infinite ease-in-out;
+        }
+
+        .mobile-menu::after {
+            content: '💌';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: clamp(80px, 15vw, 150px);
+            opacity: 0.05;
+            transform: rotate(15deg);
+            pointer-events: none;
+            animation: floatHeart 10s infinite ease-in-out reverse;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(-15deg) scale(1); }
+            50% { transform: translateY(-30px) rotate(-10deg) scale(1.1); }
+        }
+
+        /* رأس القائمة */
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 15px);
+            margin-bottom: clamp(25px, 6vh, 40px);
+            padding-bottom: clamp(15px, 3vh, 20px);
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            position: relative;
+        }
+
+        .mobile-menu-header .logo-mini {
+            width: clamp(45px, 8vw, 55px);
+            height: clamp(45px, 8vw, 55px);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            border-radius: clamp(12px, 3vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            transform: rotate(5deg);
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu-header .logo-mini:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .mobile-menu-header h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* زر الإغلاق */
+        .mobile-menu-close {
+            position: absolute;
+            top: clamp(15px, 4vh, 20px);
+            left: clamp(15px, 4vw, 20px);
+            width: clamp(35px, 6vw, 40px);
+            height: clamp(35px, 6vw, 40px);
+            background: rgba(255, 107, 107, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #ff6b6b;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .mobile-menu-close:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* بطاقة المستخدم */
+        .mobile-user-info {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            margin: clamp(30px, 8vh, 40px) 0 clamp(20px, 4vh, 25px);
+            padding: clamp(12px, 2.5vh, 15px);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 182, 182, 0.05));
+            border-radius: clamp(15px, 4vw, 20px);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-user-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .mobile-user-info:hover::before {
+            opacity: 1;
+        }
+
+        .mobile-user-info:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateY(-3px);
+            border-color: #ff6b6b;
+        }
+
+        .mobile-user-avatar {
+            width: clamp(45px, 9vw, 55px);
+            height: clamp(45px, 9vw, 55px);
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .mobile-user-details {
+            flex: 1;
+        }
+
+        .mobile-user-details h4 {
+            font-size: clamp(1rem, 2.8vw, 1.1rem);
+            color: #2d3436;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .mobile-user-details p {
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            color: #636e72;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-user-details p i {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+        }
+
+        /* عناصر القائمة */
+        .mobile-menu ul {
+            list-style: none;
+            margin: 0 0 clamp(20px, 5vh, 30px) 0;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: clamp(8px, 1.8vh, 12px);
+            transform: translateX(-30px);
+            opacity: 0;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .mobile-menu ul li:nth-child(1) { animation-delay: 0.05s; }
+        .mobile-menu ul li:nth-child(2) { animation-delay: 0.1s; }
+        .mobile-menu ul li:nth-child(3) { animation-delay: 0.15s; }
+        .mobile-menu ul li:nth-child(4) { animation-delay: 0.2s; }
+        .mobile-menu ul li:nth-child(5) { animation-delay: 0.25s; }
+        .mobile-menu ul li:nth-child(6) { animation-delay: 0.3s; }
+        .mobile-menu ul li:nth-child(7) { animation-delay: 0.35s; }
+        .mobile-menu ul li:nth-child(8) { animation-delay: 0.4s; }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .mobile-menu ul li a {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            padding: clamp(12px, 2.5vh, 15px) clamp(15px, 3vw, 20px);
+            color: #2d3436;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: clamp(12px, 3vw, 15px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .mobile-menu ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .mobile-menu ul li a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu ul li a:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateX(8px) scale(1.02);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.15);
+        }
+
+        .mobile-menu ul li a i {
+            width: 25px;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: #ff6b6b;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .mobile-menu ul li a:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: #ff6b6b;
+        }
+
+        /* الصفحة النشطة */
+        .mobile-menu ul li a.active {
+            background: linear-gradient(135deg, #ff6b6b20, #ffb6b620);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            font-weight: 700;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 107, 107, 0.5); }
+        }
+
+        .mobile-menu ul li a.active::after {
+            content: '❤️';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .mobile-menu ul li a.active i {
+            color: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        /* أزرار القائمة */
+        .mobile-menu-buttons {
+            margin-top: clamp(20px, 5vh, 30px);
+            padding-top: clamp(15px, 3vh, 20px);
+            border-top: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 2vh, 12px);
+        }
+
+        .mobile-menu-buttons .btn {
+            width: 100%;
+            text-align: center;
+            padding: clamp(12px, 2.5vh, 14px);
+            border-radius: clamp(12px, 3vw, 15px);
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .mobile-menu-buttons .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* خلفية معتمة */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ===== زر العودة للأعلى ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-xl);
+            z-index: 99;
+            transition: all var(--transition-bounce);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .scroll-top.show {
+            display: flex;
+            animation: fadeInUp 0.5s;
+        }
+
+        /* ===== صفحة إنشاء حساب المحسنة ===== */
         .auth-page {
             min-height: calc(100vh - 80px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 0;
-            background: linear-gradient(135deg, #ffe3e3 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-page::before {
+            content: '❤️';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: clamp(100px, 20vw, 200px);
+            opacity: 0.03;
+            transform: rotate(15deg);
+            animation: float 10s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .auth-page::after {
+            content: '💌';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: clamp(80px, 15vw, 150px);
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            animation: float 12s infinite ease-in-out reverse;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(15deg); }
+            50% { transform: translateY(-20px) rotate(20deg); }
         }
         
         .auth-container {
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
         
         .auth-card {
             background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.15);
-            animation: fadeInUp 0.5s ease;
+            border-radius: var(--radius-2xl);
+            padding: 50px 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            animation: fadeInScale 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6b6b20, #ffb6b620);
+            border-radius: 50%;
+            animation: rotateSlow 20s infinite linear;
+            z-index: 0;
+        }
+
+        .auth-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ffb6b620, #ff6b6b20);
+            border-radius: 50%;
+            animation: rotateSlow 20s infinite linear reverse;
+            z-index: 0;
+        }
+
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
         
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .auth-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-weight: 800;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .auth-header p {
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -47,35 +959,62 @@
             }
         }
         
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .auth-header h1 {
-            font-size: 2.2rem;
-            color: #ff6b6b;
-            margin-bottom: 10px;
-        }
-        
-        .auth-header p {
-            color: #868e96;
+        .auth-form {
+            position: relative;
+            z-index: 1;
         }
         
         .auth-form .form-group {
             margin-bottom: 20px;
+            animation: slideInRight 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        .name-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .name-fields .form-group {
+            margin-bottom: 0;
+        }
+
+        .auth-form .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .auth-form .form-group:nth-child(2) { animation-delay: 0.15s; }
+        .auth-form .form-group:nth-child(3) { animation-delay: 0.2s; }
+        .auth-form .form-group:nth-child(4) { animation-delay: 0.25s; }
+        .auth-form .form-group:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .auth-form label {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2d3436;
+            color: var(--text-dark);
         }
         
         .auth-form label i {
-            color: #ff6b6b;
-            margin-left: 5px;
+            color: var(--primary);
+            font-size: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
         }
         
         .auth-form .input-wrapper {
@@ -87,23 +1026,33 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #868e96;
+            color: var(--text-light);
+            transition: all 0.3s;
+            font-size: 1rem;
         }
         
         .auth-form .input-wrapper input {
             width: 100%;
-            padding: 12px 45px 12px 15px;
+            padding: 14px 50px 14px 45px;
             border: 2px solid #f1f3f5;
-            border-radius: 12px;
+            border-radius: var(--radius-xl);
             font-family: 'Cairo', sans-serif;
             font-size: 1rem;
             transition: all 0.3s;
+            background: #fafafa;
         }
         
         .auth-form .input-wrapper input:focus {
             outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 4px #ffe3e3;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .auth-form .input-wrapper input:focus + i {
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.1);
         }
         
         .password-toggle {
@@ -111,53 +1060,92 @@
             left: 15px;
             right: auto !important;
             cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s;
         }
-        
-        .name-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+
+        .password-toggle:hover {
+            color: var(--primary) !important;
+            transform: translateY(-50%) scale(1.1) !important;
         }
-        
+
         .terms-checkbox {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 12px;
+            margin: 25px 0;
+            animation: fadeIn 0.6s ease 0.35s both;
+            padding: 5px;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s;
         }
-        
+
+        .terms-checkbox:hover {
+            background: var(--primary-light);
+        }
+
         .terms-checkbox input {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
-            accent-color: #ff6b6b;
+            accent-color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .terms-checkbox input:hover {
+            transform: scale(1.1);
         }
         
         .terms-checkbox a {
-            color: #ff6b6b;
+            color: var(--primary);
             font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .terms-checkbox a::after {
+            content: '❤️';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .terms-checkbox a:hover::after {
+            opacity: 1;
+            left: -25px;
+            animation: heartbeat 1s infinite;
+        }
+        
+        .terms-checkbox a:hover {
+            color: var(--primary-dark);
+            padding-right: 3px;
         }
         
         .auth-btn {
             width: 100%;
-            padding: 14px;
-            font-size: 1.1rem;
-            margin: 20px 0;
+            padding: 16px;
+            font-size: 1.2rem;
+            margin: 25px 0 20px;
             position: relative;
+            animation: fadeInUp 0.6s ease 0.4s both;
         }
         
         .auth-btn.loading {
-            opacity: 0.7;
+            opacity: 0.8;
             pointer-events: none;
         }
         
         .auth-btn.loading::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
+            width: 22px;
+            height: 22px;
+            border: 3px solid white;
             border-top-color: transparent;
             border-radius: 50%;
             left: 20px;
@@ -166,16 +1154,18 @@
             animation: spin 1s linear infinite;
         }
         
-        @keyframes spin {
-            to { transform: translateY(-50%) rotate(360deg); }
-        }
-        
         .divider {
             display: flex;
             align-items: center;
             gap: 15px;
             margin: 25px 0;
-            color: #868e96;
+            color: var(--text-light);
+            animation: fadeIn 0.6s ease 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .divider::before,
@@ -183,79 +1173,358 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: #f1f3f5;
+            background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
         }
         
         .google-btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             background: white;
             border: 2px solid #f1f3f5;
-            border-radius: 12px;
+            border-radius: var(--radius-xl);
             font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #2d3436;
+            color: var(--text-dark);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
+            gap: 12px;
+            transition: all var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease 0.6s both;
+        }
+
+        .google-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .google-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .google-btn:hover {
-            background: #f8f9fa;
-            border-color: #ff6b6b;
-            transform: translateY(-2px);
+            border-color: var(--primary);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
         }
         
         .google-btn i {
-            color: #ff6b6b;
-            font-size: 1.2rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: transform 0.3s;
+        }
+
+        .google-btn:hover i {
+            transform: rotate(360deg) scale(1.2);
         }
         
         .auth-footer {
             text-align: center;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid #f1f3f5;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--primary-light);
+            animation: fadeIn 0.6s ease 0.7s both;
+            position: relative;
+            z-index: 1;
         }
         
         .auth-footer a {
-            color: #ff6b6b;
+            color: var(--primary);
             font-weight: 700;
             text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .auth-footer a::after {
+            content: '❤️';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .auth-footer a:hover::after {
+            opacity: 1;
+            left: -30px;
+            animation: heartbeat 1s infinite;
+        }
+        
+        .auth-footer a:hover {
+            color: var(--primary-dark);
+            padding-right: 5px;
         }
         
         .alert {
-            padding: 12px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 15px 25px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             display: none;
+            animation: slideDown 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .alert-error {
             background: #ffe3e3;
-            color: #ff6b6b;
-            border-right: 4px solid #ff6b6b;
+            color: #c62828;
+            border-right: 4px solid #c62828;
         }
         
         .alert-success {
             background: #d3f9d8;
-            color: #00b894;
-            border-right: 4px solid #00b894;
+            color: #2e7d32;
+            border-right: 4px solid #2e7d32;
+        }
+
+        .alert i {
+            font-size: 1.3rem;
+            animation: bounce 1s infinite;
+        }
+        
+        /* تذييل الصفحة المحسن */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: clamp(30px, 6vh, 60px) 0 clamp(15px, 3vh, 30px);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '❤️';
+            position: absolute;
+            font-size: clamp(80px, 20vw, 150px);
+            opacity: 0.03;
+            bottom: -20px;
+            left: -20px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            animation: floatHeart 10s infinite;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: clamp(20px, 5vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 30px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-section {
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+        
+        .footer-section:nth-child(1) { animation-delay: 0.1s; }
+        .footer-section:nth-child(2) { animation-delay: 0.2s; }
+        
+        .footer-section h3 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: clamp(1.1rem, 3vw, 1.2rem);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        
+        .footer-section:hover h4::after {
+            width: 100%;
+        }
+        
+        .footer-section p {
+            color: #a0a0a0;
+            line-height: 1.8;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-section ul a::before {
+            content: '❤️';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .footer-section ul a:hover::before {
+            opacity: 1;
+            right: -25px;
+            animation: heartbeat 1s infinite;
+        }
+        
+        .footer-section ul a:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: clamp(15px, 3vh, 30px);
+            margin-top: clamp(15px, 3vh, 30px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+            font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+        }
+
+        .footer-bottom i {
+            color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        /* تحسينات للموبايل */
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .auth-card {
+                padding: 35px 25px;
+            }
+
+            .auth-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .name-fields {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-header h1 {
+                font-size: 2rem;
+            }
+
+            .auth-header p {
+                font-size: 1rem;
+            }
+
+            .auth-btn {
+                font-size: 1rem;
+            }
+
+            .google-btn {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .mobile-menu {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .mobile-menu-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu ul li a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-user-avatar {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
-    <!-- أيقونة الموقع (Favicon) -->
-<link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body>
+    <!-- خلفية متحركة بالقلوب -->
+    <div class="floating-hearts-bg">
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+        <div class="heart-particle">❤️</div>
+    </div>
+
+    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -266,11 +1535,14 @@
                 <ul class="nav-links">
                     <li><a href="index.html">الرئيسية</a></li>
                     <li><a href="index.html#stories">القصص</a></li>
-                    <li><a href="index.html#about">عن الكاتب</a></li>
+                    <li><a href="about.html">عن الكاتب</a></li>
+                    <li><a href="privacy.html">الخصوصية</a></li>
+                    <li><a href="contact.html">اتصل بي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
                 </ul>
-                <div class="nav-buttons">
+                <div class="nav-buttons" id="navButtons">
                     <a href="login.html" class="btn btn-outline">دخول</a>
-                    <a href="signup.html" class="btn btn-primary">انضمام</a>
+                    <a href="signup.html" class="btn btn-primary btn-glow">انضمام</a>
                 </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -279,22 +1551,36 @@
         </div>
     </nav>
 
+    <!-- القائمة الجانبية الفاخرة -->
     <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo-mini">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>شغف</h3>
+        </div>
+        
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        
         <div class="mobile-user-info" id="mobileUserInfo">
             <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
             </div>
             <div class="mobile-user-details">
                 <h4>زائر</h4>
-                <p>سجل دخولك للمشاركة</p>
+                <p><i class="fas fa-heart"></i> سجل دخولك للمشاركة</p>
             </div>
         </div>
         
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
-            <li><a href="index.html#about"><i class="fas fa-user"></i> عن الكاتب</a></li>
-            <li><a href="#"><i class="fas fa-heart"></i> المفضلة</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
+            <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
         </ul>
         
         <div class="mobile-menu-buttons" id="mobileMenuButtons">
@@ -307,12 +1593,17 @@
         </div>
     </div>
 
+    <!-- زر العودة للأعلى -->
+    <button id="scrollToTop" class="scroll-top" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <section class="auth-page">
         <div class="container auth-container">
-            <div class="auth-card">
+            <div class="auth-card" data-aos="fade-up">
                 <div class="auth-header">
-                    <h1>انضم إلى شغف</h1>
-                    <p>أنشئ حسابك للمشاركة في التفاعل مع القصص</p>
+                    <h1 data-aos="fade-down">انضم إلى شغف</h1>
+                    <p data-aos="fade-up" data-aos-delay="100">أنشئ حسابك للمشاركة في التفاعل مع القصص</p>
                 </div>
 
                 <div class="alert alert-error" id="errorAlert">
@@ -327,14 +1618,14 @@
 
                 <form class="auth-form" id="signupForm">
                     <div class="name-fields">
-                        <div class="form-group">
+                        <div class="form-group" data-aos="fade-right" data-aos-delay="150">
                             <label><i class="fas fa-user"></i> الاسم الأول</label>
                             <div class="input-wrapper">
                                 <i class="fas fa-user"></i>
                                 <input type="text" id="firstName" placeholder="محمد" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" data-aos="fade-right" data-aos-delay="200">
                             <label><i class="fas fa-user"></i> الاسم الأخير</label>
                             <div class="input-wrapper">
                                 <i class="fas fa-user"></i>
@@ -343,7 +1634,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-aos="fade-right" data-aos-delay="250">
                         <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                         <div class="input-wrapper">
                             <i class="fas fa-envelope"></i>
@@ -351,7 +1642,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-aos="fade-right" data-aos-delay="300">
                         <label><i class="fas fa-lock"></i> كلمة المرور</label>
                         <div class="input-wrapper">
                             <i class="fas fa-lock"></i>
@@ -360,7 +1651,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-aos="fade-right" data-aos-delay="350">
                         <label><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
                         <div class="input-wrapper">
                             <i class="fas fa-lock"></i>
@@ -368,51 +1659,174 @@
                         </div>
                     </div>
 
-                    <label class="terms-checkbox">
+                    <label class="terms-checkbox" data-aos="fade-up" data-aos-delay="400">
                         <input type="checkbox" id="terms" required>
                         <span>أوافق على <a href="#">شروط الاستخدام</a> و <a href="#">سياسة الخصوصية</a></span>
                     </label>
 
-                    <button type="submit" class="btn btn-primary auth-btn" id="signupBtn">
+                    <button type="submit" class="btn btn-primary auth-btn" id="signupBtn" data-aos="fade-up" data-aos-delay="450">
                         <i class="fas fa-user-plus"></i>
                         إنشاء حساب
                     </button>
                 </form>
 
-                <div class="divider">أو</div>
+                <div class="divider" data-aos="fade-up" data-aos-delay="500">أو</div>
 
-                <button class="google-btn" onclick="googleSignup()">
+                <button class="google-btn" onclick="googleSignup()" data-aos="fade-up" data-aos-delay="550">
                     <i class="fab fa-google"></i>
                     إنشاء حساب بـ Google
                 </button>
 
-                <div class="auth-footer">
+                <div class="auth-footer" data-aos="fade-up" data-aos-delay="600">
                     <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل دخول</a></p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- تذييل الصفحة -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-section" data-aos="fade-up">
                     <h3>شغف</h3>
-                    <p>قصص حب قصيرة من كتابة أحمد رشاد</p>
+                    <p>قصص حب قصيرة من كتابة أحمد رشاد. كل القصص منشورة بحب لقرائي الأعزاء.</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-section" data-aos="fade-up" data-aos-delay="200">
                     <h4>روابط سريعة</h4>
                     <ul>
                         <li><a href="index.html">الرئيسية</a></li>
                         <li><a href="index.html#stories">القصص</a></li>
+                        <li><a href="about.html">عن الكاتب</a></li>
+                        <li><a href="privacy.html">الخصوصية</a></li>
+                        <li><a href="contact.html">اتصل بي</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦</p>
+                <p>جميع الحقوق محفوظة &copy; شغف ٢٠٢٦ - صُنع <i class="fas fa-heart"></i> لأجلها</p>
             </div>
         </div>
     </footer>
+
+    <!-- كود القائمة الجانبية المحسن -->
+    <script>
+        // تهيئة AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
+        });
+
+        (function() {
+            if (window.mobileMenuInitialized) return;
+            window.mobileMenuInitialized = true;
+            
+            function initMobileMenu() {
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                const mobileMenu = document.querySelector('.mobile-menu');
+                const closeBtn = document.querySelector('.mobile-menu-close');
+                
+                if (!menuBtn || !mobileMenu) return;
+                
+                let overlay = document.querySelector('.menu-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'menu-overlay';
+                    document.body.appendChild(overlay);
+                }
+                
+                function closeMenu() {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+                
+                function openMenu() {
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openMenu();
+                });
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeMenu);
+                }
+                
+                overlay.addEventListener('click', closeMenu);
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeMenu();
+                    }
+                });
+                
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                const menuLinks = mobileMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenu);
+            } else {
+                initMobileMenu();
+            }
+        })();
+
+        // تحديد الرابط النشط تلقائياً
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const links = document.querySelectorAll('.mobile-menu ul li a');
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // إظهار/إخفاء زر العودة للأعلى
+        const scrollBtn = document.getElementById('scrollToTop');
+        if (scrollBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // إضافة حالة التحميل للقائمة الجانبية
+        setTimeout(() => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('loading');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('loading');
+                }, 500);
+            }
+        }, 100);
+    </script>
 
     <script type="module">
         // استيراد Firebase من الملف المركزي
@@ -422,7 +1836,6 @@
         import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ✅ تأكد من نجاح الاستيراد
         console.log('✅ Firebase initialized from config');
 
         const provider = new GoogleAuthProvider();
@@ -586,21 +1999,6 @@
                 errorAlert.style.display = 'flex';
             }
         };
-
-        // ===== قائمة الجوال =====
-        document.querySelector('.mobile-menu-btn')?.addEventListener('click', function() {
-            document.querySelector('.mobile-menu').classList.toggle('active');
-        });
-
-        // ===== إغلاق القائمة عند الضغط خارجها =====
-        document.addEventListener('click', function(e) {
-            const menu = document.querySelector('.mobile-menu');
-            const btn = document.querySelector('.mobile-menu-btn');
-            
-            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-                menu.classList.remove('active');
-            }
-        });
     </script>
 </body>
 </html>

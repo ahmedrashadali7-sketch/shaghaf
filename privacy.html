@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة الخصوصية - شغف</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>سياسة الخصوصية - شغف | خصوصيتك في أمان</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="سياسة الخصوصية لموقع شغف للقصص الرومانسية. تعرف على كيفية حماية بياناتك واحترام خصوصيتك.">
-    <meta name="keywords" content="سياسة الخصوصية, شغف, خصوصية, أمان">
+    <meta name="description" content="سياسة الخصوصية لموقع شغف للقصص الرومانسية. تعرف على كيفية حماية بياناتك واحترام خصوصيتك في منصة شغف.">
+    <meta name="keywords" content="سياسة الخصوصية, شغف, خصوصية, أمان, حماية البيانات, أحمد رشاد">
     <meta name="author" content="أحمد رشاد">
     
     <!-- Open Graph -->
@@ -17,39 +17,797 @@
     <meta property="og:description" content="سياسة الخصوصية لموقع شغف للقصص الرومانسية.">
     <meta property="og:image" content="https://i.postimg.cc/dQfwk8wW/logo.png">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- أيقونة الموقع (Favicon) -->
-<link rel="icon" type="image/png" sizes="32x32" href="/shaghaf/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/shaghaf/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/shaghaf/images/logo.png">
+    
     <style>
+        /* ===== المتغيرات العامة ===== */
+        :root {
+            --primary: #ff6b6b;
+            --primary-light: #ffe3e3;
+            --primary-dark: #fa5252;
+            --secondary: #ffb6b6;
+            --text-dark: #2d3436;
+            --text-soft: #636e72;
+            --text-light: #868e96;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 12px rgba(255, 107, 107, 0.08);
+            --shadow-md: 0 8px 24px rgba(255, 107, 107, 0.12);
+            --shadow-lg: 0 16px 32px rgba(255, 107, 107, 0.16);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 30px;
+            --radius-xl: 40px;
+            --radius-circle: 50%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #fdf4f4 0%, #ffffff 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* ===== شريط التنقل المحسن ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 107, 107, 0.1);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 30px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: clamp(60px, 8vh, 80px);
+        }
+        
+        .logo {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: clamp(3px, 1vw, 5px);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            color: var(--primary);
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 3vw, 40px);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-soft);
+            text-decoration: none;
+            padding: 8px 0;
+            position: relative;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            white-space: nowrap;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+            border-radius: 3px;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: clamp(8px, 2vw, 15px);
+        }
+        
+        .btn {
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 24px);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            white-space: nowrap;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #ff8e8e);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-large {
+            padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 36px);
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        /* قائمة المستخدم في شريط التنقل */
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            object-fit: cover;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            padding: 10px;
+            min-width: 150px;
+            display: none;
+            z-index: 100;
+            border: 1px solid var(--primary-light);
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: var(--radius-sm);
+        }
+        
+        .user-dropdown a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        /* ===== القائمة الجانبية الفاخرة ===== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(85%, 380px);
+            height: 100vh;
+            background: linear-gradient(145deg, #ffffff, #fff5f5);
+            box-shadow: -10px 0 40px rgba(255, 107, 107, 0.25);
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1001;
+            padding: clamp(20px, 5vh, 30px) clamp(15px, 3vw, 25px);
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 107, 107, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu.loading {
+            position: relative;
+        }
+
+        .mobile-menu.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .mobile-menu.loading::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--primary-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            z-index: 11;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* زخارف رومانسية في الخلفية */
+        .mobile-menu::before {
+            content: '❤️';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: clamp(80px, 20vw, 150px);
+            opacity: 0.05;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            animation: floatHeart 6s infinite ease-in-out;
+        }
+
+        .mobile-menu::after {
+            content: '💌';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: clamp(60px, 15vw, 100px);
+            opacity: 0.05;
+            transform: rotate(15deg);
+            pointer-events: none;
+            animation: floatHeart 8s infinite ease-in-out reverse;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(-15deg) scale(1); }
+            50% { transform: translateY(-20px) rotate(-10deg) scale(1.1); }
+        }
+
+        /* رأس القائمة مع اسم الموقع */
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 15px);
+            margin-bottom: clamp(25px, 6vh, 40px);
+            padding-bottom: clamp(15px, 3vh, 20px);
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            position: relative;
+        }
+
+        .mobile-menu-header .logo-mini {
+            width: clamp(45px, 8vw, 55px);
+            height: clamp(45px, 8vw, 55px);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            border-radius: clamp(12px, 3vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            transform: rotate(5deg);
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu-header .logo-mini:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .mobile-menu-header h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* زر الإغلاق الأنيق */
+        .mobile-menu-close {
+            position: absolute;
+            top: clamp(15px, 4vh, 20px);
+            left: clamp(15px, 4vw, 20px);
+            width: clamp(35px, 6vw, 40px);
+            height: clamp(35px, 6vw, 40px);
+            background: rgba(255, 107, 107, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #ff6b6b;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .mobile-menu-close:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* بطاقة المستخدم المطورة */
+        .mobile-user-info {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            margin: clamp(30px, 8vh, 40px) 0 clamp(20px, 4vh, 25px);
+            padding: clamp(12px, 2.5vh, 15px);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 182, 182, 0.05));
+            border-radius: clamp(15px, 4vw, 20px);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-user-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .mobile-user-info:hover::before {
+            opacity: 1;
+        }
+
+        .mobile-user-info:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateY(-3px);
+            border-color: #ff6b6b;
+        }
+
+        .mobile-user-avatar {
+            width: clamp(45px, 9vw, 55px);
+            height: clamp(45px, 9vw, 55px);
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, #ff6b6b, #ffb6b6) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .mobile-user-details {
+            flex: 1;
+        }
+
+        .mobile-user-details h4 {
+            font-size: clamp(1rem, 2.8vw, 1.1rem);
+            color: #2d3436;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .mobile-user-details p {
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            color: #636e72;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-user-details p i {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+        }
+
+        /* عناصر القائمة الرئيسية */
+        .mobile-menu ul {
+            list-style: none;
+            margin: 0 0 clamp(20px, 5vh, 30px) 0;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: clamp(8px, 1.8vh, 12px);
+            transform: translateX(-30px);
+            opacity: 0;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .mobile-menu ul li:nth-child(1) { animation-delay: 0.05s; }
+        .mobile-menu ul li:nth-child(2) { animation-delay: 0.1s; }
+        .mobile-menu ul li:nth-child(3) { animation-delay: 0.15s; }
+        .mobile-menu ul li:nth-child(4) { animation-delay: 0.2s; }
+        .mobile-menu ul li:nth-child(5) { animation-delay: 0.25s; }
+        .mobile-menu ul li:nth-child(6) { animation-delay: 0.3s; }
+        .mobile-menu ul li:nth-child(7) { animation-delay: 0.35s; }
+        .mobile-menu ul li:nth-child(8) { animation-delay: 0.4s; }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .mobile-menu ul li a {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2.5vw, 15px);
+            padding: clamp(12px, 2.5vh, 15px) clamp(15px, 3vw, 20px);
+            color: #2d3436;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: clamp(12px, 3vw, 15px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .mobile-menu ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .mobile-menu ul li a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu ul li a:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 182, 182, 0.1));
+            transform: translateX(8px) scale(1.02);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.15);
+        }
+
+        .mobile-menu ul li a i {
+            width: 25px;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: #ff6b6b;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .mobile-menu ul li a:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: #ff6b6b;
+        }
+
+        /* الصفحة النشطة */
+        .mobile-menu ul li a.active {
+            background: linear-gradient(135deg, #ff6b6b20, #ffb6b620);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            font-weight: 700;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 107, 107, 0.5); }
+        }
+
+        .mobile-menu ul li a.active::after {
+            content: '❤️';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .mobile-menu ul li a.active i {
+            color: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        /* قسم الأزرار في القائمة */
+        .mobile-menu-buttons {
+            margin-top: clamp(20px, 5vh, 30px);
+            padding-top: clamp(15px, 3vh, 20px);
+            border-top: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 2vh, 12px);
+        }
+
+        .mobile-menu-buttons .btn {
+            width: 100%;
+            text-align: center;
+            padding: clamp(12px, 2.5vh, 14px);
+            border-radius: clamp(12px, 3vw, 15px);
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .mobile-menu-buttons .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .mobile-menu-buttons .btn-outline {
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            background: transparent;
+        }
+
+        .mobile-menu-buttons .btn-outline:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .mobile-menu-buttons .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+
+        /* خلفية معتمة خلف القائمة */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ===== زر العودة للأعلى ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+            transition: all 0.3s;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+
+        /* ===== صفحة سياسة الخصوصية ===== */
         .privacy-page {
-            padding: 60px 0;
-            background: linear-gradient(135deg, #fff9f9, #ffffff);
+            padding: clamp(30px, 6vh, 60px) 0;
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* عناصر زخرفية في الخلفية */
+        .privacy-page::before {
+            content: '🔒';
+            position: absolute;
+            top: clamp(30px, 10vh, 100px);
+            right: clamp(10px, 5vw, 50px);
+            font-size: clamp(80px, 25vw, 200px);
+            opacity: 0.03;
+            transform: rotate(15deg);
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+        }
+        
+        .privacy-page::after {
+            content: '🛡️';
+            position: absolute;
+            bottom: clamp(20px, 8vh, 50px);
+            left: clamp(10px, 5vw, 50px);
+            font-size: clamp(70px, 22vw, 180px);
+            opacity: 0.03;
+            transform: rotate(-10deg);
+            animation: float 8s infinite ease-in-out reverse;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(15deg); }
+            50% { transform: translateY(-30px) rotate(20deg); }
         }
         
         .privacy-container {
-            max-width: 900px;
+            width: 100%;
+            max-width: min(1200px, 95vw);
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 clamp(10px, 3vw, 20px);
+            position: relative;
+            z-index: 2;
         }
         
+        /* رأس الصفحة المتجاوب */
         .privacy-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: clamp(30px, 6vh, 50px);
+            position: relative;
         }
         
+        .floating-shields {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: clamp(10px, 3vw, 20px);
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: #ffb6b6;
+            width: 100%;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .floating-shields span {
+            animation: floatHeart 2.5s infinite ease-in-out;
+        }
+        
+        .floating-shields span:nth-child(1) { animation-delay: 0s; }
+        .floating-shields span:nth-child(2) { animation-delay: 0.5s; }
+        .floating-shields span:nth-child(3) { animation-delay: 1s; }
+        
         .privacy-header h1 {
-            font-size: 3rem;
-            color: #ff6b6b;
-            margin-bottom: 15px;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: clamp(10px, 2vh, 15px);
+            font-weight: 800;
             position: relative;
             display: inline-block;
+            line-height: 1.2;
         }
         
         .privacy-header h1::after {
@@ -58,91 +816,540 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: clamp(50px, 15vw, 100px);
             height: 4px;
-            background: linear-gradient(90deg, #ff6b6b, #ffb6b6);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 2px;
         }
         
         .privacy-header p {
-            color: #636e72;
-            font-size: 1.2rem;
+            color: var(--text-soft);
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
             max-width: 600px;
-            margin: 20px auto 0;
+            margin: clamp(15px, 4vh, 25px) auto 0;
+            line-height: 1.8;
+            padding: 0 10px;
         }
         
+        .privacy-header p i {
+            color: var(--primary);
+            margin: 0 5px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+        
+        /* بطاقة المحتوى الرئيسية */
         .privacy-card {
             background: white;
-            border-radius: 40px;
-            padding: 50px;
-            box-shadow: 0 20px 40px rgba(255,107,107,0.15);
-            border: 1px solid rgba(255,107,107,0.1);
-            margin-bottom: 40px;
+            border-radius: clamp(20px, 5vw, 50px);
+            padding: clamp(20px, 5vw, 60px);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
         }
         
+        .privacy-card::before {
+            content: '❤️';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            font-size: clamp(80px, 20vw, 150px);
+            opacity: 0.05;
+            transform: rotate(20deg);
+            pointer-events: none;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .last-updated {
+            text-align: left;
+            color: var(--text-light);
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            margin-top: clamp(30px, 6vh, 50px);
+            padding-top: clamp(15px, 3vh, 30px);
+            border-top: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .last-updated i {
+            color: var(--primary);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+        
+        .last-updated .fa-heart {
+            margin-right: auto;
+        }
+        
+        /* الأقسام */
         .privacy-section {
-            margin-bottom: 40px;
+            margin-bottom: clamp(30px, 6vh, 50px);
         }
         
         .privacy-section:last-child {
             margin-bottom: 0;
         }
         
-        .privacy-section h2 {
-            font-size: 2rem;
-            color: #ff6b6b;
-            margin-bottom: 20px;
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: clamp(10px, 3vw, 15px);
+            margin-bottom: clamp(15px, 3vh, 25px);
+            flex-wrap: wrap;
         }
         
-        .privacy-section h2 i {
-            font-size: 1.8rem;
-            color: #ff6b6b;
+        .section-icon {
+            width: clamp(45px, 8vw, 60px);
+            height: clamp(45px, 8vw, 60px);
+            background: linear-gradient(135deg, var(--primary-light), #ffe3e3);
+            border-radius: clamp(15px, 4vw, 20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            transform: rotate(5deg);
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .section-icon:hover {
+            transform: rotate(0deg) scale(1.1);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.3;
         }
         
         .privacy-section h3 {
-            font-size: 1.5rem;
-            color: #2d3436;
-            margin: 25px 0 15px;
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            color: var(--text-dark);
+            margin: clamp(15px, 3vh, 25px) 0 clamp(10px, 2vh, 15px);
+            padding-right: clamp(10px, 3vw, 20px);
+            border-right: 4px solid var(--primary);
         }
         
         .privacy-section p {
-            color: #2d3436;
+            color: var(--text-dark);
             line-height: 1.8;
             margin-bottom: 15px;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
         }
         
         .privacy-section ul, .privacy-section ol {
-            margin: 15px 0 15px 30px;
-            color: #2d3436;
+            margin: 15px 0 15px clamp(15px, 4vw, 30px);
+            color: var(--text-dark);
             line-height: 1.8;
         }
         
         .privacy-section li {
             margin-bottom: 10px;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+        }
+        
+        .privacy-section li::marker {
+            color: var(--primary);
+        }
+        
+        .privacy-section li i {
+            color: var(--primary);
+            margin-left: 10px;
+            width: 20px;
+            text-align: center;
         }
         
         .privacy-section strong {
-            color: #ff6b6b;
+            color: var(--primary);
+            font-weight: 700;
         }
         
+        /* صناديق التمييز */
         .highlight-box {
-            background: #fff5f5;
-            padding: 25px;
-            border-radius: 20px;
-            border-right: 4px solid #ff6b6b;
-            margin: 25px 0;
+            background: linear-gradient(135deg, var(--primary-light), #ffffff);
+            padding: clamp(15px, 4vh, 30px);
+            border-radius: clamp(15px, 4vw, 30px);
+            border-right: clamp(4px, 1vw, 6px) solid var(--primary);
+            margin: clamp(15px, 3vh, 30px) 0;
+            box-shadow: var(--shadow-sm);
         }
         
-        .last-updated {
-            text-align: left;
-            color: #868e96;
-            font-size: 0.9rem;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #f1f3f5;
+        .highlight-box p {
+            margin-bottom: 0;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+        
+        .highlight-box i {
+            color: var(--primary);
+            margin-left: 10px;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+        }
+        
+        /* شبكة المعلومات */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+            gap: clamp(10px, 2vw, 20px);
+            margin: clamp(15px, 3vh, 30px) 0;
+        }
+        
+        .info-card {
+            background: var(--primary-light);
+            padding: clamp(15px, 3vh, 25px);
+            border-radius: clamp(15px, 4vw, 25px);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .info-card i {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: clamp(8px, 2vh, 15px);
+        }
+        
+        .info-card h4 {
+            font-size: clamp(1rem, 2.8vw, 1.2rem);
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .info-card p {
+            color: var(--text-soft);
+            margin-bottom: 0;
+            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+        }
+        
+        /* روابط التواصل */
+        .contact-links {
+            display: flex;
+            gap: clamp(10px, 2vw, 20px);
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: clamp(8px, 1.5vh, 12px) clamp(12px, 3vw, 25px);
+            background: var(--primary-light);
+            border-radius: 50px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--primary-light);
+            font-size: clamp(0.85rem, 2.2vw, 1rem);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .contact-link:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .contact-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-link i {
+            color: var(--primary);
+            transition: color 0.3s;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+        
+        .contact-link:hover i {
+            color: white;
+        }
+        
+        /* قسم الموافقة */
+        .consent-box {
+            background: #f0f9f0;
+            border-right: clamp(4px, 1vw, 6px) solid #51cf66;
+            padding: clamp(15px, 3vh, 25px);
+            border-radius: clamp(15px, 4vw, 25px);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 3vw, 20px);
+            flex-wrap: wrap;
+        }
+        
+        .consent-box i {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #51cf66;
+        }
+        
+        .consent-box p {
+            margin-bottom: 0;
+            color: #2e7d32;
+            flex: 1;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+        }
+        
+        /* تحسينات لوسائل التواصل في التذييل */
+        .social-links a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .social-links a:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+        
+        /* تذييل الصفحة */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: clamp(30px, 6vh, 60px) 0 clamp(15px, 3vh, 30px);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '❤️';
+            position: absolute;
+            font-size: clamp(80px, 20vw, 150px);
+            opacity: 0.03;
+            bottom: -20px;
+            left: -20px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: clamp(20px, 5vw, 40px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 30px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-section h3 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: clamp(1.1rem, 3vw, 1.2rem);
+        }
+        
+        .footer-section p {
+            color: #a0a0a0;
+            line-height: 1.8;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+        }
+        
+        .footer-section ul a:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+            display: inline-block;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            width: clamp(35px, 6vw, 40px);
+            height: clamp(35px, 6vw, 40px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            font-size: clamp(1rem, 2.8vw, 1.2rem);
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: clamp(15px, 3vh, 30px);
+            margin-top: clamp(15px, 3vh, 30px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+            font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+        }
+        
+        /* تحسينات للموبايل */
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .privacy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .privacy-card {
+                padding: 20px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .consent-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-links {
+                justify-content: center;
+            }
+            
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .last-updated {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            
+            .last-updated .fa-heart {
+                margin-right: 0;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .mobile-menu {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .mobile-menu-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu ul li a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-user-avatar {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .privacy-header h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -161,6 +1368,7 @@
                     <li><a href="about.html">عن الكاتب</a></li>
                     <li><a href="privacy.html" class="active">الخصوصية</a></li>
                     <li><a href="contact.html">اتصل بي</a></li>
+                    <li><a href="favorites.html">المفضلة</a></li>
                 </ul>
                 <div class="nav-buttons" id="navButtons">
                     <a href="login.html" class="btn btn-outline">دخول</a>
@@ -173,15 +1381,26 @@
         </div>
     </nav>
 
-    <!-- القائمة الجانبية -->
+    <!-- القائمة الجانبية الفاخرة -->
     <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo-mini">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>شغف</h3>
+        </div>
+        
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        
         <div class="mobile-user-info" id="mobileUserInfo">
             <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
             </div>
             <div class="mobile-user-details">
                 <h4>زائر</h4>
-                <p>سجل دخولك للمشاركة</p>
+                <p><i class="fas fa-heart"></i> سجل دخولك للمشاركة</p>
             </div>
         </div>
         
@@ -189,7 +1408,7 @@
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="index.html#stories"><i class="fas fa-book-heart"></i> القصص</a></li>
             <li><a href="about.html"><i class="fas fa-user"></i> عن الكاتب</a></li>
-            <li><a href="privacy.html"><i class="fas fa-lock"></i> الخصوصية</a></li>
+            <li><a href="privacy.html" class="active"><i class="fas fa-lock"></i> الخصوصية</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بي</a></li>
             <li><a href="favorites.html"><i class="fas fa-heart"></i> المفضلة</a></li>
         </ul>
@@ -204,84 +1423,169 @@
         </div>
     </div>
 
+    <!-- زر العودة للأعلى -->
+    <button id="scrollToTop" class="scroll-top" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <section class="privacy-page">
         <div class="privacy-container">
             <!-- رأس الصفحة -->
             <div class="privacy-header">
+                <div class="floating-shields">
+                    <span>🔒</span>
+                    <span>🛡️</span>
+                    <span>🔒</span>
+                </div>
                 <h1>سياسة الخصوصية</h1>
-                <p>كيف نحمي بياناتك ونحترم خصوصيتك</p>
+                <p>
+                    <i class="fas fa-quote-right"></i>
+                    خصوصيتك في أمان.. نوضح لك كيف نحمي بياناتك ونحترم معلوماتك
+                    <i class="fas fa-quote-left"></i>
+                </p>
             </div>
             
+            <!-- المحتوى الرئيسي -->
             <div class="privacy-card">
                 <!-- مقدمة -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-heart"></i> مرحباً بك في شغف</h2>
-                    <p>نحن في موقع "شغف" نؤمن أن الخصوصية والأمان هما أساس الثقة بيننا وبين قرائنا. في هذه الصفحة، نوضح لك كيف نتعامل مع بياناتك الشخصية ونحميها عند استخدامك لموقعنا.</p>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h2>مرحباً بك في شغف</h2>
+                    </div>
+                    <p>نحن في موقع <strong>"شغف"</strong> نؤمن أن الخصوصية والأمان هما أساس الثقة بيننا وبين قرائنا. في هذه الصفحة، نوضح لك كيف نتعامل مع بياناتك الشخصية ونحميها عند استخدامك لموقعنا.</p>
+                    
                     <div class="highlight-box">
-                        <p><strong>باختصار:</strong> بياناتك آمنة معنا، ولا نشاركها مع أي طرف ثالث دون موافقتك، ونستخدمها فقط لتحسين تجربتك في الموقع.</p>
+                        <i class="fas fa-shield-heart"></i>
+                        <p><strong>باختصار:</strong> بياناتك آمنة معنا، ولا نشاركها مع أي طرف ثالث دون موافقتك، ونستخدمها فقط لتحسين تجربتك في الموقع. أنت صاحب القرار الأول والأخير فيما يتعلق بمعلوماتك.</p>
                     </div>
                 </div>
                 
                 <!-- البيانات التي نجمعها -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-database"></i> البيانات التي نجمعها</h2>
-                    <p>عند استخدامك لموقع شغف، قد نجمع الأنواع التالية من البيانات:</p>
-                    <ul>
-                        <li><strong>بيانات الحساب:</strong> عند إنشاء حساب، نجمع اسمك وبريدك الإلكتروني (وصورة شخصية إذا أضفتها).</li>
-                        <li><strong>بيانات التفاعل:</strong> مثل التعليقات، الإعجابات، والقصص المفضلة.</li>
-                        <li><strong>بيانات الاستخدام:</strong> كيف تتفاعل مع الموقع، الصفحات التي تزورها، ووقت الزيارة.</li>
-                        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> نستخدمها لتحسين تجربتك وتذكر تفضيلاتك.</li>
-                    </ul>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h2>البيانات التي نجمعها</h2>
+                    </div>
+                    <p>عند استخدامك لموقع شغف، قد نجمع الأنواع التالية من البيانات بهدف تحسين خدماتنا وتقديم تجربة مخصصة لك:</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <i class="fas fa-user-circle"></i>
+                            <h4>بيانات الحساب</h4>
+                            <p>الاسم، البريد الإلكتروني، والصورة الشخصية (إذا أضفتها)</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-comment-dots"></i>
+                            <h4>بيانات التفاعل</h4>
+                            <p>التعليقات، الإعجابات، والقصص المفضلة</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>بيانات الاستخدام</h4>
+                            <p>الصفحات التي تزورها، وقت الزيارة، وتفاعلك مع المحتوى</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-cookie-bite"></i>
+                            <h4>ملفات تعريف الارتباط</h4>
+                            <p>نستخدمها لتحسين تجربتك وتذكر تفضيلاتك</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- كيف نستخدم بياناتك -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-cog"></i> كيف نستخدم بياناتك</h2>
-                    <p>نستخدم بياناتك للأغراض التالية:</p>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h2>كيف نستخدم بياناتك</h2>
+                    </div>
+                    <p>نستخدم بياناتك للأغراض التالية، ونسعى دائماً لاستخدامها بأقل قدر ممكن مع تحقيق أقصى فائدة لك:</p>
                     <ul>
-                        <li><strong>تقديم الخدمات:</strong> تمكينك من تسجيل الدخول، كتابة التعليقات، وإضافة القصص للمفضلة.</li>
-                        <li><strong>تحسين الموقع:</strong> فهم كيفية استخدام الزوار للموقع وتحسين تجربتهم.</li>
-                        <li><strong>التواصل معك:</strong> إرسال إشعارات مهمة (مثل تأكيد الحساب) أو ردود على استفساراتك.</li>
-                        <li><strong>الإعلانات (مستقبلاً):</strong> إذا أضفنا إعلانات، سنستخدم بيانات غير شخصية لتخصيصها.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>تقديم الخدمات:</strong> تمكينك من تسجيل الدخول، كتابة التعليقات، وإضافة القصص للمفضلة.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>تحسين الموقع:</strong> فهم كيفية استخدام الزوار للموقع وتحسين تجربتهم.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>التواصل معك:</strong> إرسال إشعارات مهمة (مثل تأكيد الحساب) أو ردود على استفساراتك.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>الإعلانات (مستقبلاً):</strong> إذا أضفنا إعلانات، سنستخدم بيانات غير شخصية لتخصيصها.</li>
                     </ul>
                 </div>
                 
                 <!-- مشاركة البيانات -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-share-alt"></i> مشاركة البيانات</h2>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h2>مشاركة البيانات</h2>
+                    </div>
                     <p>نحن لا نبيع أو نؤجر بياناتك الشخصية لأي طرف ثالث. قد نشارك بياناتك في الحالات التالية فقط:</p>
                     <ul>
-                        <li><strong>مع مزودي الخدمة:</strong> مثل Firebase (لاستضافة البيانات والمصادقة) و EmailJS (لإرسال الإيميلات)، وهم ملتزمون بسياسات خصوصية صارمة.</li>
-                        <li><strong>للامتثال للقانون:</strong> إذا طلب منا قانوناً أو أمر قضائي مشاركة البيانات.</li>
+                        <li><i class="fas fa-lock"></i> <strong>مع مزودي الخدمة:</strong> مثل Firebase (لاستضافة البيانات والمصادقة) و EmailJS (لإرسال الإيميلات)، وهم ملتزمون بسياسات خصوصية صارمة.</li>
+                        <li><i class="fas fa-gavel"></i> <strong>للامتثال للقانون:</strong> إذا طلب منا قانوناً أو أمر قضائي مشاركة البيانات.</li>
                     </ul>
                 </div>
                 
                 <!-- حقوقك -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-user-check"></i> حقوقك</h2>
-                    <p>لديك الحقوق التالية بخصوص بياناتك:</p>
-                    <ul>
-                        <li><strong>الوصول:</strong> يمكنك طلب نسخة من بياناتك الشخصية.</li>
-                        <li><strong>التصحيح:</strong> يمكنك تعديل بياناتك من صفحة الملف الشخصي.</li>
-                        <li><strong>الحذف:</strong> يمكنك طلب حذف حسابك وبياناتك بالتواصل معنا.</li>
-                        <li><strong>الاعتراض:</strong> يمكنك الاعتراض على استخدام بياناتك لأغراض التسويق.</li>
-                    </ul>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h2>حقوقك</h2>
+                    </div>
+                    <p>لديك الحقوق الكاملة فيما يخص بياناتك الشخصية، ونحن نضمن لك:</p>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <i class="fas fa-eye"></i>
+                            <h4>الوصول</h4>
+                            <p>يمكنك طلب نسخة من بياناتك الشخصية</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-edit"></i>
+                            <h4>التصحيح</h4>
+                            <p>يمكنك تعديل بياناتك من صفحة الملف الشخصي</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-trash-alt"></i>
+                            <h4>الحذف</h4>
+                            <p>يمكنك طلب حذف حسابك وبياناتك بالتواصل معنا</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-ban"></i>
+                            <h4>الاعتراض</h4>
+                            <p>يمكنك الاعتراض على استخدام بياناتك لأغراض التسويق</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- أمان البيانات -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-shield-alt"></i> أمان البيانات</h2>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2>أمان البيانات</h2>
+                    </div>
                     <p>نحن نتخذ إجراءات أمنية مناسبة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الإفشاء، بما في ذلك:</p>
                     <ul>
-                        <li>استخدام HTTPS لتشفير الاتصال.</li>
-                        <li>الاعتماد على Firebase الموثوق لحماية البيانات.</li>
-                        <li>عدم تخزين معلومات حساسة مثل كلمات المرور (تدار بواسطة Firebase Authentication).</li>
+                        <li><i class="fas fa-lock"></i> استخدام <strong>HTTPS</strong> لتشفير الاتصال.</li>
+                        <li><i class="fas fa-database"></i> الاعتماد على <strong>Firebase</strong> الموثوق لحماية البيانات.</li>
+                        <li><i class="fas fa-key"></i> عدم تخزين معلومات حساسة مثل كلمات المرور (تدار بواسطة Firebase Authentication).</li>
                     </ul>
                 </div>
                 
                 <!-- ملفات تعريف الارتباط -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-cookie-bite"></i> ملفات تعريف الارتباط (Cookies)</h2>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-cookie-bite"></i>
+                        </div>
+                        <h2>ملفات تعريف الارتباط (Cookies)</h2>
+                    </div>
                     <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك. هذه الملفات تساعدنا في:</p>
                     <ul>
                         <li>تذكر تفضيلاتك وإعداداتك.</li>
@@ -289,32 +1593,66 @@
                         <li>تقديم إعلانات مخصصة (في المستقبل).</li>
                     </ul>
                     <p>يمكنك ضبط إعدادات المتصفح لرفض ملفات تعريف الارتباط، لكن هذا قد يؤثر على وظائف الموقع.</p>
+                    
+                    <div class="consent-box">
+                        <i class="fas fa-check-circle"></i>
+                        <p>باستمرارك في استخدام موقعنا، فإنك توافق على استخدامنا لملفات تعريف الارتباط وفقاً لهذه السياسة.</p>
+                    </div>
                 </div>
                 
                 <!-- خصوصية الأطفال -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-child"></i> خصوصية الأطفال</h2>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h2>خصوصية الأطفال</h2>
+                    </div>
                     <p>موقع شغف غير موجه للأطفال دون سن ١٣ عاماً. نحن لا نجمع بيانات من الأطفال عمداً. إذا اكتشفنا أننا جمعنا بيانات لطفل دون السن القانونية، سنحذفها فوراً.</p>
                 </div>
                 
                 <!-- التغييرات على السياسة -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-history"></i> التغييرات على هذه السياسة</h2>
-                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بنشر أي تغييرات على هذه الصفحة مع تحديث تاريخ آخر تعديل. ننصحك بمراجعة هذه الصفحة دورياً.</p>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h2>التغييرات على هذه السياسة</h2>
+                    </div>
+                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بنشر أي تغييرات على هذه الصفحة مع تحديث تاريخ آخر تعديل. ننصحك بمراجعة هذه الصفحة دورياً للاطلاع على أي تحديثات.</p>
                 </div>
                 
                 <!-- التواصل معنا -->
                 <div class="privacy-section">
-                    <h2><i class="fas fa-envelope"></i> التواصل معنا</h2>
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h2>التواصل معنا</h2>
+                    </div>
                     <p>إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية، يمكنك التواصل معنا عبر:</p>
-                    <ul>
-                        <li><strong>البريد الإلكتروني:</strong> <a href="mailto:ahmedrashadali7@gmail.com">ahmedrashadali7@gmail.com</a></li>
-                        <li><strong>واتساب:</strong> <a href="https://wa.me/962779248377">+962 77 924 8377</a></li>
-                    </ul>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:ahmedrashadali7@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            ahmedrashadali7@gmail.com
+                        </a>
+                        <a href="https://wa.me/962779248377" class="contact-link">
+                            <i class="fab fa-whatsapp"></i>
+                            +962 77 924 8377
+                        </a>
+                        <a href="contact.html" class="contact-link">
+                            <i class="fas fa-paper-plane"></i>
+                            نموذج الاتصال
+                        </a>
+                    </div>
                 </div>
                 
+                <!-- تاريخ آخر تحديث -->
                 <div class="last-updated">
+                    <i class="fas fa-calendar-alt"></i>
                     آخر تحديث: ٤ مارس ٢٠٢٦
+                    <i class="fas fa-heart"></i>
                 </div>
             </div>
         </div>
@@ -336,6 +1674,7 @@
                         <li><a href="about.html">عن الكاتب</a></li>
                         <li><a href="privacy.html">الخصوصية</a></li>
                         <li><a href="contact.html">اتصل بي</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -365,6 +1704,7 @@
             function initMobileMenu() {
                 const menuBtn = document.querySelector('.mobile-menu-btn');
                 const mobileMenu = document.querySelector('.mobile-menu');
+                const closeBtn = document.querySelector('.mobile-menu-close');
                 
                 if (!menuBtn || !mobileMenu) return;
                 
@@ -389,14 +1729,15 @@
                     document.body.style.overflow = 'hidden';
                 }
                 
-                menuBtn.replaceWith(menuBtn.cloneNode(true));
-                const newMenuBtn = document.querySelector('.mobile-menu-btn');
-                
-                newMenuBtn.addEventListener('click', function(e) {
+                menuBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                     openMenu();
                 });
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeMenu);
+                }
                 
                 overlay.addEventListener('click', closeMenu);
                 
@@ -422,6 +1763,157 @@
                 initMobileMenu();
             }
         })();
+
+        // تحديد الرابط النشط تلقائياً
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const links = document.querySelectorAll('.mobile-menu ul li a');
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // إظهار/إخفاء زر العودة للأعلى
+        const scrollBtn = document.getElementById('scrollToTop');
+        if (scrollBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // تحديد القسم النشط أثناء التمرير
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.privacy-section');
+            const navLinks = document.querySelectorAll('.mobile-menu ul li a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    const sectionHeader = section.querySelector('.section-header h2');
+                    if (sectionHeader) {
+                        current = sectionHeader.innerText;
+                    }
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.innerText.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- كود Firebase لتحديث صورة المستخدم -->
+    <script type="module">
+        // التحقق من وجود Firebase قبل استخدامه
+        try {
+            import('./js/firebase-config.js').then(({ auth }) => {
+                import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js").then(({ onAuthStateChanged }) => {
+                    
+                    // تحديث واجهة المستخدم
+                    function updateUIForUser(user) {
+                        const navButtons = document.getElementById('navButtons');
+                        const mobileUserInfo = document.getElementById('mobileUserInfo');
+                        const mobileMenuButtons = document.getElementById('mobileMenuButtons');
+                        
+                        if (user) {
+                            // مستخدم مسجل - استخدام صورة Google مباشرة
+                            const photoURL = user.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'مستخدم') + '&background=ff6b6b&color=fff&size=55';
+                            const displayName = user.displayName || 'مستخدم';
+                            
+                            navButtons.innerHTML = `
+                                <div class="user-menu">
+                                    <img src="${photoURL}" 
+                                         alt="${displayName}" 
+                                         class="user-avatar"
+                                         onclick="toggleUserMenu()">
+                                    <div class="user-dropdown" id="userDropdown">
+                                        <a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</a>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            mobileUserInfo.innerHTML = `
+                                <img src="${photoURL}" alt="${displayName}" class="mobile-user-avatar">
+                                <div class="mobile-user-details">
+                                    <h4>${displayName}</h4>
+                                    <p><i class="fas fa-heart"></i> مرحباً بعودتك</p>
+                                </div>
+                            `;
+                            
+                            mobileMenuButtons.innerHTML = `
+                                <button class="btn btn-outline" onclick="handleLogout()">
+                                    <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                                </button>
+                            `;
+                        } else {
+                            // زائر
+                            navButtons.innerHTML = `
+                                <a href="login.html" class="btn btn-outline">دخول</a>
+                                <a href="signup.html" class="btn btn-primary">انضمام</a>
+                            `;
+                            
+                            mobileUserInfo.innerHTML = `
+                                <div class="mobile-user-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffb6b6); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="mobile-user-details">
+                                    <h4>زائر</h4>
+                                    <p><i class="fas fa-heart"></i> سجل دخولك للمشاركة</p>
+                                </div>
+                            `;
+                            
+                            mobileMenuButtons.innerHTML = `
+                                <a href="login.html" class="btn btn-outline">
+                                    <i class="fas fa-sign-in-alt"></i> دخول
+                                </a>
+                                <a href="signup.html" class="btn btn-primary">
+                                    <i class="fas fa-user-plus"></i> انضمام
+                                </a>
+                            `;
+                        }
+                    }
+                    
+                    window.toggleUserMenu = function() {
+                        document.getElementById('userDropdown')?.classList.toggle('show');
+                    };
+                    
+                    window.handleLogout = async function() {
+                        try {
+                            const { logOut } = await import('./js/firebase-auth.js');
+                            await logOut();
+                            window.location.reload();
+                        } catch (error) {
+                            console.error('خطأ في تسجيل الخروج:', error);
+                        }
+                    };
+                    
+                    onAuthStateChanged(auth, (user) => {
+                        updateUIForUser(user);
+                    });
+                });
+            }).catch(err => {
+                console.log('Firebase غير متاح حالياً، استخدم الوضع التجريبي');
+                // يمكن إضافة بيانات تجريبية هنا إذا أردت
+            });
+        } catch (error) {
+            console.log('تم تحميل الصفحة في الوضع التجريبي');
+        }
     </script>
 </body>
 </html>
